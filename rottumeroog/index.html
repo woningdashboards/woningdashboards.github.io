@@ -486,6 +486,7 @@ body.presenteren main { padding-top: 10px; }
       </div>
     </div>
     <div class="topbar-right">
+      <span class="pill" id="syncpil" style="display:none"></span>
       <input type="search" id="zoektop" class="zoek-top" placeholder="Waar vind ik…?" aria-label="Zoek in het hele dashboard">
       <button class="btn sm primary" data-act="presenteer-menu" type="button">Presenteren</button>
       <button class="btn sm" id="ikbenbtn" data-act="ik-ben" type="button">Ik ben…</button>
@@ -1548,6 +1549,180 @@ function migreer(s) {
 }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* niets op te slaan: de sessie blijft wel werken */ }
+  syncSchrijven();
+}
+
+/* =========================================================================
+   2b. GEDEELDE STAND
+   Iedereen die de link opent, ziet dezelfde gegevens. Wat jij afvinkt,
+   verschijnt binnen een paar seconden bij je collega's.
+
+   Vul hieronder de twee gegevens van het Supabase-project in. Zolang ze leeg
+   zijn werkt het dashboard gewoon lokaal verder, alleen dan per apparaat.
+   ========================================================================= */
+
+var SYNC = {
+  url:     'https://ksxjkawgjsditsjbdyvu.supabase.co',
+  sleutel: 'sb_publishable_m7eod_ael5-7Bc80fgYaaw_x0GGa_a9',
+  rij:     'rottumeroog',                /* welke woning dit is */
+  code:    '0000',                  /* teamcode: nodig om te mogen wijzigen */
+  tempo:   5000                     /* hoe vaak we kijken of iemand iets veranderde (ms) */
+};
+
+/* Dit delen we. De rest (welk tabblad je openhebt, wie je bent) blijft per apparaat. */
+var GEDEELD = ['fase', 'focus', 'focusPunten', 'weekPunten', 'fases', 'acties', 'afspraken',
+  'teamrollen', 'clienten', 'kennis', 'pb', 'procedures', 'vms', 'defecten', 'verbeterpunten',
+  'log', 'medewerkers', 'onboarding'];
+
+var CODE_KEY = KEY + '-code';
+var sync = { laatst: '', vorige: '', status: 'uit', timerSchrijf: 0, timerLees: 0 };
+
+function syncMogelijk() { return !!(SYNC.url && SYNC.sleutel); }
+
+function magWijzigen() {
+  if (!syncMogelijk()) return true;   /* geen gedeelde opslag: gewoon lokaal werken */
+  if (!SYNC.code) return true;
+  try { return localStorage.getItem(CODE_KEY) === SYNC.code; } catch (e) { return false; }
+}
+
+function gedeeldDeel(s) {
+  var o = {};
+  GEDEELD.forEach(function (k) { o[k] = s[k]; });
+  return o;
+}
+
+function syncVerzoek(pad, opties) {
+  opties = opties || {};
+  var kop = { apikey: SYNC.sleutel, Authorization: 'Bearer ' + SYNC.sleutel, 'Content-Type': 'application/json' };
+  Object.keys(opties.headers || {}).forEach(function (k) { kop[k] = opties.headers[k]; });
+  opties.headers = kop;
+  return fetch(SYNC.url.replace(/\/+$/, '') + '/rest/v1/' + pad, opties);
+}
+
+function syncStatus(st) {
+  sync.status = st;
+  var el = document.getElementById('syncpil');
+  if (!el) return;
+  var tekst = '', soort = 'idle';
+  if (st === 'live') {
+    tekst = magWijzigen() ? 'Gedeeld · je kunt wijzigen' : 'Gedeeld · alleen lezen';
+    soort = magWijzigen() ? 'done' : 'busy';
+  } else if (st === 'offline') { tekst = 'Geen verbinding'; soort = 'block'; }
+  el.className = 'pill ' + soort;
+  el.textContent = tekst;
+  el.style.display = tekst ? '' : 'none';
+}
+
+/* Het logboek is van iedereen samen: bij het overnemen voegen we de regels
+   samen in plaats van ze te overschrijven. */
+function mengLog(a, b) {
+  var gezien = {}, uit = [];
+  (a || []).concat(b || []).forEach(function (r) {
+    if (!r) return;
+    var sleutel = r.ts + '|' + r.wie + '|' + r.wat + '|' + (r.detail || '');
+    if (gezien[sleutel]) return;
+    gezien[sleutel] = 1; uit.push(r);
+  });
+  uit.sort(function (x, y) { return String(y.ts).localeCompare(String(x.ts)); });
+  return uit.slice(0, 300);
+}
+
+function vensterOpen() {
+  var h = document.getElementById('modalhost');
+  return !!(h && h.innerHTML !== '');
+}
+
+function neemOver(binnen) {
+  if (!binnen || vensterOpen()) return;
+  var eigenLog = state.log || [];
+  GEDEELD.forEach(function (k) { if (binnen[k] != null) state[k] = binnen[k]; });
+  state.log = mengLog(eigenLog, binnen.log || []);
+  state = migreer(state);
+  sync.vorige = JSON.stringify(gedeeldDeel(state));
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* opslag vol of geblokkeerd */ }
+  render();
+}
+
+function syncOphalen(daarna) {
+  if (!syncMogelijk()) { syncStatus('uit'); if (daarna) daarna(); return; }
+  syncVerzoek('dashboards?id=eq.' + encodeURIComponent(SYNC.rij) + '&select=state,updated_at')
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (rijen) {
+      syncStatus('live');
+      if (rijen && rijen.length) {
+        sync.laatst = rijen[0].updated_at || '';
+        neemOver(rijen[0].state);
+      }
+      if (daarna) daarna();
+    })
+    .catch(function () { syncStatus('offline'); if (daarna) daarna(); });
+}
+
+function syncSchrijven() {
+  if (!syncMogelijk() || !magWijzigen()) return;
+  var nu = JSON.stringify(gedeeldDeel(state));
+  if (nu === sync.vorige) return;      /* alleen het scherm veranderde, niet de inhoud */
+  sync.vorige = nu;
+  clearTimeout(sync.timerSchrijf);
+  sync.timerSchrijf = setTimeout(syncDuwen, 700);
+}
+
+function syncDuwen() {
+  var rij = [{ id: SYNC.rij, state: gedeeldDeel(state), updated_at: new Date().toISOString(),
+               updated_by: state.ikBen || 'onbekend' }];
+  syncVerzoek('dashboards', {
+    method: 'POST',
+    headers: { Prefer: 'resolution=merge-duplicates,return=representation' },
+    body: JSON.stringify(rij)
+  })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (uit) {
+      if (uit && uit.length && uit[0].updated_at) sync.laatst = uit[0].updated_at;
+      syncStatus('live');
+    })
+    .catch(function () { syncStatus('offline'); });
+}
+
+function syncVolgen() {
+  if (!syncMogelijk()) return;
+  clearInterval(sync.timerLees);
+  sync.timerLees = setInterval(function () {
+    if (document.hidden || vensterOpen()) return;
+    syncVerzoek('dashboards?id=eq.' + encodeURIComponent(SYNC.rij) + '&select=state,updated_at')
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (rijen) {
+        syncStatus('live');
+        if (!rijen || !rijen.length) return;
+        if (rijen[0].updated_at && rijen[0].updated_at !== sync.laatst) {
+          sync.laatst = rijen[0].updated_at;
+          neemOver(rijen[0].state);
+        }
+      })
+      .catch(function () { syncStatus('offline'); });
+  }, SYNC.tempo);
+}
+
+/* Acties die je ook zonder teamcode mag doen: kijken, zoeken, filteren, presenteren. */
+var VRIJ = {};
+['overlay', 'modal-sluit', 'modal-opslaan', 'ga-route', 'ga-tab', 'zoek-ga', 'zoek-snel',
+ 'zoek-top-wis', 'zoek-wis', 'situatie', 'fase-toggle', 'filter', 'filter-wis', 'log-toggle',
+ 'presenteer-menu', 'presenteer-start', 'presenteer-stop', 'pres-preset', 'dia-vorige',
+ 'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open', 'pb-client']
+  .forEach(function (a) { VRIJ[a] = true; });
+
+function vraagCode() {
+  openModal('Teamcode invullen',
+    [{ k: 'code', l: 'Teamcode', t: 'text', vol: true,
+       hint: 'Deze pagina wordt door het hele team gebruikt. Om iets te wijzigen heb je de teamcode nodig. Vraag hem aan je hoofdcoach. Kijken mag altijd, ook zonder code.' }],
+    {}, function (d) {
+      if (d.code === SYNC.code) {
+        try { localStorage.setItem(CODE_KEY, d.code); } catch (e) { /* opslag geblokkeerd */ }
+        syncStatus(sync.status); render();
+        toast('Je kunt nu wijzigingen maken.');
+      } else {
+        toast('Die code klopt niet.');
+      }
+    });
 }
 
 /* =========================================================================
@@ -1650,6 +1825,7 @@ function render() {
   if (state.ui.presenteer) f = viewPresentatie;
   document.body.classList.toggle('presenteren', !!state.ui.presenteer);
   v.innerHTML = f();
+  syncStatus(sync.status);
 
 }
 
@@ -3566,6 +3742,12 @@ document.getElementById('tabs').addEventListener('click', function (e) {
 
 document.addEventListener('change', function (e) {
   var t = e.target;
+
+  if (!magWijzigen() &&
+      t.matches('[data-act="fase-item"], [data-act="onb-item"], [data-pb], [data-mwnotitie], [data-mw]')) {
+    if (t.type === 'checkbox') t.checked = !t.checked;   /* zet het vinkje terug */
+    vraagCode(); return;
+  }
   if (t.matches('[data-act="fase-item"]')) {
     var id = t.getAttribute('data-id');
     state.fases.forEach(function (f) {
@@ -3655,6 +3837,9 @@ document.addEventListener('click', function (e) {
   if (!b) return;
   var act = b.getAttribute('data-act');
   var id = b.getAttribute('data-id');
+
+  /* Kijken mag altijd; wijzigen alleen met de teamcode. */
+  if (!VRIJ[act] && !magWijzigen()) { vraagCode(); return; }
 
   if (act === 'overlay' && e.target === b) { sluitModal(); return; }
   if (act === 'modal-sluit') { sluitModal(); return; }
@@ -4185,5 +4370,6 @@ document.getElementById('printbtn').addEventListener('click', function () {
 });
 
 render();
+syncOphalen(syncVolgen);
 })();
 </script>
