@@ -465,6 +465,126 @@ body.presenteren main { padding-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+
+/* ---------- hoofdstukken en iconen ---------- */
+.ico { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7;
+       stroke-linecap: round; stroke-linejoin: round; }
+.ico.groot { width: 44px; height: 44px; stroke-width: 1.4; opacity: .5; }
+.tabs.hoofdtabs button.hs { display: inline-flex; align-items: center; gap: 7px; padding: 9px 13px; }
+.tabs.hoofdtabs button.hs .ico { width: 16px; height: 16px; opacity: .75; }
+.tabs.subtabs { margin-top: 0; border-top: 1px solid var(--line-soft); }
+.tabs.subtabs button { font-size: 12.5px; padding: 7px 11px; }
+.tabs.subtabs button.on { color: var(--tenne); border-bottom-color: var(--tenne); }
+
+.welkomkop { display: flex; gap: 20px; align-items: flex-start; background: var(--surface);
+  border: 1px solid var(--line); border-top: 4px solid var(--tenne); border-radius: 12px;
+  padding: clamp(18px, 3vw, 28px); box-shadow: var(--shadow); }
+.welkomkop-tekst { flex: 1; }
+.welkomkop h1 { font-size: clamp(24px, 4vw, 36px); margin-top: 4px; letter-spacing: -.02em; }
+.welkomkop p { margin-top: 10px; color: var(--ink-soft); }
+.kaart-ico { display: flex; gap: 14px; align-items: flex-start; }
+.kaart-ico > .nr { margin-top: 2px; }
+
+.hoofdstukkaart { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px;
+  box-shadow: var(--shadow); cursor: pointer; color: var(--ink); position: relative; width: 100%; }
+.hoofdstukkaart:hover { border-color: var(--navy); }
+.hoofdstukkaart.aan { border-color: var(--tenne); border-width: 1.5px; }
+.hoofdstukkaart .ico { width: 24px; height: 24px; color: var(--navy); }
+.hoofdstukkaart b { font-size: 14.5px; font-weight: 600; }
+.hoofdstukkaart .hs-nr { position: absolute; top: 12px; right: 14px; font-family: var(--mono);
+  font-size: 11px; color: var(--ink-faint); }
+
+/* ---------- dagprogramma ---------- */
+.dagbalk { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+.dagdeel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); }
+.dagdeel-kop { display: flex; align-items: center; gap: 9px; padding-bottom: 10px; margin-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft); }
+.dagdeel-kop h3 { flex: 1; font-size: 16px; }
+.dagdeel-kop .ico { color: var(--tenne); }
+.dagstappen { counter-reset: d; display: grid; gap: 7px; }
+.dagstappen li { counter-increment: d; display: grid; grid-template-columns: 20px 1fr; gap: 9px; font-size: 14.5px; }
+.dagstappen li::before { content: counter(d); font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+  background: var(--surface-2); border-radius: 50%; width: 18px; height: 18px; display: grid; place-items: center; margin-top: 2px; }
+
+/* ---------- tijdlijn inwerken ---------- */
+.tijdlijn { display: grid; gap: 0; margin-top: 14px; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 6px 18px; box-shadow: var(--shadow); }
+.tijdstip { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line-soft); }
+.tijdstip:last-child { border-bottom: 0; }
+.tijdbol { width: 26px; height: 26px; border-radius: 50%; background: var(--busy-bg); color: var(--busy);
+  display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+.tijdstip b { display: block; font-size: 15px; }
+.tijdstip span { font-size: 14px; color: var(--ink-soft); }
+
+/* ---------- formats ---------- */
+.format { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-top: 16px;
+  box-shadow: var(--shadow); overflow: hidden; break-inside: avoid; }
+.format-kop { display: flex; gap: 14px; align-items: flex-start; padding: 18px; background: var(--surface-2);
+  border-bottom: 1px solid var(--line); }
+.format-kop .ico { width: 26px; height: 26px; color: var(--tenne); margin-top: 2px; }
+.format-kop h2 { font-size: 19px; }
+.format-kop p { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+.format-kopvelden, .invul-rij { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px 18px; padding: 14px 18px; border-bottom: 1px solid var(--line-soft); }
+.invul-rij { padding: 10px 0 4px; border-bottom: 0; }
+.invul span { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--ink-faint); }
+.invul i { display: block; border-bottom: 1px solid var(--line); height: 20px; }
+.format-body { padding: 4px 18px 18px; }
+.format-blok { padding: 14px 0; border-bottom: 1px solid var(--line-soft); break-inside: avoid; }
+.format-blok:last-child { border-bottom: 0; }
+.format-blok-kop { display: flex; align-items: center; gap: 10px; }
+.format-blok-kop h4 { font-size: 15.5px; }
+.format-blok .stiplijst { margin-top: 6px; }
+.format-blok .stiplijst li { font-size: 13.5px; color: var(--ink-faint); }
+.schrijfruimte { margin-top: 10px; display: grid; gap: 14px; }
+.schrijfruimte i { display: block; border-bottom: 1px dotted var(--line); }
+.format-denk { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 18px 18px; }
+.printkeuze { display: block; width: 100%; text-align: left; background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 10px; padding: 14px; cursor: pointer; color: inherit; }
+.printkeuze + .printkeuze { margin-top: 8px; }
+.printkeuze:hover { border-color: var(--navy); }
+.printkeuze b { display: block; font-size: 15px; }
+.printkeuze span { display: block; font-size: 13.5px; color: var(--ink-soft); margin-top: 3px; }
+.printkeuze small { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin-top: 6px; }
+
+/* ---------- printmap ---------- */
+.print-omslag, .print-inhoud, .print-hoofdstuk, .print-voet-vast { display: none; }
+body.printmodus .print-omslag, body.printmodus .print-inhoud,
+body.printmodus .print-hoofdstuk { display: block; }
+body.printmodus .topbar { display: none; }
+.print-omslag { text-align: center; padding: 60px 20px; }
+.print-omslag h1 { font-size: 40px; color: var(--tenne); margin-top: 8px; }
+.print-omslag h2 { font-size: 22px; color: var(--navy); margin-top: 6px; }
+.print-omslag p { max-width: 60ch; margin: 16px auto 0; color: var(--ink-soft); }
+.print-versie { margin-top: 24px; font-size: 12.5px; color: var(--ink-faint); }
+.qr { margin-top: 26px; display: grid; justify-items: center; gap: 8px; }
+.qr img { width: 128px; height: 128px; image-rendering: pixelated; }
+.qr span { font-size: 12px; color: var(--ink-faint); }
+.print-inhoud { margin-top: 40px; }
+.print-inhoud ol { counter-reset: none; display: grid; gap: 8px; margin-top: 12px; }
+.print-inhoud li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: baseline;
+  border-bottom: 1px dotted var(--line); padding-bottom: 7px; }
+.io-nr { font-family: var(--mono); color: var(--ink-faint); }
+.io-naam { font-weight: 600; }
+.io-sub { grid-column: 2; font-size: 12.5px; color: var(--ink-faint); }
+.print-hs-kop { display: flex; gap: 16px; align-items: center; border-bottom: 2px solid var(--tenne);
+  padding-bottom: 12px; margin: 40px 0 20px; }
+.print-hs-kop h2 { font-size: 26px; }
+
+@media print {
+  body.printmodus .print-hoofdstuk { break-before: page; }
+  body.printmodus .print-inhoud { break-after: page; }
+  body.printmodus .print-omslag { break-after: page; }
+  body.printmodus .print-voet-vast { display: block; position: fixed; bottom: 0; left: 0; right: 0;
+    font-size: 8.5pt; color: #666; border-top: .5pt solid #ccc; padding-top: 3pt; background: #fff; }
+  body.printmodus main { padding-bottom: 30pt; }
+  @page { margin: 16mm 14mm 20mm; }
+  .format, .card, .dagdeel, .tijdlijn { break-inside: avoid; }
+  .section-title { break-after: avoid; }
+}
+
 @media print {
   .tabs, .topbar-right, .btn, .filters { display: none !important; }
   body { background: #fff; color: #000; font-size: 10.5pt; }
@@ -492,7 +612,7 @@ body.presenteren main { padding-top: 10px; }
       <button class="btn sm" id="ikbenbtn" data-act="ik-ben" type="button">Ik ben…</button>
       <button class="btn sm primary" data-act="verbeter-nieuw" type="button">+ Dit kan beter</button>
       <button class="btn sm" id="exportbtn" type="button">Back-up</button>
-      <button class="btn sm" id="printbtn" type="button">Print</button>
+      <button class="btn sm" id="printbtn" type="button">Woningmap</button>
     </div>
     <div class="tabs" id="tabs"></div>
   </div>
@@ -502,6 +622,7 @@ body.presenteren main { padding-top: 10px; }
 <div id="modalhost"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <script>
 (function () {
 'use strict';
@@ -1570,13 +1691,377 @@ var ROUTING = [
 
 var CULTUUR_ROUTE = ['Zie het', 'Benoem het', 'Denk mee', 'Betrek de juiste persoon', 'Zet een actie uit', 'Controleer'];
 
+
+var CULTUUR_ROUTE = CULTUUR_ROUTE ||
+  ['Zie het', 'Benoem het', 'Denk mee', 'Betrek de juiste persoon', 'Zet een actie uit', 'Controleer'];
+
+/* ===================== DE WONING ===================== */
+
+var WONING = {
+  naam: 'Van Beverninkstraat 1A',
+  plaats: 'Vlaardingen',
+  ligging: '',
+  indeling: 'Eén woongroep.',
+  url: 'https://woningdashboards.github.io/beverninkstraat-1a/',
+  doelgroep: 'Onze bewoners hebben een verstandelijke beperking. Het cognitieve functioneren ligt vaak hoger dan ' +
+             'je verwacht, en tegelijk is er meer psychiatrische kwetsbaarheid: achterdocht, angst en ontregeling komen voor.',
+  belangrijk: [
+    ['Rust en voorspelbaarheid', 'Afspraken nakomen en vertellen wat er gaat gebeuren. Bij achterdocht is dat het belangrijkste dat je kunt doen.'],
+    ['Eerst contact, dan de vraag', 'Rustig naast iemand zitten werkt vaak beter dan recht tegenover iemand.'],
+    ['Kort en concreet', 'Eén onderwerp tegelijk, en tijd om het te verwerken.'],
+    ['Serieus nemen zonder mee te gaan', 'We erkennen de emotie, maar bevestigen een overtuiging niet als feit.'],
+    ['Niet te snel overnemen', 'Onze bewoners kunnen vaak meer zelf dan wij denken.']
+  ],
+  fasezin: 'We werken aan basiszorg en overzicht: eerst moet de basis iedere dag kloppen, daarna bouwen we verder.'
+};
+
+var DAGPROGRAMMA = [
+  ['Ochtend', ['overdracht lezen en taakverdeling maken', 'persoonlijke verzorging volgens het plan van de bewoner',
+    'medicatie geven en aftekenen', 'ontbijt', 'dagbesteding en vervoer',
+    'woning opruimen en was starten']],
+  ['Middag', ['lunch', 'activiteiten of rustmoment', 'boodschappen en voorraad',
+    'administratieve taken', 'agenda doornemen']],
+  ['Avond', ['warme maaltijd — samen koken waar dat kan', 'ontspanning en activiteiten',
+    'medicatie geven en aftekenen', 'rapporteren binnen de eigen dienst', 'overdracht klaarleggen',
+    'woning netjes achterlaten']],
+  ['Nacht', ['bereikbaarheid volgens de afspraken', 'controlerondes zoals afgesproken',
+    'bijzonderheden rapporteren en doorgeven aan de ochtenddienst']]
+];
+
+var HUISREGELS = [
+  ['Voor de bewoners', [
+    'We praten met een bewoner, niet over hem — ook niet als hij erbij staat.',
+    'Het belang van de bewoner staat voorop, ook als dat ons meer tijd kost.',
+    'We kloppen aan voordat we een kamer binnengaan.',
+    'Wat een bewoner zelf kan, doet hij zelf. Wat samen kan, doen we samen.',
+    'We komen afspraken na. Kun je iets niet waarmaken, zeg het dan eerlijk in plaats van het toe te zeggen.'
+  ]],
+  ['Voor elkaar', [
+    'We komen op tijd. Te laat komen is niet erg; niets laten weten wel.',
+    'We spreken elkaar direct en één op één aan, niet in de groepsapp.',
+    'Word je aangesproken: bedanken, herstellen, en verder. Verdedigen hoeft niet.',
+    'We dragen bijzonderheden over. Ook als je twijfelt of het belangrijk is.',
+    'We nemen geen taken van elkaar over zonder het te zeggen.'
+  ]],
+  ['In de woning', [
+    'Je laat de woning achter zoals je haar zelf zou willen aantreffen.',
+    'Spullen gaan terug op hun vaste plek.',
+    'Kapotte spullen meld je dezelfde dienst.',
+    'Breek je het laatste pak of de laatste fles aan, dan zet je het op de bestellijst.',
+    'Telefoon: privégebruik doe je in je pauze, niet tijdens de begeleiding.'
+  ]],
+  ['Als iets beter kan', [
+    'Zie je iets dat beter kan? Geef het aan.',
+    'Blijven klagen zonder het bespreekbaar te maken doen we niet.',
+    'Je hoeft de oplossing niet te weten. Je moet het wel melden.',
+    'Signaleren is ook handelen: kijk wat je zelf kunt, betrek de juiste persoon, en controleer of het opgelost is.'
+  ]]
+];
+
+var WERKWIJZEN = [
+  { id: 'boodschappen', titel: 'Boodschappen en voorraad', woorden: 'boodschappen bestellen voorraad inkoop bestellijst',
+    stappen: ['Kijk op de bestellijst wat er ontbreekt.', 'Vul aan wat je zelf hebt aangebroken — bij de laatste, niet bij de lege.',
+      'Bestel op de vaste besteldag.', 'Controleer de levering en ruim direct op.'],
+    let: 'Structureel te weinig van iets? Dat is geen bestelding maar een verbeterpunt. Meld het.' },
+  { id: 'kapot', titel: 'Er is iets kapot', woorden: 'kapot defect stuk technisch melden reparatie',
+    stappen: ['Levert het direct gevaar op? Maak de situatie veilig en gebruik het niet meer.',
+      'Meld het via de officiële route.', 'Noteer waar het staat en wat er mis is.',
+      'Voeg een foto toe als dat kan.', 'Geef aan of er een alternatief nodig is.'],
+    let: 'Een melding is pas af als iemand hem oppakt. Zet hem ook op het actieboard als hij blijft liggen.' },
+  { id: 'vms', titel: 'Een VMS-melding maken', woorden: 'vms melding incident veiligheid melden',
+    stappen: ['Eerst de acute veiligheid en de zorg voor de bewoner. De melding komt daarna.',
+      'Schrijf feitelijk op wat er gebeurde: wat zag je, hoe laat, wie waren erbij.',
+      'Maak de melding in het meldsysteem.', 'Rapporteer daarnaast in het ECD — je doet allebei.',
+      'Bespreek de melding in het teamoverleg: wat leren we hiervan?'],
+    let: 'Twijfel je of het een melding is? Dan maak je hem. Binnen 24 uur.' },
+  { id: 'medisch', titel: 'De medische dienst bellen', woorden: 'medisch arts ziek pijn bellen gezondheid',
+    stappen: ['Bij medische twijfel bel je. Je hoeft niemand om toestemming te vragen.',
+      'Verzamel eerst je waarnemingen: wat zie je, sinds wanneer, wat is anders dan normaal.',
+      'Bel en voer het advies uit.', 'Rapporteer wat er is afgesproken en koppel terug aan de PB’er.'],
+    let: 'Lukt het niet om dat eerst uit te zoeken en voelt het urgent? Bel dan eerst.' },
+  { id: 'agenda', titel: 'De agenda', woorden: 'agenda afspraken plannen',
+    stappen: ['Zet afspraken erin zodra je ze weet, niet als ze bijna zijn.',
+      'Noteer wie er mee moet en of er vervoer nodig is.', 'Loop de agenda door bij de start van je dienst.'] },
+  { id: 'overdracht', titel: 'De overdracht doen', woorden: 'overdracht dienst doorgeven',
+    stappen: ['Wat zagen we?', 'Wat hebben we gedaan?', 'Wat was het effect?', 'Wat moet de volgende dienst weten?'],
+    let: 'Geen rapportages voorlezen. De kernvraag is: heeft de volgende dienst dit nodig?' },
+  { id: 'rapporteren', titel: 'Rapporteren', woorden: 'rapporteren rapportage ecd schrijven',
+    stappen: ['Schrijf binnen je eigen dienst.', 'Beschrijf wat je zag, niet wat je ervan vond.',
+      'Zet erbij wat je hebt gedaan en wat het effect was.', 'Noteer wat de volgende dienst moet weten.'],
+    let: 'Niet “was onrustig”, maar “liep een uur heen en weer en vroeg vier keer of de deur op slot was”.' },
+  { id: 'procedures', titel: 'Waar staan de officiële procedures?', woorden: 'procedures protocol werkinstructie mijnidb zoeken',
+    stappen: ['Ga naar MijnIDB en gebruik de zoekbalk bovenaan.',
+      'Via Zorgplein en Serviceplein zoek je gerichter.',
+      'Bij twijfel: vraag het je begeleider E of coach in plaats van het zelf te bedenken.'],
+    let: 'De officiële Ipse-werkinstructie gaat altijd voor op wat hier staat.' }
+];
+
+var SYSTEMEN = [
+  ['MijnIDB', 'De startpagina. Links de tegels naar alle systemen, bovenaan de zoekbalk voor protocollen en documenten.'],
+  ['OnsCVO', 'Het cliëntdossier. Hier staan het cliëntplan, de rapportages en de afspraken.'],
+  ['VMS', 'Meldingen van incidenten en onveilige situaties.'],
+  ['Mijn Rooster / Ortec', 'Je rooster en je diensten.'],
+  ['AFAS', 'Personeelszaken: verlof, declaraties en je gegevens.'],
+  ['Leerplein', 'Scholing en e-learning.'],
+  ['Mail', 'De algemene mailbox van de woning en je eigen mail.'],
+  ['Proactis / Webkas', 'Bestellingen en kasgeld.'],
+  ['Mobibon', 'Vervoer.'],
+  ['BI-portaal / Kostenplaats', 'Cijfers en budget — vooral voor de leiding.']
+];
+
+/* De praatplaat van Ipse de Bruggen, als kijkwijzer. */
+var MVG_WERELD = [
+  ['Haven van Basisveiligheid', 'Voelt deze bewoner zich veilig bij ons?',
+    ['nabijheid', 'vertrouwen', 'een warm thuis', 'onvoorwaardelijke acceptatie', 'begrepen voelen', 'een positief groepsklimaat']],
+  ['Begeleiding vanuit de relatie', 'Is de relatie sterk genoeg om op te bouwen?',
+    ['open en zonder oordeel', 'voorspelbaar en betrouwbaar', 'sensitief en responsief', 'ken jezelf, ken de bewoner', 'baken van rust']],
+  ['Lichamelijk welzijnswoud', 'Kan er iets lichamelijks meespelen?',
+    ['pijn', 'nachtrust', 'voeding', 'bewegen', 'medicatie-evaluatie', 'somatische problemen als oorzaak van gedrag']],
+  ['Land van de beeldvorming', 'Snappen we samen wat er speelt?',
+    ['levensgeschiedenis', 'disharmonisch profiel', 'observeren en signaleren', 'gezamenlijk beeld', 'hypothesen evalueren', 'over- of ondervragen']],
+  ['Moeilijk verstaanbaar gedrag', 'Wat probeert dit gedrag ons te vertellen?',
+    ['gedrag is communicatie', 'het is aan ons om te leren begrijpen', 'oorzaak zoeken', 'geen beheersmatig klimaat', 'expertise inschakelen']],
+  ['Stad van vaardigheden en regie', 'Waar heeft deze bewoner invloed op zijn eigen leven?',
+    ['keuzes maken', 'eigen kracht', 'fouten maken mag', 'succeservaringen', 'het gewone leven ervaren', 'inspraak']],
+  ['Eiland van tijdsbesteding', 'Heeft de dag betekenis?',
+    ['dagbesteding en werk', 'aansluiten bij interesses', 'invulling van de vrije tijd', 'meedoen in de maatschappij']],
+  ['Het meer van sociale contacten', 'Met wie heeft deze bewoner contact?',
+    ['familie', 'vrienden', 'sociale vaardigheden', 'helpen contacten te vinden én te onderhouden']],
+  ['Netwerk gebergte', 'Werken we goed samen met de mensen om de bewoner heen?',
+    ['werken in de driehoek', 'afstemming', 'betrokken netwerk', 'naasten als belangrijke partner']],
+  ['Perspectief', 'Waar werken we naartoe?',
+    ['de vraag achter de vraag', 'samen met de bewoner', 'kleine haalbare doelen', 'wensen en behoeften', 'toekomst']]
+];
+
+var INWERKDAGEN = [
+  ['Inwerkdag 1 — kennismaken', ['Kennismaken met de collega\'s van de dag',
+    'Rondleiding door de woning', 'Waar liggen sleutels, materialen en noodnummers?',
+    'Uitleg over de dagstructuur', 'Accounts en toegang aanvragen']],
+  ['Inwerkdag 2 — meelopen', ['Meelopen in de dagelijkse zorg',
+    'Uitleg over de bewoners met wie je gaat werken', 'Het cliëntdossier leren lezen in OnsCVO',
+    'Nabespreken: wat viel je op, wat riep vragen op?']],
+  ['Inwerkdag 3 — de dagelijkse taken', ['Pieper en telefoon',
+    'Het cliëntdossier doornemen op belangrijke zaken', 'Agenda doornemen', 'To-dolijst doornemen',
+    'Algemene mail', 'Medicatie: geven én aftekenen', 'Administratieve taken',
+    'De was en de waskar', 'Persoonlijk kluisje (sleutel bij de coördinator)']],
+  ['Inwerkdag 4 — veiligheid', ['Waar staan de signaleringsplannen?',
+    'Wat doe je bij oplopende spanning?', 'De agressie-afspraken van deze woning',
+    'Hoe maak je een VMS-melding?', 'Wanneer bel je de medische dienst?', 'De noodprocedure']],
+  ['Inwerkdag 5 — overleg en disciplines', ['Uitleg overlegvormen en vergaderschema',
+    'Kennismaken met de betrokken disciplines', 'Uitleg bereikbaarheidsdienst',
+    'Wie betrek je waarvoor?']],
+  ['Inwerkdag 6 — begeleiden', ['De basishouding van deze woning',
+    'Samen 100 en het gewone leven', 'Methodiek waar die van toepassing is',
+    'Reflecteren op je eigen begeleiding']],
+  ['Inwerkdag 7 — zelfstandig oefenen', ['Een dienst grotendeels zelf draaien met een collega erbij',
+    'Zelf de overdracht doen', 'Zelf rapporteren en laten meelezen']],
+  ['Inwerkdag 8 — afronden', ['Openstaande punten uit de vorige dagen doornemen',
+    'Evaluatiegesprek', 'Wat mag je zelfstandig beslissen?', 'Vrijgeven voor zelfstandige diensten']]
+];
+
+var INWERK_MOMENTEN = [
+  ['Eerste dienst', 'Meelopen. Je hoeft nog niets zelf te doen — kijken en vragen stellen is genoeg.'],
+  ['Eerste week', 'De woning, de bewoners op hoofdlijnen, de dagstructuur en waar je informatie vindt.'],
+  ['Na 2 weken', 'Kort evaluatiegesprek met je inwerkbegeleider. Wat gaat goed, waar loop je tegenaan?'],
+  ['Na 6 weken', 'Tweede evaluatie. Wat kun je zelfstandig, waar heb je nog begeleiding bij nodig?'],
+  ['Daarna', 'Bekwaamheid bijhouden op de pagina Bekwaamheid, en scholing plannen waar nodig.']
+];
+
+/* Eigen, eenvoudige lijniconen. Geen extern beeld, geen bestanden van derden. */
+var ICOON = {
+  welkom:   '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  regels:   '<path d="M9 11l2 2 4-4"/><rect x="4" y="4" width="16" height="16" rx="2"/>',
+  klok:     '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+  werk:     '<path d="M14.7 6.3a4 4 0 105.3 5.3L21 21l-2 2-9.4-9.4a4 4 0 01-5.3-5.3l2.6 2.6 2.1-2.1L6.4 6.2z"/>',
+  hart:     '<path d="M20.8 8.6a4.6 4.6 0 00-8.8-2 4.6 4.6 0 00-8.8 2c0 5 8.8 10.4 8.8 10.4s8.8-5.4 8.8-10.4z"/>',
+  telefoon: '<path d="M4 5a2 2 0 012-2h2l2 5-2 1a12 12 0 006 6l1-2 5 2v2a2 2 0 01-2 2A16 16 0 014 5z"/>',
+  kompas:   '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  map:      '<path d="M4 6a2 2 0 012-2h4l2 2h6a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2z"/>',
+  boek:     '<path d="M4 5a2 2 0 012-2h12v18H6a2 2 0 01-2-2z"/><path d="M8 3v18"/>',
+  medisch:  '<path d="M12 6v12M6 12h12"/><circle cx="12" cy="12" r="9"/>',
+  let:      '<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/>',
+  vink:     '<path d="M5 12l5 5L19 7"/>',
+  pijl:     '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  eten:     '<path d="M6 3v8a2 2 0 004 0V3M8 11v10"/><path d="M17 3c-1.5 2-2 4-2 6h4c0-2-.5-4-2-6zM17 9v12"/>',
+  maan:     '<path d="M20 14a8 8 0 01-10-10 8 8 0 1010 10z"/>',
+  zon:      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>',
+  praat:    '<path d="M21 12a8 8 0 01-8 8H7l-4 3V12a8 8 0 018-8h2a8 8 0 018 8z"/>'
+};
+
+function ico(naam, klasse) {
+  var d = ICOON[naam];
+  if (!d) return '';
+  return '<svg class="ico ' + (klasse || '') + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + d + '</svg>';
+}
+
+/* ===================== HANDIGE DOCUMENTEN & FORMATS ===================== */
+
+var FORMATS = [
+  { id: 'mdo', titel: 'MDO', icoon: 'overleg',
+    doel: 'Multidisciplinair overleg. Zorgt dat iedereen vanuit zijn eigen vak naar dezelfde vraag kijkt.',
+    kop: ['Datum', 'Aanwezigen', 'Voorzitter', 'Doel van dit overleg'],
+    blokken: [
+      ['Hoe gaat het in grote lijnen?', ['Waar baseren we dat op?', 'Wat is er veranderd sinds de vorige keer?']],
+      ['Wat gaat goed?', ['Wat moeten we vooral blijven doen?']],
+      ['Wat vraagt aandacht?', ['Wanneer speelt het, bij wie, en wanneer juist niet?']],
+      ['Medische punten', ['Zijn er adviezen die nog openstaan?']],
+      ['Gedrag en begeleiding', ['Wat werkt, wat werkt niet, en waarom denken we dat?']],
+      ['Daginvulling en kwaliteit van leven', ['Heeft de dag betekenis?', 'Waar is meer eigen regie mogelijk?']],
+      ['Netwerk en familie', ['Wie is betrokken en wat is er afgesproken?']],
+      ['Doelen en vervolg', ['Doorgaan, aanpassen, behaald of stoppen?']],
+      ['Afspraken', ['Wat spreken we af — wie, wat, wanneer, wie controleert?']]
+    ] },
+
+  { id: 'goedleven', titel: 'Goed leven-gesprek', icoon: 'hart',
+    doel: 'Een gesprek over wat iemand een goed leven vindt. Niet over problemen, maar over wat werkt en wat iemand wil.',
+    kop: ['Datum', 'Wie waren erbij'],
+    blokken: [
+      ['Wat vindt iemand fijn?', ['Waar wordt hij rustig of blij van?', 'Wat geeft betekenis?']],
+      ['Hoe ziet een goede dag eruit?', ['Wat hoort daar in ieder geval bij?', 'Wat verpest een dag?']],
+      ['Wat lukt zelfstandig?', ['Wat kan hij zelf?', 'Wat kunnen we samen doen?', 'Waarbij is ondersteuning echt nodig?']],
+      ['Wat werkt in contact?', ['Welke benadering helpt?', 'Wat werkt juist niet?']],
+      ['Belangrijke mensen', ['Wie horen erbij en welke rol hebben zij?']],
+      ['Wat behouden, wat verbeteren?', ['Wat willen we vooral zo laten?', 'Wat willen we anders?']]
+    ],
+    denkvragen: ['Wat draagt bij aan een goed leven?', 'Wat kunnen we meer samen doen?',
+                 'Wat nemen we misschien onnodig over?'] },
+
+  { id: 'pb', titel: 'PB-overleg', icoon: 'praat',
+    doel: 'Kort en inhoudelijk bespreken hoe het echt gaat, en wat er moet veranderen.',
+    kop: ['Datum', 'Aanwezigen', 'Volgende evaluatie'],
+    blokken: [
+      ['Wat gaat goed?', []], ['Wat vraagt aandacht?', []],
+      ['Wat is er veranderd?', ['Sinds wanneer, en wat zagen we toen nog niet?']],
+      ['Gezondheid en medisch', ['Medicatie-evaluatie bespreek je met de bevoegde voorschrijver.']],
+      ['Gedrag en spanning', ['Worden de vroegsignalen op tijd gezien?']],
+      ['Doelen', ['Doorgaan, aanpassen, behaald of stoppen?']],
+      ['Begeleiding', ['Doen collega\'s het ongeveer hetzelfde?']],
+      ['Omgeving', ['Prikkels, dagstructuur, groep, wisselende gezichten.']],
+      ['Netwerk', []],
+      ['Acties', ['Wat, wie, wanneer, wie controleert?']]
+    ] },
+
+  { id: 'teamoverleg', titel: 'Teamoverleg', icoon: 'kompas',
+    doel: 'Van praten naar besluiten. Elke vergadering dezelfde opbouw.',
+    kop: ['Datum', 'Voorzitter', 'Tijdbewaker', 'Notulist'],
+    blokken: [
+      ['Acties van de vorige keer', ['Afgerond ja of nee. Zo nee: waarom, wat is nodig, nieuwe deadline.']],
+      ['Waar staan we als team?', ['Dashboard erbij: fase, voortgang, focus.']],
+      ['Wat gaat goed?', []],
+      ['Wat vraagt aandacht?', ['Wat blijft steeds liggen, en waar merkt de bewoner iets van?']],
+      ['Rollen en verantwoordelijkheden', ['Zijn er taken zonder eigenaar?', 'Wat heb je nodig om je rol te doen?']],
+      ['Woning en praktische zaken', []],
+      ['Nieuwe acties', ['Wat, wie, wanneer, wie controleert?']],
+      ['Samenvatting', ['De voorzitter herhaalt de besluiten.']]
+    ] },
+
+  { id: 'overdracht', titel: 'Overdracht', icoon: 'pijl',
+    doel: 'Kort, actueel en bruikbaar. De volgende dienst weet wat hij moet weten.',
+    kop: ['Datum', 'Dienst', 'Van wie naar wie'],
+    blokken: [
+      ['Bijzonderheden van de dag', []],
+      ['Medisch', ['Is de medische dienst gebeld en wat was het advies?']],
+      ['Gedrag en spanning', ['Waar zat het ongeveer in het signaleringsplan?']],
+      ['Wat werkte?', ['Welke aanpak gaf rust, en wat maakte het juist erger?']],
+      ['Wat moet de volgende dienst weten?', []],
+      ['Acties en vervolg', ['Wie pakt wat op, en wanneer?']]
+    ],
+    slot: 'Geen rapportages voorlezen. Kernvraag: heeft de volgende dienst dit nodig?' },
+
+  { id: 'verbeterpunt', titel: 'Verbeterpunt of actiepunt', icoon: 'let',
+    doel: 'Voor alles wat slimmer, duidelijker of makkelijker kan.',
+    kop: ['Datum', 'Gemeld door'],
+    blokken: [
+      ['Wat signaleer je?', ['Feitelijk, kort.']],
+      ['Waarom is dit onhandig of belangrijk?', ['Wat kost het aan tijd, rust of kwaliteit?']],
+      ['Wat zou volgens jou kunnen helpen?', ['Mag leeg blijven — je hoeft de oplossing niet te weten.']],
+      ['Wie pakt dit op?', []],
+      ['Wanneer krijg je terugkoppeling?', []]
+    ] },
+
+  { id: 'nabespreking', titel: 'Incident- of situatienabespreking', icoon: 'praat',
+    doel: 'Na een incident of een situatie die anders liep. Eerst rust, daarna pas analyseren.',
+    kop: ['Datum van de situatie', 'Datum nabespreking', 'Aanwezigen'],
+    blokken: [
+      ['Wat gebeurde er?', ['Feitelijk, zonder oordeel.']],
+      ['Wat zagen we vooraf?', ['Welke signalen waren er, en hebben we die opgemerkt?']],
+      ['Wat deden we?', []],
+      ['Wat hielp?', []],
+      ['Wat hielp niet?', []],
+      ['Wat leren we hiervan?', []],
+      ['Moeten we iets aanpassen?', ['Plan, afspraken, omgeving, werkwijze of scholing?']],
+      ['Wie pakt het vervolg op?', []]
+    ],
+    slot: 'De kernvraag is niet wat de bewoner deed, maar wat wíj de volgende keer eerder of anders kunnen doen.' },
+
+  { id: 'inwerkevaluatie', titel: 'Inwerkevaluatie', icoon: 'boek',
+    doel: 'Voor het gesprek na 2 en na 6 weken.',
+    kop: ['Datum', 'Medewerker', 'Inwerkbegeleider', 'Week 2 of week 6'],
+    blokken: [
+      ['Wat gaat al goed?', []],
+      ['Waar is nog uitleg nodig?', []],
+      ['Welke systemen zijn al bekend?', ['MijnIDB, het cliëntdossier, VMS, rooster.']],
+      ['Welke vaardigheden vragen nog aandacht?', ['Zie de pagina Bekwaamheid.']],
+      ['Kent de medewerker de lijnen?', ['Weet hij wie hij waarvoor belt?']],
+      ['Weet de medewerker waar informatie staat?', []],
+      ['Vervolgafspraken', ['Wat, wie, wanneer?']]
+    ] },
+
+  { id: 'planning', titel: 'Dag- of weekplanning', icoon: 'klok',
+    doel: 'Overzicht van wat er deze dag of week moet gebeuren.',
+    kop: ['Week of datum', 'Ingevuld door'],
+    blokken: [
+      ['Vaste taken', []],
+      ['Activiteiten', []],
+      ['Aandachtspunten', []],
+      ['Praktische afspraken', ['Vervoer, bezoek, boodschappen, klussen.']],
+      ['Overlegmomenten', []]
+    ] },
+
+  { id: 'medischbellen', titel: 'Checklist: medische dienst bellen', icoon: 'medisch',
+    doel: 'Even ordenen voordat je belt. Het gesprek wordt er korter en duidelijker van.',
+    kop: [],
+    blokken: [
+      ['Wat zie je?', ['Feitelijk beschrijven.']],
+      ['Sinds wanneer?', []],
+      ['Wat is anders dan normaal?', ['Voor déze bewoner, niet in het algemeen.']],
+      ['Wat heb je al gedaan?', []],
+      ['Wat zegt het protocol of de afspraak?', []],
+      ['Wie is er op de hoogte?', []]
+    ],
+    slot: 'Lukt het niet om dit eerst uit te zoeken en voelt het urgent? Bel dan eerst.' }
+];
+
+/* ===================== HOOFDSTUKKEN ===================== */
+
+var HOOFDSTUKKEN = [
+  { nr: 1, naam: 'Welkom',            icoon: 'welkom',   tabs: ['Welkom'] },
+  { nr: 2, naam: 'Huisregels',        icoon: 'regels',   tabs: ['Huisregels'] },
+  { nr: 3, naam: 'Dagprogramma',      icoon: 'klok',     tabs: ['Dagprogramma'] },
+  { nr: 4, naam: 'Zo werken we hier', icoon: 'werk',     tabs: ['Werkwijzen', 'Procedures', 'Kennis'] },
+  { nr: 5, naam: 'Zo begeleiden we',  icoon: 'hart',     tabs: ['Doelgroep', 'Begeleiden'] },
+  { nr: 6, naam: 'Wie heb ik nodig?', icoon: 'telefoon', tabs: ['Wie heb ik nodig?'] },
+  { nr: 7, naam: 'Team & stabilisatie', icoon: 'kompas',
+    tabs: ['Overzicht', 'Route', 'Acties', 'Vaste afspraken', 'Overleggen', 'PB-overleg', 'Team', 'Bekwaamheid', 'Cultuur', 'Dit kan beter'] },
+  { nr: 8, naam: 'Handige documenten', icoon: 'map',     tabs: ['Documenten'] },
+  { nr: 9, naam: 'Inwerken',          icoon: 'boek',     tabs: ['Inwerken'] }
+];
+
+function hoofdstukVan(tab) {
+  for (var i = 0; i < HOOFDSTUKKEN.length; i++) {
+    if (HOOFDSTUKKEN[i].tabs.indexOf(tab) !== -1) return HOOFDSTUKKEN[i];
+  }
+  return HOOFDSTUKKEN[0];
+}
+
+
 /* =========================================================================
    2. STATE
    ========================================================================= */
 
 var KEY = 'beverninkstraat1a-stabilisatie-v1';
-var TABS = ['Overzicht', 'Doelgroep', 'Begeleiden', 'Wie heb ik nodig?', 'Dit kan beter', 'Procedures', 'Acties', 'PB-overleg', 'Route',
-            'Vaste afspraken', 'Overleggen', 'Bekwaamheid', 'Team', 'Kennis', 'Inwerken', 'Cultuur'];
+var TABS = [];
+HOOFDSTUKKEN.forEach(function (x) { TABS = TABS.concat(x.tabs); });
 
 function uid(p) { return (p || 'x') + Math.random().toString(36).slice(2, 9); }
 
@@ -1614,6 +2099,8 @@ function seed() {
       vmsLink: '', vmsStappen: VMS_STAPPEN.slice(),
       medischNummer: '', medischToelichting: '', defectLink: '', defectRoute: ''
     },
+    huisregels: HUISREGELS.map(function (g) { return { id: uid('hr'), kop: g[0], punten: g[1].slice() }; }),
+    dagprogramma: DAGPROGRAMMA.map(function (d) { return { id: uid('dp'), kop: d[0], punten: d[1].slice() }; }),
     defecten: [],
     verbeterpunten: [],
     ikBen: '',
@@ -1658,6 +2145,8 @@ function migreer(s) {
   if (!s.defecten) s.defecten = [];
   if (!s.verbeterpunten) s.verbeterpunten = [];
   if (!s.log) s.log = [];
+  if (!s.huisregels) s.huisregels = basis.huisregels;
+  if (!s.dagprogramma) s.dagprogramma = basis.dagprogramma;
   if (s.ikBen == null) s.ikBen = '';
   /* Opgeslagen versies van vóór de opschoning kunnen nog cliëntgegevens bevatten. */
   delete s.clienten; delete s.vms; delete s.pb;
@@ -1695,7 +2184,7 @@ var SYNC = {
 
 /* Dit delen we. De rest (welk tabblad je openhebt, wie je bent) blijft per apparaat. */
 var GEDEELD = ['fase', 'focus', 'focusPunten', 'weekPunten', 'fases', 'acties', 'afspraken',
-  'teamrollen', 'kennis', 'procedures', 'defecten', 'verbeterpunten',
+  'teamrollen', 'kennis', 'procedures', 'defecten', 'verbeterpunten', 'huisregels', 'dagprogramma',
   'log', 'medewerkers', 'onboarding'];
 
 var CODE_KEY = KEY + '-code';
@@ -1831,7 +2320,8 @@ var VRIJ = {};
 ['overlay', 'modal-sluit', 'modal-opslaan', 'ga-route', 'ga-tab', 'zoek-ga', 'zoek-snel',
  'zoek-top-wis', 'zoek-wis', 'situatie', 'fase-toggle', 'filter', 'filter-wis', 'log-toggle',
  'presenteer-menu', 'presenteer-start', 'presenteer-stop', 'pres-preset', 'dia-vorige',
- 'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open']
+ 'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open', 'format-open', 'werk-wis',
+ 'print-menu', 'print-start']
   .forEach(function (a) { VRIJ[a] = true; });
 
 function vraagCode() {
@@ -1931,22 +2421,26 @@ function renderIkBen() {
   if (b) b.textContent = state.ikBen ? 'Ik ben: ' + state.ikBen : 'Ik ben…';
 }
 
-function renderTabs() {
-  document.getElementById('tabs').innerHTML = TABS.map(function (t) {
-    return '<button data-tab="' + esc(t) + '" class="' + (state.ui.tab === t ? 'on' : '') + '">' + esc(t) + '</button>';
-  }).join('');
-}
+
+
+var VIEWS = {
+  Welkom: viewWelkom, Huisregels: viewHuisregels, Dagprogramma: viewDagprogramma,
+  Werkwijzen: viewWerkwijzen, Procedures: viewProcedures, Kennis: viewKennis,
+  Doelgroep: viewDoelgroep, Begeleiden: viewBegeleiden, 'Wie heb ik nodig?': viewWieNodig,
+  Overzicht: viewOverzicht, Route: viewRoute, Acties: viewActies, 'Vaste afspraken': viewAfspraken,
+  Overleggen: viewOverleggen, 'PB-overleg': viewPB, Team: viewTeam, Bekwaamheid: viewBekwaam,
+  Cultuur: viewCultuur, 'Dit kan beter': viewVerbeter, Documenten: viewDocumenten, Inwerken: viewInwerkenNieuw
+};
 
 function render() {
   renderTabs();
   renderIkBen();
   var v = document.getElementById('view');
-  var f = { Overzicht: viewOverzicht, Doelgroep: viewDoelgroep, Begeleiden: viewBegeleiden, 'Wie heb ik nodig?': viewWieNodig,
-            'Dit kan beter': viewVerbeter, Procedures: viewProcedures, Acties: viewActies, 'PB-overleg': viewPB, Route: viewRoute, 'Vaste afspraken': viewAfspraken,
-            Overleggen: viewOverleggen, Bekwaamheid: viewBekwaam, Team: viewTeam, Kennis: viewKennis, Inwerken: viewInwerken,
-            Cultuur: viewCultuur }[state.ui.tab] || viewOverzicht;
+  var f = VIEWS[state.ui.tab] || viewOverzicht;
   if ((state.ui.zoek || '').trim()) f = viewZoek;
   if (state.ui.presenteer) f = viewPresentatie;
+  if (state.ui.print) f = viewPrint;
+  document.body.classList.toggle('printmodus', !!state.ui.print);
   document.body.classList.toggle('presenteren', !!state.ui.presenteer);
   v.innerHTML = f();
   syncStatus(sync.status);
@@ -2414,7 +2908,7 @@ function viewAfspraken() {
 }
 
 /* ---------- Onze doelgroep ---------- */
-function viewDoelgroep() {
+function viewDoelgroepBasis() {
   var h = '<div class="section-title"><h2>Onze doelgroep</h2>' +
     '<span class="hint">wie wonen hier, en wat vraagt dat van ons</span></div>';
 
@@ -3265,6 +3759,13 @@ function zoekIndex() {
   LACCS.forEach(function (l) { add('Begeleiden', 'LACCS: ' + l[0], l[1].join(' '), { begeleidenQ: 'laccs' }); });
   SPANNING.forEach(function (s) { add('Begeleiden', 'Spanning ' + s.k + ' — ' + s.t, s.beeld + ' ' + s.doen.join(' '), { begeleidenQ: 'spanning' }); });
 
+  MVG_WERELD.forEach(function (w) { add('Doelgroep', w[0], w[1] + ' ' + w[2].join(' '), null); });
+  state.huisregels.forEach(function (g) { add('Huisregels', g.kop, g.punten.join(' '), null); });
+  state.dagprogramma.forEach(function (d) { add('Dagprogramma', d.kop, d.punten.join(' '), null); });
+  WERKWIJZEN.forEach(function (w) { add('Werkwijzen', w.titel, w.woorden + ' ' + w.stappen.join(' '), null); });
+  SYSTEMEN.forEach(function (y) { add('Werkwijzen', 'Systeem: ' + y[0], y[1], null); });
+  FORMATS.forEach(function (x) { add('Documenten', 'Format: ' + x.titel, x.doel, { openFormat: x.id }); });
+  INWERKDAGEN.forEach(function (d) { add('Inwerken', d[0], d[1].join(' '), null); });
   WIE_NODIG.forEach(function (w) { add('Wie heb ik nodig?', w[0], w[1] + ' ' + w[2].join(' '), null); });
   ROLKAARTEN.forEach(function (r) { add('Wie heb ik nodig?', r.naam, r.kop + ' ' + r.waarvoor + ' ' + r.lijst.join(' '), null); });
 
@@ -3544,6 +4045,380 @@ function viewInwerken() {
   }).join('') + '</div>';
   return h;
 }
+
+
+/* ===================== 1. WELKOM ===================== */
+
+function viewWelkom() {
+  var fase = FASES.filter(function (f) { return f.n === state.fase; })[0];
+
+  var h = '<div class="welkomkop">' +
+    '<div class="welkomkop-tekst">' +
+    '<span class="eyebrow">Ipse de Bruggen' + (WONING.plaats ? ' · ' + esc(WONING.plaats) : '') + '</span>' +
+    '<h1>Welkom op ' + esc(WONING.naam) + '</h1>' +
+    '<p>' + esc(WONING.doelgroep) + '</p>' +
+    (WONING.indeling ? '<p class="uitleg">' + esc(WONING.indeling) + '</p>' : '') +
+    (WONING.ligging ? '<p class="uitleg">' + esc(WONING.ligging) + '</p>' : '') +
+    '</div>' + ico(WONING.naam ? 'welkom' : 'welkom', 'groot') + '</div>';
+
+  h += '<div class="section-title"><h2>Wat vinden we hier belangrijk?</h2></div>';
+  h += '<div class="grid g2">' + WONING.belangrijk.map(function (b, i) {
+    return '<div class="card kaart-ico"><span class="nr">' + (i + 1) + '</span>' +
+      '<div><h3>' + esc(b[0]) + '</h3><p class="uitleg">' + esc(b[1]) + '</p></div></div>';
+  }).join('') + '</div>';
+
+  h += '<div class="section-title"><h2>Waar staan we als team?</h2></div>';
+  h += '<div class="nu">' +
+    '<div class="nu-kop"><div><span class="eyebrow">Wij zitten hier</span>' +
+    '<h2>Fase ' + fase.n + ' — ' + esc(fase.naam) + '</h2></div>' +
+    '<span class="pill fase">' + esc(fase.periode) + '</span></div>' +
+    '<p class="kernzin">“' + esc(fase.kernzin) + '”</p>' +
+    '<p class="uitleg">' + esc(WONING.fasezin) + '</p>' +
+    '<p class="uitleg">Teamstabilisatie klinkt groot, maar het komt hierop neer: de basis moet kloppen, ' +
+    'iedereen moet weten wat zijn rol is, en afspraken moeten ook echt worden uitgevoerd. Stap voor stap.</p>' +
+    '<button class="btn primary" data-act="ga-tab" data-tab="Overzicht">Bekijk waar we staan</button></div>';
+
+  h += '<div class="section-title"><h2>Zo werkt dit handboek</h2></div>';
+  h += '<div class="grid g3">' + HOOFDSTUKKEN.map(function (hs) {
+    return '<button class="hoofdstukkaart" data-act="ga-tab" data-tab="' + esc(hs.tabs[0]) + '">' +
+      ico(hs.icoon) + '<span class="hs-nr">' + hs.nr + '</span>' +
+      '<b>' + esc(hs.naam) + '</b></button>';
+  }).join('') + '</div>';
+
+  h += '<div class="section-title"><h2>Met wie neem je contact op?</h2></div>';
+  h += '<div class="card"><div class="routing">' +
+    ROUTING.slice(0, 5).map(function (r) {
+      return '<div class="r"><b>' + esc(r[0]) + '</b><span class="naar">→ ' + esc(r[1]) + '</span></div>';
+    }).join('') +
+    '</div><button class="btn sm" data-act="ga-tab" data-tab="Wie heb ik nodig?" style="margin-top:12px">De hele routekaart</button></div>';
+
+  h += '<div class="card" style="margin-top:14px"><h3>Digitaal en op papier</h3>' +
+    '<p class="uitleg">Dit handboek staat online en is ook te printen. De papieren map heeft dezelfde hoofdstukken, ' +
+    'zodat je op allebei dezelfde plek kijkt. Het digitale dashboard is altijd de actuele versie.</p>' +
+    '<div class="mono" style="font-size:13px;margin-top:8px">' + esc(WONING.url) + '</div>' +
+    '<button class="btn sm" data-act="print-menu" style="margin-top:10px">Printen</button></div>';
+
+  h += denkkaart('Iedereen heeft recht op een goed leven.');
+  return h;
+}
+
+/* ===================== 2. HUISREGELS ===================== */
+
+function viewHuisregels() {
+  var h = '<div class="section-title"><h2>Huisregels</h2>' +
+    '<span class="hint">zo werken we samen op ' + esc(WONING.naam) + '</span>' +
+    (state.ui.print ? '' : '<button class="btn sm" data-act="huisregel-nieuw">+ Groep</button>') + '</div>';
+
+  h += '<div class="card"><p class="uitleg">Geen lange lijst met verboden. Dit zijn de afspraken die het werken hier ' +
+    'prettig en veilig houden — voor de bewoners en voor elkaar.</p></div>';
+
+  h += '<div class="grid g2" style="margin-top:14px">' + state.huisregels.map(function (g) {
+    return '<div class="card"><div class="kop-rij">' + ico('regels') + '<h3 style="flex:1">' + esc(g.kop) + '</h3>' +
+      (state.ui.print ? '' : '<button class="btn sm ghost" data-act="huisregel-edit" data-id="' + g.id + '">Bewerk</button>') + '</div>' +
+      '<ul class="vinklijst">' + g.punten.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>';
+  }).join('') + '</div>';
+
+  h += '<div class="regel" style="margin-top:14px"><h3>ZIE JE IETS DAT BETER KAN? GEEF HET AAN.</h3>' +
+    '<p>Je hoeft de oplossing niet te weten. Je moet het wel melden.</p>' +
+    '<ol>' + CULTUUR_ROUTE.map(function (s) { return '<li><span>' + esc(s) + '</span></li>'; }).join('') + '</ol></div>';
+  return h;
+}
+
+/* ===================== 3. DAGPROGRAMMA ===================== */
+
+var DAGICOON = { Ochtend: 'zon', Middag: 'eten', Avond: 'praat', Nacht: 'maan' };
+
+function viewDagprogramma() {
+  var h = '<div class="section-title"><h2>Dagprogramma</h2>' +
+    '<span class="hint">het normale verloop van een dienst</span>' +
+    (state.ui.print ? '' : '<button class="btn sm" data-act="dagdeel-nieuw">+ Dagdeel</button>') + '</div>';
+
+  h += '<div class="card"><p class="uitleg">Dit is de gewone gang van zaken. Wijkt het af, dan is dat prima — ' +
+    'maar dan weet je wel dat het afwijkt, en dat vertel je in de overdracht.</p>' +
+    '<div class="waarschuwing">Wat een bewoner precies nodig heeft, staat in zijn eigen plan. Dit is het ritme van de woning, ' +
+    'geen vervanging van individuele afspraken.</div></div>';
+
+  h += '<div class="dagbalk">' + state.dagprogramma.map(function (d) {
+    return '<div class="dagdeel"><div class="dagdeel-kop">' + ico(DAGICOON[d.kop] || 'klok') +
+      '<h3>' + esc(d.kop) + '</h3>' +
+      (state.ui.print ? '' : '<button class="btn sm ghost" data-act="dagdeel-edit" data-id="' + d.id + '">Bewerk</button>') + '</div>' +
+      '<ol class="dagstappen">' + d.punten.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol></div>';
+  }).join('') + '</div>';
+  return h;
+}
+
+/* ===================== 4. ZO WERKEN WE HIER ===================== */
+
+function viewWerkwijzen() {
+  var q = (state.ui.werkQ || '').toLowerCase().trim();
+  var lijst = WERKWIJZEN.filter(function (w) {
+    return !q || (w.titel + ' ' + w.woorden).toLowerCase().indexOf(q) !== -1;
+  });
+
+  var h = '<div class="section-title"><h2>Zo werken we hier</h2>' +
+    '<span class="hint">praktische werkwijzen, stap voor stap</span></div>';
+
+  h += '<div class="card"><p class="uitleg">Hoe doe je iets, en waar vind je het? Kort gehouden, zodat je het tijdens je dienst ' +
+    'even kunt nakijken.</p>' +
+    '<div class="waarschuwing">De officiële Ipse-werkinstructie gaat altijd voor. Staat iets hier anders, ' +
+    'volg dan de werkinstructie en meld het als verbeterpunt.</div>' +
+    (state.ui.print ? '' :
+      '<div class="zoekrij"><input type="search" data-zoek="werk" placeholder="Waar zoek je naar? (bijv. kapot, bestellen, melden)" value="' + esc(state.ui.werkQ || '') + '">' +
+      (q ? '<button class="btn sm" data-act="werk-wis">Wis</button>' : '') + '</div>') +
+    '</div>';
+
+  h += '<div class="grid g2" style="margin-top:14px">' + lijst.map(function (w) {
+    return '<div class="card"><div class="kop-rij">' + ico(w.id === 'medisch' ? 'medisch' : 'werk') +
+      '<h3 style="flex:1">' + esc(w.titel) + '</h3></div>' +
+      '<ol class="genummerd">' + w.stappen.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' +
+      (w.let ? '<div class="waarschuwing">' + esc(w.let) + '</div>' : '') + '</div>';
+  }).join('') + '</div>';
+
+  if (!lijst.length) h += '<div class="leeg-melding">Niets gevonden. Probeer een ander woord.</div>';
+
+  h += '<div class="section-title"><h2>De systemen</h2><span class="hint">waar vind je wat</span></div>';
+  h += '<div class="card"><div class="letten-lijst">' + SYSTEMEN.map(function (s) {
+    return '<div><b>' + esc(s[0]) + '</b><span>' + esc(s[1]) + '</span></div>';
+  }).join('') + '</div>' +
+    '<p class="uitleg" style="margin-top:10px">Kom je er niet uit? Vraag het je begeleider E of coach. ' +
+    'Rondklikken in een systeem dat je niet kent, is zelden een goed idee.</p></div>';
+
+  h += '<div class="card" style="margin-top:14px"><div class="kop-rij">' + ico('let') + '<h3>Wat hier niet staat</h3></div>' +
+    '<p class="uitleg">Mondzorg, tillen en andere handelingen met een eigen instructie: daarvoor hangen de posters en ' +
+    'kaarten van Ipse in de woning, en staan de protocollen in MijnIDB. Die nemen we hier niet over — dan lopen er twee ' +
+    'versies naast elkaar en dat is precies wat we willen voorkomen.</p></div>';
+  return h;
+}
+
+/* ===================== 8. HANDIGE DOCUMENTEN ===================== */
+
+function viewDocumenten() {
+  var open = state.ui.openFormat || '';
+  var h = '<div class="section-title"><h2>Handige documenten &amp; formats</h2>' +
+    '<span class="hint">klaar om te gebruiken of uit te printen</span></div>';
+
+  h += '<div class="card"><p class="uitleg">Vaste opzetjes voor overleg, verslaglegging en voorbereiding. ' +
+    'Ze zijn leeg: je vult ze in op papier of in het systeem waar het thuishoort.</p>' +
+    '<div class="waarschuwing"><strong>Vul hier geen bewonersgegevens in.</strong> Deze pagina is een format, geen dossier. ' +
+    'Wat je invult hoort in het officiële ECD.</div></div>';
+
+  h += '<div class="grid g3" style="margin-top:14px">' + FORMATS.map(function (f) {
+    return '<button class="hoofdstukkaart' + (open === f.id ? ' aan' : '') + '" data-act="format-open" data-id="' + f.id + '">' +
+      ico(f.icoon === 'overleg' ? 'praat' : f.icoon) + '<b>' + esc(f.titel) + '</b></button>';
+  }).join('') + '</div>';
+
+  var tonen = state.ui.print ? FORMATS : FORMATS.filter(function (f) { return f.id === open; });
+  h += tonen.map(formatBlok).join('');
+  if (!state.ui.print && !tonen.length) {
+    h += '<div class="leeg-melding">Kies hierboven een format om het te openen.</div>';
+  }
+  return h;
+}
+
+function formatBlok(f) {
+  var h = '<div class="format" id="format-' + f.id + '">' +
+    '<div class="format-kop">' + ico(f.icoon === 'overleg' ? 'praat' : f.icoon) +
+    '<div><h2>' + esc(f.titel) + '</h2><p>' + esc(f.doel) + '</p></div></div>';
+
+  if (f.kop && f.kop.length) {
+    h += '<div class="format-kopvelden">' + f.kop.map(function (k) {
+      return '<div class="invul"><span>' + esc(k) + '</span><i></i></div>';
+    }).join('') + '</div>';
+  }
+
+  h += '<div class="format-body">' + f.blokken.map(function (b, i) {
+    return '<div class="format-blok">' +
+      '<div class="format-blok-kop"><span class="nr">' + (i + 1) + '</span><h4>' + esc(b[0]) + '</h4></div>' +
+      (b[1] && b[1].length ? '<ul class="stiplijst">' + b[1].map(function (v) { return '<li>' + esc(v) + '</li>'; }).join('') + '</ul>' : '') +
+      '<div class="schrijfruimte"><i></i><i></i><i></i></div></div>';
+  }).join('') + '</div>';
+
+  if (f.denkvragen) {
+    h += '<div class="format-denk">' + f.denkvragen.map(function (v) {
+      return '<span class="chip">' + esc(v) + '</span>';
+    }).join('') + '</div>';
+  }
+  if (f.slot) h += '<div class="waarschuwing" style="margin:0 18px 16px">' + esc(f.slot) + '</div>';
+  h += '</div>';
+  return h;
+}
+
+/* ===================== 9. INWERKEN ===================== */
+
+function viewInwerkenNieuw() {
+  var alle = state.onboarding.reduce(function (n, c) { return n + c.items.length; }, 0);
+  var klaar = state.onboarding.reduce(function (n, c) { return n + c.items.filter(function (i) { return i.done; }).length; }, 0);
+  var p = pct(klaar, alle);
+
+  var h = '<div class="section-title"><h2>Inwerken</h2>' +
+    '<span class="hint">voor nieuwe medewerkers, leerlingen en invallers</span></div>';
+
+  h += '<div class="card"><p class="uitleg">Welkom. De eerste weken hoef je niets te bewijzen. Kijken, vragen stellen en ' +
+    'meelopen is precies wat de bedoeling is. Dit hoofdstuk staat bewust achteraan, zodat collega\'s die hier al werken ' +
+    'er niet iedere keer doorheen hoeven te bladeren.</p></div>';
+
+  h += '<div class="tijdlijn">' + INWERK_MOMENTEN.map(function (m, i) {
+    return '<div class="tijdstip"><span class="tijdbol">' + (i + 1) + '</span>' +
+      '<div><b>' + esc(m[0]) + '</b><span>' + esc(m[1]) + '</span></div></div>';
+  }).join('') + '</div>';
+
+  h += '<div class="section-title"><h2>De inwerkdagen</h2><span class="hint">richtlijn — het tempo hangt af van jou en het rooster</span></div>';
+  h += '<div class="grid g2">' + INWERKDAGEN.map(function (d) {
+    return '<div class="card"><div class="kop-rij">' + ico('boek') + '<h3 style="flex:1">' + esc(d[0]) + '</h3></div>' +
+      '<div class="invul-rij"><div class="invul"><span>Datum</span><i></i></div>' +
+      '<div class="invul"><span>Met wie loop je mee</span><i></i></div></div>' +
+      '<ul class="stiplijst">' + d[1].map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+  }).join('') + '</div>';
+
+  h += '<div class="section-title"><h2>Afvinklijst</h2><span class="hint">' + klaar + ' / ' + alle + ' punten</span></div>';
+  h += '<div class="card"><div class="bar' + (p === 100 ? ' ok' : '') + '"><i style="width:' + p + '%"></i></div>' +
+    '<div class="mono" style="font-size:12px;color:var(--ink-faint)">' + p + '% · vink af per nieuwe collega. ' +
+    'Gebruik “Back-up” om een ingevulde route te bewaren voordat je hem leegmaakt voor de volgende.</div>' +
+    (state.ui.print ? '' : '<button class="btn sm" data-act="onboarding-wis">Route leegmaken voor een nieuwe collega</button>') + '</div>';
+
+  h += '<div class="grid g2" style="margin-top:14px">' + state.onboarding.map(function (c) {
+    var d = c.items.filter(function (i) { return i.done; }).length;
+    return '<div class="card"><div style="display:flex;align-items:baseline;gap:10px">' +
+      '<h4 style="flex:1">' + esc(c.cat) + '</h4><span class="mono" style="font-size:11.5px;color:var(--ink-faint)">' + d + '/' + c.items.length + '</span></div>' +
+      '<div>' + c.items.map(function (i) {
+        return '<label class="check' + (i.done ? ' done' : '') + '"><input type="checkbox" data-act="onb-item" data-id="' + i.id + '"' + (i.done ? ' checked' : '') + '><span>' + esc(i.t) + '</span></label>';
+      }).join('') + '</div></div>';
+  }).join('') + '</div>';
+
+  h += '<div class="card" style="margin-top:14px"><div class="kop-rij">' + ico('vink') + '<h3>Evaluaties</h3></div>' +
+    '<p class="uitleg">Na 2 en na 6 weken is er een gesprek met je inwerkbegeleider. Het format daarvoor staat bij ' +
+    '<strong>Handige documenten</strong>.</p>' +
+    (state.ui.print ? '' : '<button class="btn sm" data-act="ga-tab" data-tab="Documenten">Naar de formats</button>') + '</div>';
+  return h;
+}
+
+/* ===================== VISIE: de wereld van de bewoner ===================== */
+
+function blokWereld() {
+  return '<div class="section-title"><h2>De wereld van de bewoner</h2>' +
+    '<span class="hint">de kijkwijzer van Ipse de Bruggen</span></div>' +
+    '<div class="card"><p class="uitleg">Ipse de Bruggen kijkt naar tien gebieden die samen bepalen of iemand een goed leven heeft. ' +
+    'Gebruik ze als denkhulp: gaat het minder, loop ze dan langs en kijk waar het schuurt. Meestal ligt het antwoord niet bij het gedrag zelf.</p>' +
+    '<p class="uitleg">De praatplaat hangt in de woning.</p></div>' +
+    '<div class="grid g2" style="margin-top:14px">' + MVG_WERELD.map(function (w, i) {
+      return '<div class="card"><div class="kop-rij"><span class="nr">' + (i + 1) + '</span><h3>' + esc(w[0]) + '</h3></div>' +
+        '<p class="kernzin" style="font-size:15px">' + esc(w[1]) + '</p>' +
+        '<div class="chips">' + w[2].map(function (t) { return '<span class="chip">' + esc(t) + '</span>'; }).join('') + '</div></div>';
+    }).join('') + '</div>' +
+    '<div class="denkkaart" style="margin-top:14px"><div class="q">?</div><div>' +
+    '<p>Wat draagt bij aan een goed leven? Wat kunnen we meer samen doen? Wat nemen we misschien onnodig over?</p>' +
+    '<small>De vragen die we onszelf blijven stellen.</small></div></div>';
+}
+
+/* ===================== NAVIGATIE ===================== */
+
+function renderTabs() {
+  var hs = hoofdstukVan(state.ui.tab);
+  var rij1 = HOOFDSTUKKEN.map(function (x) {
+    return '<button data-hoofdstuk="' + esc(x.naam) + '" data-tab="' + esc(x.tabs[0]) + '" class="hs' + (x === hs ? ' on' : '') + '">' +
+      ico(x.icoon) + '<span>' + esc(x.naam) + '</span></button>';
+  }).join('');
+  var rij2 = hs.tabs.length > 1
+    ? '<div class="tabs subtabs">' + hs.tabs.map(function (t) {
+        return '<button data-tab="' + esc(t) + '" class="' + (state.ui.tab === t ? 'on' : '') + '">' + esc(t) + '</button>';
+      }).join('') + '</div>'
+    : '';
+  document.getElementById('tabs').innerHTML = '<div class="tabs hoofdtabs">' + rij1 + '</div>' + rij2;
+}
+
+/* ===================== PRINTMAP ===================== */
+
+var PRINTSETS = {
+  dagelijks: { naam: 'Dagelijkse woningmap',
+    uitleg: 'Alles wat je tijdens je werk nodig hebt. Zonder het uitgebreide inwerkdeel.',
+    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Werkwijzen', 'Procedures', 'Doelgroep', 'Begeleiden', 'Wie heb ik nodig?', 'Documenten'] },
+  compleet:  { naam: 'Complete woningmap',
+    uitleg: 'Het hele handboek, inclusief teamstabilisatie en inwerken.',
+    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Werkwijzen', 'Procedures', 'Kennis', 'Doelgroep', 'Begeleiden',
+           'Wie heb ik nodig?', 'Overzicht', 'Route', 'Vaste afspraken', 'Overleggen', 'PB-overleg', 'Team', 'Cultuur', 'Documenten', 'Inwerken'] },
+  inwerk:    { naam: 'Inwerkmap',
+    uitleg: 'Voor een nieuwe collega: een korte introductie plus het volledige inwerkdeel.',
+    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Wie heb ik nodig?', 'Documenten', 'Inwerken'] }
+};
+
+function printMenu() {
+  var host = document.getElementById('modalhost');
+  host.innerHTML = '<div class="overlay" data-act="overlay"><div class="modal" role="dialog" aria-modal="true">' +
+    '<header><h3>Printen</h3><button class="btn sm ghost" data-act="modal-sluit" style="margin-left:auto">Sluiten</button></header>' +
+    '<div class="body">' +
+    '<p class="uitleg">De printversie is een woninghandboek: met inhoudsopgave, hoofdstukken en zonder knoppen. ' +
+    'Kies bij het afdrukken papierformaat A4 en zet achtergrondafbeeldingen aan als je de kleuren wilt behouden.</p>' +
+    Object.keys(PRINTSETS).map(function (k) {
+      var p = PRINTSETS[k];
+      return '<button class="printkeuze" data-act="print-start" data-set="' + k + '">' +
+        '<b>' + esc(p.naam) + '</b><span>' + esc(p.uitleg) + '</span>' +
+        '<small>' + p.tabs.length + ' onderdelen</small></button>';
+    }).join('') +
+    '</div><footer><button class="btn" data-act="modal-sluit">Annuleren</button></footer></div></div>';
+}
+
+function qrBlok(url) {
+  try {
+    if (typeof qrcode !== 'function') throw new Error('geen qr');
+    var q = qrcode(0, 'M');
+    q.addData(url); q.make();
+    return '<div class="qr">' + q.createImgTag(4, 8) + '<span>Scan voor de actuele versie</span></div>';
+  } catch (e) {
+    return '<div class="qr"><span class="mono">' + esc(url) + '</span></div>';
+  }
+}
+
+function viewPrint() {
+  var set = PRINTSETS[state.ui.print] || PRINTSETS.compleet;
+  var vandaagTekst = datumNL(new Date().toISOString().slice(0, 10));
+
+  var h = '<div class="print-omslag">' +
+    '<span class="eyebrow">Ipse de Bruggen' + (WONING.plaats ? ' · ' + esc(WONING.plaats) : '') + '</span>' +
+    '<h1>' + esc(WONING.naam) + '</h1>' +
+    '<h2>' + esc(set.naam) + '</h2>' +
+    '<p>' + esc(WONING.doelgroep) + '</p>' +
+    qrBlok(WONING.url) +
+    '<div class="print-versie">Versie ' + esc(vandaagTekst) + ' · controleer voor actuele informatie altijd het digitale dashboard.</div>' +
+    '</div>';
+
+  /* inhoudsopgave */
+  var nummers = {}, teller = 0;
+  h += '<div class="print-inhoud"><h2>Inhoud</h2><ol>';
+  HOOFDSTUKKEN.forEach(function (hs) {
+    var in_ = hs.tabs.filter(function (t) { return set.tabs.indexOf(t) !== -1; });
+    if (!in_.length) return;
+    teller++;
+    nummers[hs.naam] = teller;
+    h += '<li><span class="io-nr">' + teller + '</span><span class="io-naam">' + esc(hs.naam) + '</span>' +
+      '<span class="io-sub">' + in_.join(' · ') + '</span></li>';
+  });
+  h += '</ol></div>';
+
+  /* de hoofdstukken zelf */
+  HOOFDSTUKKEN.forEach(function (hs) {
+    var in_ = hs.tabs.filter(function (t) { return set.tabs.indexOf(t) !== -1; });
+    if (!in_.length) return;
+    h += '<section class="print-hoofdstuk"><div class="print-hs-kop">' + ico(hs.icoon, 'groot') +
+      '<div><span class="eyebrow">Hoofdstuk ' + nummers[hs.naam] + '</span><h2>' + esc(hs.naam) + '</h2></div></div>';
+    in_.forEach(function (t) {
+      var fn = VIEWS[t];
+      if (!fn) return;
+      var vorige = state.ui.tab;
+      state.ui.tab = t;
+      var inhoud = '';
+      try { inhoud = fn(); } catch (e) { inhoud = '<p class="uitleg">Dit onderdeel kon niet worden afgedrukt.</p>'; }
+      state.ui.tab = vorige;
+      h += '<div class="print-onderdeel">' + inhoud + '</div>';
+    });
+    h += '</section>';
+  });
+
+  h += '<div class="print-voet-vast">' + esc(WONING.naam) + ' · ' + esc(set.naam) + ' · versie ' + esc(vandaagTekst) +
+    ' · controleer voor actuele informatie altijd het digitale dashboard.</div>';
+  return h;
+}
+
+function viewDoelgroep() { return viewDoelgroepBasis() + blokWereld(); }
 
 /* ---------- Cultuur ---------- */
 function viewCultuur() {
@@ -3981,6 +4856,15 @@ document.addEventListener('change', function (e) {
 });
 
 document.addEventListener('input', function (e) {
+  if (e.target.matches('[data-zoek="werk"]')) {
+    state.ui.werkQ = e.target.value;
+    save();
+    var pw = e.target.selectionStart;
+    render();
+    var zw = document.querySelector('[data-zoek="werk"]');
+    if (zw) { zw.focus(); try { zw.setSelectionRange(pw, pw); } catch (err) { /* geen selectie mogelijk */ } }
+    return;
+  }
   if (e.target.matches('[data-zoek="begeleiden"]')) {
     state.ui.begeleidenQ = e.target.value;
     save();
@@ -4031,6 +4915,7 @@ document.addEventListener('click', function (e) {
     if (extra.begeleidenQ) state.ui.begeleidenQ = extra.begeleidenQ; else state.ui.begeleidenQ = '';
     if (extra.situatie) state.ui.openSituatie = extra.situatie;
     if (extra.openFase) state.ui.openFase = extra.openFase;
+    if (extra.openFormat) state.ui.openFormat = extra.openFormat;
     if (extra.q) { state.ui.filter = { eigenaar: '', status: '', prioriteit: '', fase: '', kant: '', categorie: '', q: extra.q, special: '' }; }
     save(); render(); window.scrollTo(0, 0); return;
   }
@@ -4208,6 +5093,52 @@ document.addEventListener('click', function (e) {
 
   if (act === 'zoek-snel') { state.ui.begeleidenQ = b.getAttribute('data-q'); state.ui.tab = 'Begeleiden'; save(); render(); window.scrollTo(0, 0); return; }
   if (act === 'zoek-wis') { state.ui.begeleidenQ = ''; save(); render(); return; }
+  if (act === 'werk-wis') { state.ui.werkQ = ''; save(); render(); return; }
+  if (act === 'format-open') {
+    state.ui.openFormat = state.ui.openFormat === id ? '' : id;
+    save(); render();
+    var el = document.getElementById('format-' + id);
+    if (el) el.scrollIntoView({ block: 'start' });
+    return;
+  }
+  if (act === 'print-menu') { printMenu(); return; }
+  if (act === 'print-start') {
+    sluitModal();
+    state.ui.print = b.getAttribute('data-set');
+    render();
+    setTimeout(function () {
+      try { window.print(); } catch (e) { toast('Gebruik Ctrl/Cmd + P om te printen.'); }
+      state.ui.print = null; render();
+    }, 400);
+    return;
+  }
+  if (act === 'huisregel-nieuw' || act === 'huisregel-edit' || act === 'dagdeel-nieuw' || act === 'dagdeel-edit') {
+    var isReg = act.indexOf('huisregel') === 0;
+    var lijst = isReg ? state.huisregels : state.dagprogramma;
+    var nieuw = act.indexOf('nieuw') !== -1;
+    var g = nieuw ? { id: uid(isReg ? 'hr' : 'dp'), kop: '', punten: [] }
+                  : lijst.filter(function (x) { return x.id === id; })[0];
+    if (!g) return;
+    openModal(nieuw ? (isReg ? 'Groep huisregels toevoegen' : 'Dagdeel toevoegen') : esc(g.kop),
+      [{ k: 'kop', l: isReg ? 'Kop van de groep' : 'Dagdeel', t: 'text', vol: true },
+       { k: 'punten', l: isReg ? 'Regels — één per regel' : 'Onderdelen — één per regel', t: 'textarea', vol: true,
+         hint: 'Laat leeg en sla op om deze groep te verwijderen.' }],
+      { kop: g.kop, punten: g.punten.join('\n') },
+      function (d) {
+        var p = d.punten.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
+        if (!p.length && !nieuw) {
+          if (isReg) state.huisregels = state.huisregels.filter(function (x) { return x.id !== g.id; });
+          else state.dagprogramma = state.dagprogramma.filter(function (x) { return x.id !== g.id; });
+          log(isReg ? 'Huisregels verwijderd' : 'Dagdeel verwijderd', isReg ? 'Huisregels' : 'Dagprogramma', g.kop);
+        } else {
+          g.kop = d.kop; g.punten = p;
+          if (nieuw) lijst.push(g);
+          log(isReg ? 'Huisregels bijgewerkt' : 'Dagprogramma bijgewerkt', isReg ? 'Huisregels' : 'Dagprogramma', g.kop);
+        }
+        save(); render(); toast('Opgeslagen.');
+      });
+    return;
+  }
   if (act === 'situatie') {
     state.ui.openSituatie = state.ui.openSituatie === id ? '' : id;
     save(); render(); return;
@@ -4477,9 +5408,7 @@ document.getElementById('zoektop').addEventListener('input', function (e) {
   }
 });
 
-document.getElementById('printbtn').addEventListener('click', function () {
-  try { window.print(); } catch (e) { toast('Gebruik Ctrl/Cmd + P om te printen.'); }
-});
+document.getElementById('printbtn').addEventListener('click', printMenu);
 
 render();
 syncOphalen(syncVolgen);
