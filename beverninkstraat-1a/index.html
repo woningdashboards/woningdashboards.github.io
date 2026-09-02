@@ -897,12 +897,8 @@ var ACTIES = [
 ];
 
 /* Alleen initialen. Geen zorginhoud — het ECD blijft de officiële bron. */
-var CLIENTEN = [
-  ['C1', 'Woning', "PB'er 1", 'Begeleider C', 'Begeleider E', 'n.v.t.', 'Te controleren', 'Te controleren', 'Te controleren', 'Te controleren', '', ''],
-  ['C2', 'Woning', "PB'er 2", 'Begeleider C', 'Begeleider E', 'n.v.t.', 'Te controleren', 'Te controleren', 'Te controleren', 'Te controleren', '', ''],
-  ['C3', 'Woning', "PB'er 3", 'Begeleider C', 'Begeleider E', 'n.v.t.', 'Te controleren', 'Te controleren', 'Te controleren', 'Te controleren', '', ''],
-  ['C4', 'Woning', "PB'er 4", 'Begeleider C', 'Begeleider E', 'n.v.t.', 'Te controleren', 'Te controleren', 'Te controleren', 'Te controleren', '', '']
-];
+/* Er staan bewust geen cliëntgegevens in dit dashboard.
+   Cliëntspecifieke informatie staat in het officiële ECD en de geldende interne systemen. */
 
 var KENNIS = [
   ['Cliëntplan', 'ECD', 'Actueel', 'Altijd leidend. Nooit een kopie op de computer bewaren.'],
@@ -1602,7 +1598,7 @@ function seed() {
     }),
     acties: ACTIES.map(function (a) {
       return { id: uid('a'), titel: a[0], categorie: a[1], eigenaar: a[2], betrokken: a[3], deadline: a[4],
-               status: a[5], prioriteit: a[6], fase: a[7], kant: a[8], client: a[9], clientwaarde: a[10],
+               status: a[5], prioriteit: a[6], fase: a[7], kant: a[8], clientwaarde: a[10],
                notitie: a[11], uitleg: '', backup: '', controle: a[6] === 'hoog' ? 'Ja' : 'Nee',
                aangemaakt: '2026-09-01', gewijzigd: '2026-09-01',
                voltooidDoor: '', voltooidOp: '', controleDoor: '', controleOp: '', afrondnotitie: '' };
@@ -1613,19 +1609,11 @@ function seed() {
     teamrollen: TEAMROLLEN.map(function (r) {
       return { id: uid('r'), rol: r[0], eigenaars: r[1], backup: r[2], taken: r[3] };
     }),
-    clienten: CLIENTEN.map(function (c) {
-      return { id: uid('c'), naam: c[0], kant: c[1], pb: c[2], c: c[3], reviewer: c[4], lijn: c[5],
-               plan: c[6], signalering: c[7], afspraken: c[8], netwerk: c[9], laatste: c[10], volgende: c[11] };
-    }),
     kennis: KENNIS.map(function (k) { return { id: uid('k'), soort: k[0], bron: k[1], status: k[2], notitie: k[3] }; }),
-    pb: {},
     procedures: {
       vmsLink: '', vmsStappen: VMS_STAPPEN.slice(),
       medischNummer: '', medischToelichting: '', defectLink: '', defectRoute: ''
     },
-    vms: CLIENTEN.map(function (c) {
-      return { id: uid('w'), client: c[0], wanneer: '', plan: c[7] === 'Actueel' ? 'Actueel' : 'Te controleren', bijzonder: '' };
-    }),
     defecten: [],
     verbeterpunten: [],
     ikBen: '',
@@ -1664,15 +1652,16 @@ function migreer(s) {
   if (!s.weekPunten) s.weekPunten = basis.weekPunten;
   if (!s.afspraken) s.afspraken = basis.afspraken;
   if (!s.teamrollen) s.teamrollen = basis.teamrollen;
-  if (!s.pb) s.pb = {};
   if (!s.medewerkers) s.medewerkers = basis.medewerkers;
   if (!s.procedures) s.procedures = basis.procedures;
   if (!s.procedures.vmsStappen || !s.procedures.vmsStappen.length) s.procedures.vmsStappen = VMS_STAPPEN.slice();
-  if (!s.vms) s.vms = basis.vms;
   if (!s.defecten) s.defecten = [];
   if (!s.verbeterpunten) s.verbeterpunten = [];
   if (!s.log) s.log = [];
   if (s.ikBen == null) s.ikBen = '';
+  /* Opgeslagen versies van vóór de opschoning kunnen nog cliëntgegevens bevatten. */
+  delete s.clienten; delete s.vms; delete s.pb;
+  s.acties.forEach(function (a) { delete a.client; });
   s.acties.forEach(function (a) {
     if (a.status === 'Controle nodig') a.status = 'Ter controle';
     if (a.controle == null) a.controle = a.prioriteit === 'hoog' ? 'Ja' : 'Nee';
@@ -1700,13 +1689,13 @@ var SYNC = {
   url:     'https://ksxjkawgjsditsjbdyvu.supabase.co',
   sleutel: 'sb_publishable_m7eod_ael5-7Bc80fgYaaw_x0GGa_a9',
   rij:     'beverninkstraat-1a',                /* welke woning dit is */
-  code:    '0000',                  /* teamcode: nodig om te mogen wijzigen */
+  code:    'basis-op-orde-2026',    /* teamcode: nodig om te mogen wijzigen. Geen beveiliging, wel een drempel. */
   tempo:   5000                     /* hoe vaak we kijken of iemand iets veranderde (ms) */
 };
 
 /* Dit delen we. De rest (welk tabblad je openhebt, wie je bent) blijft per apparaat. */
 var GEDEELD = ['fase', 'focus', 'focusPunten', 'weekPunten', 'fases', 'acties', 'afspraken',
-  'teamrollen', 'clienten', 'kennis', 'pb', 'procedures', 'vms', 'defecten', 'verbeterpunten',
+  'teamrollen', 'kennis', 'procedures', 'defecten', 'verbeterpunten',
   'log', 'medewerkers', 'onboarding'];
 
 var CODE_KEY = KEY + '-code';
@@ -1842,7 +1831,7 @@ var VRIJ = {};
 ['overlay', 'modal-sluit', 'modal-opslaan', 'ga-route', 'ga-tab', 'zoek-ga', 'zoek-snel',
  'zoek-top-wis', 'zoek-wis', 'situatie', 'fase-toggle', 'filter', 'filter-wis', 'log-toggle',
  'presenteer-menu', 'presenteer-start', 'presenteer-stop', 'pres-preset', 'dia-vorige',
- 'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open', 'pb-client']
+ 'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open']
   .forEach(function (a) { VRIJ[a] = true; });
 
 function vraagCode() {
@@ -2267,11 +2256,6 @@ function denkkaart(tekst) {
 }
 
 /* ---------- Acties ---------- */
-function verversClientOpties() {
-  ACTIE_VELDEN.forEach(function (v) {
-    if (v.k === 'client') v.opts = [''].concat(state.clienten.map(function (c) { return c.naam; }));
-  });
-}
 
 function filterActies() {
   var f = state.ui.filter;
@@ -2287,7 +2271,7 @@ function filterActies() {
     if (f.categorie && a.categorie !== f.categorie) return false;
     if (f.q) {
       var q = f.q.toLowerCase();
-      var hay = (a.titel + ' ' + a.eigenaar + ' ' + a.betrokken + ' ' + a.notitie + ' ' + a.clientwaarde + ' ' + a.client).toLowerCase();
+      var hay = (a.titel + ' ' + a.eigenaar + ' ' + a.betrokken + ' ' + a.notitie + ' ' + a.clientwaarde).toLowerCase();
       if (hay.indexOf(q) === -1) return false;
     }
     return true;
@@ -2339,7 +2323,6 @@ function viewActies() {
       '<span class="pill fase">fase ' + a.fase + '</span>' +
       '<span class="pill line">' + esc(a.categorie) + '</span>' +
       '<span class="pill line">' + esc(a.kant) + '</span>' +
-      (a.client ? '<span class="pill line">cliënt ' + esc(a.client) + '</span>' : '') +
       '</div>' +
       '<div class="meta mono" style="font-size:11.5px;color:var(--ink-faint)">' +
       '<span>' + (a.eigenaar ? esc(a.eigenaar) : '⚠ zonder eigenaar') + '</span>' +
@@ -2812,43 +2795,6 @@ function viewWieNodig() {
   return h;
 }
 
-/* ---------- Cliënten ---------- */
-function clientKaarten() {
-  var h = '<div class="card"><p class="uitleg">Dit overzicht kopieert géén cliëntinformatie. Het ECD blijft de officiële bron. ' +
-    'Hier zie je alleen of iets actueel is, wie ervoor verantwoordelijk is en of er actie nodig is.</p></div>';
-
-  h += '<div class="grid g2" style="margin-top:14px">' + state.clienten.map(function (c) {
-    var openN = state.acties.filter(function (a) { return a.client === c.naam && a.status !== 'Afgerond'; }).length;
-    return '<div class="card">' +
-      '<div style="display:flex;align-items:center;gap:10px"><h3 style="flex:1">Cliënt ' + esc(c.naam) + '</h3>' +
-      '<span class="pill line">' + esc(c.kant) + '</span><span class="pill fase">' + esc(c.lijn) + '</span></div>' +
-      '<div class="tabelwrap"><table style="min-width:0">' +
-      '<tr><td style="color:var(--ink-faint);width:44%">Persoonlijk begeleider</td><td>' + esc(c.pb) + '</td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Ondersteunende C</td><td>' + esc(c.c) + '</td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Reviewer (E / coach)</td><td>' + esc(c.reviewer) + '</td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Cliëntplan</td><td><span class="pill ' + docClass(c.plan) + '">' + esc(c.plan) + '</span></td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Signaleringsplan</td><td><span class="pill ' + docClass(c.signalering) + '">' + esc(c.signalering) + '</span></td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Belangrijke afspraken</td><td><span class="pill ' + docClass(c.afspraken) + '">' + esc(c.afspraken) + '</span></td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Netwerkafspraken</td><td><span class="pill ' + docClass(c.netwerk) + '">' + esc(c.netwerk) + '</span></td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Laatste controle</td><td class="mono" style="font-size:13px">' + datumNL(c.laatste) + '</td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Volgende controle</td><td class="mono" style="font-size:13px">' + datumNL(c.volgende) + '</td></tr>' +
-      '<tr><td style="color:var(--ink-faint)">Open teamacties</td><td>' + openN + '</td></tr>' +
-      '</table></div>' +
-      '<div class="acties" style="display:flex;gap:6px;flex-wrap:wrap">' +
-      '<button class="btn sm" data-act="client-edit" data-id="' + c.id + '">Bewerken</button>' +
-      '<button class="btn sm" data-act="filter" data-mode="client" data-val="' + esc(c.naam) + '">Acties van deze cliënt</button>' +
-      '<button class="btn sm danger" data-act="client-weg" data-id="' + c.id + '">Verwijderen</button>' +
-      '</div></div>';
-  }).join('') + '</div>';
-
-  h += '<div class="card" style="margin-top:14px"><h3>Kijkwijzer per cliënt</h3>' +
-    '<p class="uitleg">Gebruik de gebieden die passen bij de begeleidingslijn van déze cliënt — forceer nooit één methodiek op iedereen.</p>' +
-    '<div class="kijkwijzer" style="margin-top:12px">' + KIJKWIJZER.map(function (k) {
-      return '<div><b>' + esc(k[0]) + '</b><span>' + esc(k[1]) + '</span></div>';
-    }).join('') + '</div>' +
-    '<button class="btn sm" data-act="ga-tab" data-tab="Begeleiden" style="margin-top:12px">Open de begeleidingspagina</button></div>';
-  return h;
-}
 
 /* ---------- Overleggen ---------- */
 function viewOverleggen() {
@@ -3039,17 +2985,11 @@ function viewProcedures() {
       : '<div class="waarschuwing">Nog geen verwijzing naar de officiële werkinstructie ingevuld. Klik op “Links en nummers beheren”.</div>') +
     '</div></div>';
 
-  h += '<div class="section-title"><h2>Per cliënt — wanneer melden we?</h2>' +
-    '<span class="hint">het signaleringsplan blijft leidend</span></div>';
-  h += '<div class="card"><div class="tabelwrap"><table>' +
-    '<thead><tr><th>Cliënt</th><th>Wanneer melden?</th><th>Signaleringsplan</th><th>Bijzonderheden</th><th></th></tr></thead><tbody>' +
-    state.vms.map(function (v) {
-      return '<tr><td><b>' + esc(v.client) + '</b></td>' +
-        '<td>' + (v.wanneer ? esc(v.wanneer) : '<span style="color:var(--ink-faint)">nog invullen</span>') + '</td>' +
-        '<td><span class="pill ' + docClass(v.plan) + '">' + esc(v.plan) + '</span></td>' +
-        '<td style="color:var(--ink-soft);font-size:14px">' + esc(v.bijzonder) + '</td>' +
-        '<td style="white-space:nowrap"><button class="btn sm ghost" data-act="vms-edit" data-id="' + v.id + '">Bewerk</button></td></tr>';
-    }).join('') + '</tbody></table></div></div>';
+  h += '<div class="section-title"><h2>Wanneer melden we bij déze cliënt?</h2></div>';
+  h += '<div class="card"><p class="uitleg">Wat voor de ene cliënt een gewone dag is, kan bij de ander een melding waard zijn. ' +
+    'Dat staat niet hier, maar in het signaleringsplan en het cliëntplan van die persoon.</p>' +
+    '<div class="waarschuwing">Cliëntspecifieke informatie staat in het officiële ECD en de geldende interne systemen. ' +
+    'Twijfel je of iets een melding is? Dan maak je hem.</div></div>';
 
   /* ---- Medisch ---- */
   h += '<div class="section-title"><h2>Medische vraag — wat doe ik?</h2></div>';
@@ -3331,13 +3271,11 @@ function zoekIndex() {
   add('Procedures', 'Hoe maak ik een VMS?', 'vms melden incident melding meldsysteem ' + state.procedures.vmsStappen.join(' '), null);
   MEDISCH_NIVEAUS.forEach(function (m) { add('Procedures', 'Medisch: ' + m[0], m[2] + ' ' + m[3].join(' '), null); });
   add('Procedures', 'Iets kapot — defectmelding', 'kapot defect stuk technisch melden reparatie ' + DEFECT_NEE.join(' '), null);
-  state.vms.forEach(function (v) { add('Procedures', 'VMS bij cliënt ' + v.client, v.wanneer + ' ' + v.bijzonder, null); });
 
   FASES.forEach(function (f) { add('Route', 'Fase ' + f.n + ' — ' + f.naam, f.kernzin + ' ' + f.doel, { openFase: f.n }); });
   state.acties.forEach(function (a) { add('Acties', a.titel, a.uitleg + ' ' + a.notitie + ' ' + a.categorie + ' ' + a.eigenaar, { q: a.titel }); });
   state.afspraken.forEach(function (a) { add('Vaste afspraken', a.functie + ' — ' + a.ritme, a.tekst, null); });
   state.teamrollen.forEach(function (r) { add('Vaste afspraken', 'Teamrol: ' + r.rol, r.taken.join(' ') + ' ' + r.eigenaars, null); });
-  state.clienten.forEach(function (c) { add('PB-overleg', 'Cliënt ' + c.naam, c.kant + ' ' + c.pb + ' ' + c.lijn, { pbClient: c.naam }); });
   PB_ONDERDELEN.forEach(function (o) { add('PB-overleg', 'PB-overleg: ' + o[1], o[3].join(' '), null); });
   VAARDIGHEDEN.forEach(function (cat) {
     cat[2].forEach(function (v) { add('Bekwaamheid', v[1], cat[0] + ' ' + v[2], null); });
@@ -3394,85 +3332,54 @@ function viewZoek() {
 }
 
 /* ---------- PB-overleg ---------- */
-function pbKaart(naam) {
-  if (!state.pb[naam]) state.pb[naam] = { hoe: '', velden: {}, datum: '', volgende: '' };
-  if (!state.pb[naam].velden) state.pb[naam].velden = {};
-  return state.pb[naam];
-}
-
 function viewPB() {
-  var gekozen = state.ui.pbClient || '';
   var h = '<div class="section-title"><h2>PB-overleg</h2>' +
-    '<span class="hint">kort, inhoudelijk, en altijd met een besluit</span></div>';
+    '<span class="hint">het vaste format · kort, inhoudelijk, met een besluit</span></div>';
 
-  h += '<div class="card"><p class="uitleg">Doel: in korte tijd bespreken wat écht belangrijk is. Geen overleg van veertig minuten waarin iemand vertelt wat iedereen al weet. ' +
-    'De gesprekskaart hieronder heeft een vaste opbouw, zodat je niets overslaat en het overleg niet blijft hangen bij één onderwerp.</p>' +
-    '<div class="waarschuwing">Dit is geen tweede dossier. Het ECD blijft de officiële bron — hier leg je alleen vast wat je in het overleg bespreekt en besluit.</div></div>';
+  h += '<div class="card"><p class="uitleg">Doel: in korte tijd bespreken wat écht belangrijk is. Geen overleg van veertig minuten ' +
+    'waarin iemand vertelt wat iedereen al weet. Dit is de vaste opbouw, zodat je niets overslaat en niet blijft hangen bij één onderwerp.</p>' +
+    '<div class="waarschuwing"><strong>Vul hier niets over een cliënt in.</strong> Dit dashboard is geen dossier. ' +
+    'Wat je bespreekt en besluit leg je vast in het officiële ECD; deze pagina is alleen de gespreksstructuur.</div></div>';
 
-  h += '<div class="section-title"><h2>Kies een cliënt</h2></div>';
-  h += '<div class="card"><div class="snelknoppen">' + state.clienten.map(function (c) {
-    return '<button class="btn sm' + (gekozen === c.naam ? ' primary' : '') + '" data-act="pb-client" data-naam="' + esc(c.naam) + '">' +
-      esc(c.naam) + ' <span style="opacity:.6">· ' + esc(c.kant) + '</span></button>';
-  }).join('') + '</div></div>';
-
-  if (!gekozen) {
-    h += '<div class="section-title"><h2>Cliëntoverzicht</h2><span class="hint">wie is verantwoordelijk en wat moet actueel zijn</span>' +
-      '<button class="btn sm primary" data-act="client-nieuw">+ Cliënt</button></div>';
-    h += clientKaarten();
-    return h;
-  }
-
-  var c = state.clienten.filter(function (x) { return x.naam === gekozen; })[0] || { naam: gekozen };
-  var kaart = pbKaart(gekozen);
-  var openActies = state.acties.filter(function (a) { return a.client === gekozen && a.status !== 'Afgerond'; });
-
-  h += '<div class="section-title"><h2>Gesprekskaart — cliënt ' + esc(gekozen) + '</h2>' +
-    '<button class="btn sm" data-act="pb-client" data-naam="">Andere cliënt</button></div>';
-
-  h += '<div class="nu">' +
-    '<div class="nu-kop"><div><span class="eyebrow">PB-overleg</span><h2>Cliënt ' + esc(gekozen) + '</h2></div>' +
-    '<span class="pill fase">' + esc(c.lijn || 'geen begeleidingslijn') + '</span></div>' +
-    '<div class="verwacht-grid">' +
-    '<div><div class="wie">Persoonlijk begeleider</div><p class="uitleg">' + esc(c.pb || '—') + '</p></div>' +
-    '<div><div class="wie">Reviewer</div><p class="uitleg">' + esc(c.reviewer || '—') + '</p></div>' +
-    '<div><div class="wie">Vorige bespreking</div><p class="uitleg">' + datumNL(c.laatste) + '</p></div>' +
-    '<div><div class="wie">Volgende bespreking</div><p class="uitleg">' + datumNL(c.volgende) + '</p></div>' +
-    '</div>' +
-    '<div><h4>Automatisch voorbereid</h4>' +
-    '<ul class="stiplijst">' +
-    '<li>Cliëntplan: ' + esc(c.plan || '—') + ' · signaleringsplan: ' + esc(c.signalering || '—') + '</li>' +
-    '<li>' + openActies.length + ' open actie' + (openActies.length === 1 ? '' : 's') +
-    (openActies.length ? ': ' + openActies.slice(0, 3).map(function (a) { return esc(a.titel); }).join(' · ') : '') + '</li>' +
-    (c.volgende && new Date(c.volgende + 'T00:00:00') < vandaag() ? '<li><strong>De evaluatiedatum is verlopen.</strong></li>' : '') +
-    '</ul></div>' +
-    '<div><h4>Tijdsblokken — als hulpmiddel, niet als keurslijf</h4>' +
-    '<div class="chips">' + ['2 min — hoe gaat het?', '3 min — veranderingen en patronen', '5 min — doelen en begeleiding', '3 min — gezondheid en veiligheid', '2 min — acties']
+  h += '<div class="grid g2" style="margin-top:14px">' +
+    '<div class="card"><h3>Wat leg je vooraf klaar?</h3><ul class="stiplijst">' +
+    ['het cliëntplan en de actuele doelen', 'het signaleringsplan', 'de rapportages van de afgelopen periode',
+     'wat er sinds de vorige keer is veranderd', 'de openstaande acties', 'eventuele meldingen of incidenten',
+     'wat jij zelf hebt gezien in je diensten']
+      .map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+    '<div class="card"><h3>Tijdsblokken</h3>' +
+    '<p class="uitleg">Als hulpmiddel, niet als keurslijf.</p>' +
+    '<div class="chips" style="margin-top:10px">' +
+    ['2 min — hoe gaat het?', '3 min — wat is er veranderd?', '5 min — doelen en begeleiding',
+     '3 min — gezondheid en veiligheid', '2 min — besluit en acties']
       .map(function (t) { return '<span class="chip">' + esc(t) + '</span>'; }).join('') + '</div></div>' +
     '</div>';
 
-  h += '<div class="grid" style="margin-top:14px">' + PB_ONDERDELEN.map(function (o, i) {
-    var extra = '';
-    if (o[0] === 'hoe') {
-      extra = '<div class="snelknoppen">' + HOE_GAAT_HET.map(function (g) {
-        return '<button class="btn sm' + (kaart.hoe === g[0] ? ' primary' : '') + '" data-act="pb-hoe" data-w="' + g[0] + '">' + esc(g[1]) + '</button>';
-      }).join('') + '</div>';
-    }
-    if (o[0] === 'besluit') {
-      extra = '<div class="wie-blok"><h4>Acties uit dit overleg</h4>' +
-        (openActies.length ? openActies.map(function (a) {
-          return '<div class="wie-rij"><span>' + esc(a.titel) + '</span><b>' + esc(a.eigenaar || 'geen eigenaar') + ' · ' + datumNL(a.deadline) + '</b></div>';
-        }).join('') : '<p class="uitleg">Nog geen open acties voor deze cliënt.</p>') +
-        '<button class="btn primary sm" data-act="pb-actie" data-naam="' + esc(gekozen) + '">+ Actie met eigenaar en deadline</button></div>';
-    }
+  h += '<div class="section-title"><h2>De onderdelen</h2><span class="hint">loop ze in deze volgorde langs</span></div>';
+  h += '<div class="grid" style="margin-top:0">' + PB_ONDERDELEN.map(function (o, i) {
     return '<div class="card">' +
       '<div class="kop-rij"><span class="nr">' + (i + 1) + '</span><h3>' + esc(o[1]) + '</h3>' +
       (o[2] ? '<span class="pill line">' + esc(o[2]) + '</span>' : '') + '</div>' +
       '<ul class="stiplijst">' + o[3].map(function (v) { return '<li>' + esc(v) + '</li>'; }).join('') + '</ul>' +
-      extra +
-      '<div class="veld" style="margin-top:10px"><label for="pb-' + o[0] + '">Wat bespreken we hier?</label>' +
-      '<textarea id="pb-' + o[0] + '" data-pb="' + o[0] + '" placeholder="Kort en concreet…">' + esc(kaart.velden[o[0]] || '') + '</textarea></div>' +
       '</div>';
   }).join('') + '</div>';
+
+  h += '<div class="card" style="margin-top:14px"><h3>Hoe gaat het nu?</h3>' +
+    '<p class="uitleg">Kies één van deze vier en zeg er meteen bij waar je dat op baseert. ' +
+    'Geen “volgens mij gaat het wel goed”, maar een voorbeeld van de afgelopen weken.</p>' +
+    '<div class="chips" style="margin-top:10px">' + HOE_GAAT_HET.map(function (g) {
+      return '<span class="pill ' + g[2] + '">' + esc(g[1]) + '</span>';
+    }).join('') + '</div></div>';
+
+  h += '<div class="nu" style="margin-top:14px">' +
+    '<div class="nu-kop"><div><span class="eyebrow">Sluit altijd zo af</span>' +
+    '<h2>Wat blijft hetzelfde, wat verandert?</h2></div></div>' +
+    '<p class="kernzin">Elke verandering wordt een actie met een eigenaar en een deadline. Geen actie zonder eigenaar.</p>' +
+    '<p class="uitleg">Zet teamacties op het actieboard van dit dashboard. Alles wat over deze ene cliënt gaat — doelen, ' +
+    'afspraken, evaluaties — hoort in het ECD, niet hier.</p>' +
+    '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+    '<button class="btn primary" data-act="actie-nieuw">+ Teamactie toevoegen</button>' +
+    '<button class="btn" data-act="ga-tab" data-tab="Acties">Naar het actieboard</button></div></div>';
 
   h += '<div class="section-title"><h2>Groeimodel PB-schap</h2></div>';
   h += '<div class="card"><p class="uitleg"><strong>Niet iedere goede begeleider hoeft PB’er te worden.</strong> ' +
@@ -3736,27 +3643,12 @@ var ACTIE_VELDEN = [
   { k: 'deadline', l: 'Deadline', t: 'date' },
   { k: 'status', l: 'Status', t: 'select', opts: STATUSSEN },
   { k: 'prioriteit', l: 'Prioriteit', t: 'select', opts: PRIOS },
-  { k: 'fase', l: 'Fase', t: 'select', opts: [1, 2, 3, 4, 5] },
+  { k: 'fase', l: 'Fase', t: 'select', opts: FASES.map(function (x) { return x.n; }) },
   { k: 'categorie', l: 'Categorie', t: 'select', opts: CATEGORIEEN },
   { k: 'kant', l: 'Kant', t: 'select', opts: KANTEN },
-  { k: 'client', l: 'Cliënt', t: 'select', opts: [''].concat(state.clienten.map(function (c) { return c.naam; })) },
   { k: 'notitie', l: 'Volgende stap / notitie', t: 'textarea', vol: true }
 ];
 
-var CLIENT_VELDEN = [
-  { k: 'naam', l: 'Naam of initialen', t: 'text' },
-  { k: 'kant', l: 'Kant', t: 'select', opts: KANTEN },
-  { k: 'pb', l: 'Persoonlijk begeleider (D)', t: 'text' },
-  { k: 'c', l: 'Ondersteunende C', t: 'text' },
-  { k: 'reviewer', l: 'Reviewer (E / coach)', t: 'select', opts: ['Begeleider E', 'Jonathan', 'Jerry', 'Anissa', 'Abdesammad'] },
-  { k: 'lijn', l: 'Begeleidingslijn', t: 'select', opts: LIJNEN },
-  { k: 'plan', l: 'Cliëntplan', t: 'select', opts: DOCSTATUS },
-  { k: 'signalering', l: 'Signaleringsplan', t: 'select', opts: DOCSTATUS },
-  { k: 'afspraken', l: 'Belangrijke afspraken', t: 'select', opts: DOCSTATUS },
-  { k: 'netwerk', l: 'Netwerkafspraken', t: 'select', opts: DOCSTATUS },
-  { k: 'laatste', l: 'Laatste controle', t: 'date' },
-  { k: 'volgende', l: 'Volgende controle', t: 'date' }
-];
 
 var KENNIS_VELDEN = [
   { k: 'soort', l: 'Soort informatie', t: 'text', vol: true },
@@ -4057,16 +3949,6 @@ document.addEventListener('change', function (e) {
     state.ui.presOpties[t.getAttribute('data-pres')] = t.checked;
     save(); return;
   }
-  if (t.matches('[data-pb]')) {
-    var pbv = t.getAttribute('data-pb');
-    var kaartje = pbKaart(state.ui.pbClient);
-    if (kaartje.velden[pbv] !== t.value) {
-      kaartje.velden[pbv] = t.value;
-      log('PB-overleg ingevuld', 'PB-overleg', 'cliënt ' + state.ui.pbClient + ' — ' + pbv);
-      save();
-    }
-    return;
-  }
   if (t.matches('[data-mwnotitie]')) {
     var mwn = state.medewerkers.filter(function (x) { return x.id === t.getAttribute('data-mwnotitie'); })[0];
     if (mwn) { mwn.notitie = t.value; save(); }
@@ -4149,7 +4031,6 @@ document.addEventListener('click', function (e) {
     if (extra.begeleidenQ) state.ui.begeleidenQ = extra.begeleidenQ; else state.ui.begeleidenQ = '';
     if (extra.situatie) state.ui.openSituatie = extra.situatie;
     if (extra.openFase) state.ui.openFase = extra.openFase;
-    if (extra.pbClient) state.ui.pbClient = extra.pbClient;
     if (extra.q) { state.ui.filter = { eigenaar: '', status: '', prioriteit: '', fase: '', kant: '', categorie: '', q: extra.q, special: '' }; }
     save(); render(); window.scrollTo(0, 0); return;
   }
@@ -4269,7 +4150,6 @@ document.addEventListener('click', function (e) {
   if (act === 'verbeter-actie') {
     var vp = state.verbeterpunten.filter(function (x) { return x.id === id; })[0];
     if (!vp) return;
-    verversClientOpties();
     openModal('Actie maken van dit verbeterpunt', ACTIE_VELDEN, {
       titel: vp.wat, uitleg: vp.waarom, notitie: vp.helpt, eigenaar: vp.eigenaar,
       status: 'Nog te doen', prioriteit: 'midden', fase: state.fase, kant: 'Team', categorie: 'Werkproces', controle: 'Nee'
@@ -4304,18 +4184,6 @@ document.addEventListener('click', function (e) {
     });
     return;
   }
-  if (act === 'vms-edit') {
-    var v = state.vms.filter(function (x) { return x.id === id; })[0];
-    if (!v) return;
-    openModal('VMS bij cliënt ' + v.client, [
-      { k: 'wanneer', l: 'Wanneer maken we bij deze cliënt een melding?', t: 'textarea', vol: true },
-      { k: 'plan', l: 'Signaleringsplan', t: 'select', opts: DOCSTATUS },
-      { k: 'bijzonder', l: 'Bijzonderheden', t: 'textarea', vol: true }
-    ], v, function (d) {
-      Object.keys(d).forEach(function (k) { v[k] = d[k]; }); log('VMS-afspraak gewijzigd', 'Procedures', 'cliënt ' + v.client); save(); render();
-    });
-    return;
-  }
   if (act === 'defect-nieuw') {
     openModal('Defect melden', DEFECT_VELDEN, { gevaar: 'Nee', status: 'Gemeld', door: state.ikBen, datum: new Date().toISOString().slice(0, 10) }, function (d) {
       d.id = uid('d'); state.defecten.unshift(d); log('Defect gemeld', 'Procedures', d.wat + (d.locatie ? ' - ' + d.locatie : '')); save(); render(); toast('Melding toegevoegd.');
@@ -4345,24 +4213,6 @@ document.addEventListener('click', function (e) {
     save(); render(); return;
   }
 
-  if (act === 'pb-client') { state.ui.pbClient = b.getAttribute('data-naam'); save(); render(); window.scrollTo(0, 0); return; }
-  if (act === 'pb-hoe') {
-    pbKaart(state.ui.pbClient).hoe = b.getAttribute('data-w'); save(); render(); return;
-  }
-  if (act === 'pb-actie') {
-    var naam = b.getAttribute('data-naam');
-    verversClientOpties();
-    openModal('Actie uit het PB-overleg', ACTIE_VELDEN,
-      { status: 'Nog te doen', prioriteit: 'midden', fase: state.fase, kant: 'Team', categorie: 'Cliënt', client: naam, controle: 'Ja' },
-      function (d) {
-        d.id = uid('a'); d.aangemaakt = new Date().toISOString().slice(0, 10); d.gewijzigd = d.aangemaakt;
-        d.fase = Number(d.fase);
-        ['uitleg', 'backup', 'voltooidDoor', 'voltooidOp', 'controleDoor', 'controleOp', 'afrondnotitie']
-          .forEach(function (k) { if (d[k] == null) d[k] = ''; });
-        state.acties.unshift(d); log('Actie uit PB-overleg', 'PB-overleg', naam + ': ' + d.titel); save(); render(); toast('Actie toegevoegd aan het actieboard.');
-      });
-    return;
-  }
 
   if (act === 'mw-open') { state.ui.openMedewerker = state.ui.openMedewerker === id ? '' : id; save(); render(); return; }
   if (act === 'mw-nieuw') {
@@ -4512,7 +4362,6 @@ document.addEventListener('click', function (e) {
     var mode = b.getAttribute('data-mode'), val = b.getAttribute('data-val');
     var f = { eigenaar: '', status: '', prioriteit: '', fase: '', kant: '', categorie: '', q: '', special: '' };
     if (mode === 'special') f.special = val;
-    else if (mode === 'client') f.q = val;
     else if (mode) f[mode] = val;
     state.ui.filter = f; state.ui.tab = 'Acties'; save(); render(); return;
   }
@@ -4522,7 +4371,6 @@ document.addEventListener('click', function (e) {
   }
 
   if (act === 'actie-nieuw') {
-    verversClientOpties();
     openModal('Nieuwe actie', ACTIE_VELDEN, { status: 'Nog te doen', prioriteit: 'midden', fase: state.fase, kant: 'Team', categorie: 'Werkproces' }, function (d) {
       d.id = uid('a'); d.gewijzigd = new Date().toISOString().slice(0, 10);
       d.fase = Number(d.fase);
@@ -4533,7 +4381,6 @@ document.addEventListener('click', function (e) {
   if (act === 'actie-edit') {
     var a = state.acties.filter(function (x) { return x.id === id; })[0];
     if (!a) return;
-    verversClientOpties();
     openModal('Actie bewerken', ACTIE_VELDEN, a, function (d) {
       Object.keys(d).forEach(function (k) { a[k] = k === 'fase' ? Number(d[k]) : d[k]; });
       a.gewijzigd = new Date().toISOString().slice(0, 10);
@@ -4561,28 +4408,6 @@ document.addEventListener('click', function (e) {
     return;
   }
 
-  if (act === 'client-nieuw') {
-    openModal('Cliënt toevoegen', CLIENT_VELDEN, { kant: 'Woning', lijn: 'n.v.t.', plan: 'Te controleren', signalering: 'Te controleren', afspraken: 'Te controleren', netwerk: 'Te controleren' }, function (d) {
-      d.id = uid('c'); state.clienten.push(d); log('Cliënt toegevoegd', 'PB-overleg', d.naam); save(); render(); toast('Cliënt toegevoegd.');
-    });
-    return;
-  }
-  if (act === 'client-edit') {
-    var c = state.clienten.filter(function (x) { return x.id === id; })[0];
-    if (!c) return;
-    openModal('Cliënt ' + c.naam, CLIENT_VELDEN, c, function (d) {
-      Object.keys(d).forEach(function (k) { c[k] = d[k]; }); log('Cliëntgegevens gewijzigd', 'PB-overleg', c.naam); save(); render(); toast('Bijgewerkt.');
-    });
-    return;
-  }
-  if (act === 'client-weg') {
-    var cl = state.clienten.filter(function (x) { return x.id === id; })[0];
-    if (cl && window.confirm('Cliënt ' + cl.naam + ' uit dit overzicht verwijderen? Het dossier in het ECD verandert hier niet door.')) {
-      state.clienten = state.clienten.filter(function (x) { return x.id !== id; });
-      save(); render();
-    }
-    return;
-  }
 
   if (act === 'kennis-nieuw') {
     openModal('Regel toevoegen', KENNIS_VELDEN, { status: 'Te controleren' }, function (d) {
