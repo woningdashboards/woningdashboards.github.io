@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Woningdashboards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --tenne:     #CD2D00;
+  --navy:      #017ACB;
+  --jordy:     #80BDE5;
+  --paper:     #F2EFEF;
+  --surface:   #FFFFFF;
+  --surface-2: #F8F6F6;
+  --line:      #E3DEDE;
+  --ink:       #282727;
+  --ink-soft:  #5A5555;
+  --ink-faint: #8A8383;
+  --shadow:    0 1px 2px rgba(40,39,39,.05), 0 10px 24px -18px rgba(40,39,39,.35);
+  --sans: "Inter", Arial, Helvetica, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #16191B; --surface: #1D2124; --surface-2: #23282B; --line: #313739;
+    --ink: #E9EAEA; --ink-soft: #A9B0B2; --ink-faint: #838B8D; --navy: #4FA9EC;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 24px -18px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #16191B; --surface: #1D2124; --surface-2: #23282B; --line: #313739;
+  --ink: #E9EAEA; --ink-soft: #A9B0B2; --ink-faint: #838B8D; --navy: #4FA9EC;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 24px -18px rgba(0,0,0,.9);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: clamp(32px, 7vw, 72px) clamp(18px, 5vw, 28px) 64px; }
+.merk { display: flex; align-items: center; gap: 12px; margin-bottom: 34px; }
+.merk .mark {
+  width: 38px; height: 38px; border-radius: 10px; background: var(--tenne); flex: none;
+  display: grid; place-items: center; color: #fff; font-weight: 600; font-size: 15px;
+}
+.merk span {
+  display: block; font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+.merk h1 { font-size: 18px; margin: 0; font-weight: 700; letter-spacing: -.011em; }
+.lead { font-size: clamp(21px, 3.4vw, 27px); font-weight: 700; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+.lead + p { margin: 12px 0 0; color: var(--ink-soft); max-width: 62ch; }
+h2 {
+  font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 400; margin: 42px 0 12px;
+}
+.kaart {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--navy);
+  border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow);
+  transition: border-color .15s, transform .15s;
+}
+.kaart + .kaart { margin-top: 12px; }
+.kaart:hover { border-color: var(--navy); transform: translateY(-1px); }
+.kaart:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(1,122,203,.22); }
+.kaart h3 { margin: 0; font-size: 19px; letter-spacing: -.011em; }
+.kaart p { margin: 6px 0 0; font-size: 14.5px; color: var(--ink-soft); }
+.kaart .naar { display: inline-block; margin-top: 12px; font-size: 13.5px; font-weight: 600; color: var(--navy); }
+.let {
+  margin-top: 34px; background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 18px 20px;
+}
+.let p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.let p + p { margin-top: 8px; }
+footer { margin-top: 42px; font-size: 13px; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="merk">
+    <div class="mark">W</div>
+    <div>
+      <span>Ipse de Bruggen</span>
+      <h1>Woningdashboards</h1>
+    </div>
+  </div>
+
+  <p class="lead">Waar staat deze woning, en waar werken we nu aan?</p>
+  <p>Per woning één dashboard: de fase waarin we zitten, wat al staat, wat nog aandacht
+     nodig heeft, wie waarvoor verantwoordelijk is en hoe we hier begeleiden.</p>
+
+  <h2>Woningen</h2>
+
+  <a class="kaart" href="beverninkstraat-1a/">
+    <h3>Van Beverninkstraat 1A</h3>
+    <p>Teamstabilisatie — fase 1: basiszorg &amp; overzicht. Hoofdcoach Abdesammad.</p>
+    <span class="naar">Open het dashboard &rarr;</span>
+  </a>
+
+  <a class="kaart" href="rottumeroog/">
+    <h3>Rottumeroog</h3>
+    <p>Teamstabilisatie — de puntjes op de i, plus personele stabiliteit. Nootdorp.</p>
+    <span class="naar">Open het dashboard &rarr;</span>
+  </a>
+
+  <div class="let">
+    <p><strong>Geen tweede dossier.</strong> Hier staan geen cliëntgegevens. Het cliëntplan,
+       het signaleringsplan en het medisch protocol blijven altijd leidend.</p>
+    <p>Wat je in een dashboard aanvinkt of invult, blijft in de browser van dit apparaat.
+       Het wordt niet gedeeld met andere collega's en niet naar een server gestuurd.</p>
+  </div>
+
+  <footer>Intern hulpmiddel voor coaches en begeleiders. Niet bedoeld voor publicatie.</footer>
+
+</div>
+</body>
+</html>
