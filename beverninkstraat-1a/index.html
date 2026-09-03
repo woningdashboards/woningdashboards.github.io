@@ -466,6 +466,70 @@ body.presenteren main { padding-top: 10px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
 
+
+/* ---------- zijbalk ---------- */
+.schil { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 244px minmax(0, 1fr); gap: 0; }
+.zijbalk { border-right: 1px solid var(--line); padding: 22px 0 60px 0; align-self: start;
+  position: sticky; top: 118px; max-height: calc(100vh - 128px); overflow-y: auto; scrollbar-width: thin; }
+.zijbalk .zb-kop { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-faint); padding: 0 18px; margin: 18px 0 8px; }
+.zijbalk .zb-kop:first-child { margin-top: 0; }
+.zb-item { display: flex; align-items: center; gap: 10px; width: calc(100% - 12px); margin: 0 6px;
+  background: none; border: 0; border-radius: 8px; padding: 8px 12px; cursor: pointer;
+  font-size: 14px; color: var(--ink-soft); text-align: left; }
+.zb-item:hover { background: var(--surface-2); color: var(--ink); }
+.zb-item.on { background: var(--busy-bg); color: var(--navy); font-weight: 600; }
+.zb-item .ico { width: 17px; height: 17px; opacity: .8; }
+.zb-item .zb-nr { margin-left: auto; font-family: var(--mono); font-size: 10.5px; opacity: .55; }
+.zb-sub { display: grid; gap: 1px; margin: 2px 6px 8px 34px; }
+.zb-sub button { background: none; border: 0; border-left: 2px solid var(--line); text-align: left;
+  padding: 6px 12px; font-size: 13px; color: var(--ink-faint); cursor: pointer; }
+.zb-sub button:hover { color: var(--ink); border-left-color: var(--ink-faint); }
+.zb-sub button.on { color: var(--tenne); border-left-color: var(--tenne); font-weight: 600; }
+.zb-voet { margin: 18px 12px 0; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+.schil > main { padding-left: clamp(16px, 2.4vw, 30px); min-width: 0; }
+.schil > main > .wrap { padding-left: 0; padding-right: clamp(14px, 3vw, 28px); max-width: 1020px; margin: 0; }
+
+/* snelbalk in de kop */
+.snelbalk { display: flex; gap: 6px; width: 100%; flex: 1 1 100%; margin-top: 10px;
+  overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.snelbalk::-webkit-scrollbar { display: none; }
+.snelknop { display: inline-flex; align-items: center; gap: 7px; flex: 0 0 auto; background: var(--surface-2);
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 13.5px;
+  font-weight: 500; color: var(--ink-soft); cursor: pointer; }
+.snelknop:hover { border-color: var(--navy); color: var(--ink); }
+.snelknop.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.snelknop .ico { width: 15px; height: 15px; }
+.zb-open { display: none; }
+
+@media (max-width: 900px) {
+  .schil { grid-template-columns: 1fr; }
+  .zijbalk { position: static; max-height: none; border-right: 0; border-bottom: 1px solid var(--line);
+    padding: 12px 0; overflow: visible; }
+  .zijbalk[hidden] { display: none; }
+  .zb-open { display: inline-flex; }
+  .schil > main { padding-left: 0; }
+  .schil > main > .wrap { padding-left: clamp(14px, 3vw, 28px); }
+}
+body.presenteren .zijbalk, body.presenteren .snelbalk,
+body.printmodus .zijbalk, body.printmodus .snelbalk { display: none; }
+body.printmodus .schil { grid-template-columns: 1fr; }
+
+/* ---------- rondleiding ---------- */
+.tour-doel { position: relative; z-index: 120; box-shadow: 0 0 0 3px var(--tenne), 0 0 0 9px rgba(205,45,0,.18);
+  border-radius: 10px; }
+.tour { max-width: 460px; }
+.tour .stap { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint); }
+.tour h3 { font-size: 20px; margin-top: 4px; }
+.tour p { margin-top: 10px; color: var(--ink-soft); font-size: 15px; }
+.tour .bolletjes { display: flex; gap: 5px; margin-right: auto; align-items: center; }
+.tour .bolletjes i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); display: block; }
+.tour .bolletjes i.aan { background: var(--navy); }
+.tour-niet { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink-soft);
+  padding: 12px 20px 0; cursor: pointer; }
+.tour-niet input { width: 15px; height: 15px; accent-color: var(--navy); }
+
 /* ---------- hoofdstukken en iconen ---------- */
 .ico { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7;
        stroke-linecap: round; stroke-linejoin: round; }
@@ -612,13 +676,17 @@ body.printmodus .topbar { display: none; }
       <button class="btn sm" id="ikbenbtn" data-act="ik-ben" type="button">Ik ben…</button>
       <button class="btn sm primary" data-act="verbeter-nieuw" type="button">+ Dit kan beter</button>
       <button class="btn sm" id="exportbtn" type="button">Back-up</button>
+      <button class="btn sm zb-open" data-act="zijbalk-toggle" type="button">Menu</button>
       <button class="btn sm" id="printbtn" type="button">Woningmap</button>
     </div>
-    <div class="tabs" id="tabs"></div>
+    <div class="snelbalk" id="snelbalk"></div>
   </div>
 </div>
 
-<main><div class="wrap" id="view"></div></main>
+<div class="schil">
+  <aside class="zijbalk" id="zijbalk" aria-label="Hoofdstukken"></aside>
+  <main><div class="wrap" id="view"></div></main>
+</div>
 <div id="modalhost"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
@@ -2321,7 +2389,8 @@ var VRIJ = {};
  'zoek-top-wis', 'zoek-wis', 'situatie', 'fase-toggle', 'filter', 'filter-wis', 'log-toggle',
  'presenteer-menu', 'presenteer-start', 'presenteer-stop', 'pres-preset', 'dia-vorige',
  'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open', 'format-open', 'werk-wis',
- 'print-menu', 'print-start']
+ 'print-menu', 'print-start', 'rondleiding', 'tour-volgende', 'tour-vorige', 'tour-sluit',
+ 'tour-achtergrond', 'zijbalk-toggle']
   .forEach(function (a) { VRIJ[a] = true; });
 
 function vraagCode() {
@@ -4312,18 +4381,127 @@ function blokWereld() {
 
 /* ===================== NAVIGATIE ===================== */
 
+/* De vier plekken waar mensen het vaakst heen willen. */
+var SNELNAAR = [
+  ['Welkom', 'welkom', 'Welkom'],
+  ['Waar staan we?', 'kompas', 'Overzicht'],
+  ['Dagprogramma', 'klok', 'Dagprogramma'],
+  ['Wie heb ik nodig?', 'telefoon', 'Wie heb ik nodig?']
+];
+
 function renderTabs() {
   var hs = hoofdstukVan(state.ui.tab);
-  var rij1 = HOOFDSTUKKEN.map(function (x) {
-    return '<button data-hoofdstuk="' + esc(x.naam) + '" data-tab="' + esc(x.tabs[0]) + '" class="hs' + (x === hs ? ' on' : '') + '">' +
-      ico(x.icoon) + '<span>' + esc(x.naam) + '</span></button>';
+
+  document.getElementById('snelbalk').innerHTML = SNELNAAR.map(function (x) {
+    return '<button class="snelknop' + (state.ui.tab === x[2] ? ' on' : '') + '" data-act="ga-tab" data-tab="' + esc(x[2]) + '">' +
+      ico(x[1]) + esc(x[0]) + '</button>';
   }).join('');
-  var rij2 = hs.tabs.length > 1
-    ? '<div class="tabs subtabs">' + hs.tabs.map(function (t) {
-        return '<button data-tab="' + esc(t) + '" class="' + (state.ui.tab === t ? 'on' : '') + '">' + esc(t) + '</button>';
-      }).join('') + '</div>'
-    : '';
-  document.getElementById('tabs').innerHTML = '<div class="tabs hoofdtabs">' + rij1 + '</div>' + rij2;
+
+  var zb = '<div class="zb-kop">Het handboek</div>';
+  HOOFDSTUKKEN.forEach(function (x) {
+    var actief = x === hs;
+    zb += '<button class="zb-item' + (actief ? ' on' : '') + '" data-act="ga-tab" data-tab="' + esc(x.tabs[0]) + '">' +
+      ico(x.icoon) + '<span>' + esc(x.naam) + '</span><span class="zb-nr">' + x.nr + '</span></button>';
+    if (actief && x.tabs.length > 1) {
+      zb += '<div class="zb-sub">' + x.tabs.map(function (t) {
+        return '<button data-act="ga-tab" data-tab="' + esc(t) + '" class="' + (state.ui.tab === t ? 'on' : '') + '">' + esc(t) + '</button>';
+      }).join('') + '</div>';
+    }
+  });
+  zb += '<div class="zb-voet"><button class="btn sm ghost" data-act="rondleiding">Rondleiding</button></div>';
+  document.getElementById('zijbalk').innerHTML = zb;
+}
+
+/* ===================== RONDLEIDING ===================== */
+
+var TOUR_KEY = KEY + '-rondleiding';
+
+var RONDLEIDING = [
+  { titel: 'Dit is het woninghandboek', doel: '',
+    tekst: 'Alles wat je over deze woning moet weten staat hier: hoe een dag verloopt, wat de afspraken zijn, ' +
+           'hoe we begeleiden en wie je waarvoor belt. Even rondkijken duurt een halve minuut.' },
+  { titel: 'Links vind je alle hoofdstukken', doel: '#zijbalk',
+    tekst: 'Negen hoofdstukken, in dezelfde volgorde als de papieren map. Klik op een hoofdstuk en je ziet ' +
+           'daaronder de pagina’s die erbij horen.' },
+  { titel: 'Bovenin staat waar je het vaakst heen wilt', doel: '#snelbalk',
+    tekst: 'Welkom, waar we als team staan, het dagprogramma en de routekaart “wie heb ik nodig”. ' +
+           'Die vier zijn altijd één klik weg.' },
+  { titel: 'Weet je niet waar iets staat? Zoek erop', doel: '#zoektop',
+    tekst: 'Typ waar je naar zoekt — bijvoorbeeld “kapot”, “VMS” of “achterdocht” — en je krijgt de plekken ' +
+           'waar het over gaat, met een knop ernaartoe.' },
+  { titel: 'Iedereen kijkt, wijzigen doe je met de teamcode', doel: '#syncpil',
+    tekst: 'De inhoud is voor iedereen hetzelfde: wat één iemand aanpast, zien de anderen binnen een paar seconden. ' +
+           'Om iets te wijzigen vul je één keer de teamcode in. Vraag hem aan je hoofdcoach.' },
+  { titel: 'Je kunt het ook uitprinten', doel: '#printbtn',
+    tekst: 'Drie varianten: de dagelijkse woningmap, de complete map, of alleen het inwerkdeel. ' +
+           'Met omslag, inhoudsopgave en een QR-code naar deze pagina.' },
+  { titel: 'Meer weten of iets kwijt?', doel: '',
+    tekst: 'Onderaan de zijbalk kun je deze rondleiding altijd opnieuw starten. En zie je iets dat beter kan? ' +
+           'Gebruik de knop “+ Dit kan beter” — daar is hij voor.' }
+];
+
+function tourWis() {
+  var oud = document.querySelector('.tour-doel');
+  if (oud) oud.classList.remove('tour-doel');
+}
+
+/* Het vinkje "niet meer tonen" bewaren we meteen, ook als iemand halverwege stopt. */
+function tourOnthouden() {
+  var v = document.querySelector('[data-tourniet]');
+  var aan = !!(v && v.checked);
+  try {
+    if (aan) localStorage.setItem(TOUR_KEY, 'gezien');
+    else localStorage.removeItem(TOUR_KEY);
+  } catch (e) { /* opslag geblokkeerd */ }
+  return aan;
+}
+
+function tourStop(onthouden) {
+  if (onthouden) { try { localStorage.setItem(TOUR_KEY, 'gezien'); } catch (e) { /* opslag geblokkeerd */ } }
+  state.ui.tour = null;
+  tourWis();
+  sluitModal();
+}
+
+function tourToon() {
+  var i = state.ui.tour || 0;
+  var st = RONDLEIDING[i];
+  if (!st) { tourStop(true); return; }
+
+  tourWis();
+  if (st.doel) {
+    var el = document.querySelector(st.doel);
+    if (el) { el.classList.add('tour-doel'); }
+  }
+
+  var host = document.getElementById('modalhost');
+  host.innerHTML = '<div class="overlay" data-act="tour-achtergrond"><div class="modal tour" role="dialog" aria-modal="true">' +
+    '<div class="body">' +
+    '<span class="stap">Stap ' + (i + 1) + ' van ' + RONDLEIDING.length + '</span>' +
+    '<h3>' + esc(st.titel) + '</h3>' +
+    '<p>' + esc(st.tekst) + '</p>' +
+    '</div>' +
+    '<label class="tour-niet"><input type="checkbox" data-tourniet' +
+    (localStorage.getItem(TOUR_KEY) === 'gezien' ? ' checked' : '') + '> Deze rondleiding niet meer tonen</label>' +
+    '<footer>' +
+    '<div class="bolletjes">' + RONDLEIDING.map(function (x, n) {
+      return '<i class="' + (n === i ? 'aan' : '') + '"></i>';
+    }).join('') + '</div>' +
+    (i > 0 ? '<button class="btn" data-act="tour-vorige">Vorige</button>' : '') +
+    '<button class="btn" data-act="tour-sluit">Sluiten</button>' +
+    '<button class="btn primary" data-act="tour-volgende">' + (i === RONDLEIDING.length - 1 ? 'Klaar' : 'Volgende') + '</button>' +
+    '</footer></div></div>';
+}
+
+function tourStart() {
+  state.ui.tour = 0;
+  tourToon();
+}
+
+function tourMisschien() {
+  if (state.ui.print || state.ui.presenteer) return;
+  try { if (localStorage.getItem(TOUR_KEY) === 'gezien') return; } catch (e) { return; }
+  tourStart();
 }
 
 /* ===================== PRINTMAP ===================== */
@@ -4786,13 +4964,7 @@ function bewaarLokaal(blob, naam) {
    6. ACTIES / EVENTS
    ========================================================================= */
 
-document.getElementById('tabs').addEventListener('click', function (e) {
-  var b = e.target.closest('[data-tab]');
-  if (!b) return;
-  state.ui.tab = b.getAttribute('data-tab');
-  window.scrollTo(0, 0);
-  save(); render();
-});
+
 
 document.addEventListener('change', function (e) {
   var t = e.target;
@@ -5102,6 +5274,24 @@ document.addEventListener('click', function (e) {
     return;
   }
   if (act === 'print-menu') { printMenu(); return; }
+  if (act === 'zijbalk-toggle') {
+    var zb = document.getElementById('zijbalk');
+    if (zb) zb.hidden = !zb.hidden;
+    return;
+  }
+  if (act === 'rondleiding') { tourStart(); return; }
+  if (act === 'tour-achtergrond') {
+    if (e.target !== b) return;          /* alleen bij een klik naast het venster */
+    tourStop(tourOnthouden()); return;
+  }
+  if (act === 'tour-sluit') { tourStop(tourOnthouden()); return; }
+  if (act === 'tour-volgende' || act === 'tour-vorige') {
+    var onthoud = tourOnthouden();
+    var n = (state.ui.tour || 0) + (act === 'tour-volgende' ? 1 : -1);
+    if (n < 0) n = 0;
+    if (n >= RONDLEIDING.length) { tourStop(true); return; }
+    state.ui.tour = n; tourToon(); return;
+  }
   if (act === 'print-start') {
     sluitModal();
     state.ui.print = b.getAttribute('data-set');
@@ -5412,5 +5602,6 @@ document.getElementById('printbtn').addEventListener('click', printMenu);
 
 render();
 syncOphalen(syncVolgen);
+tourMisschien();
 })();
 </script>
