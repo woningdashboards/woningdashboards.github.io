@@ -2300,14 +2300,220 @@ var BASISZORG = [
     kern: 'Waardig, rustig, schoon, veilig en overzichtelijk.', klaar: true },
   { id: 'adl', titel: 'ADL: samen doen, niet overnemen', icoon: 'handen',
     kern: 'Niet automatisch overnemen wat iemand zelf kan.', klaar: true },
-  { id: 'douchen', titel: 'Douchen en wassen', icoon: 'werk', kern: 'Nog uit te werken op de woning.', klaar: false },
-  { id: 'kleden', titel: 'Aan- en uitkleden', icoon: 'werk', kern: 'Nog uit te werken op de woning.', klaar: false },
-  { id: 'toilet', titel: 'Toiletgang en incontinentiezorg', icoon: 'werk', kern: 'Nog uit te werken op de woning.', klaar: false },
-  { id: 'handen', titel: 'Handhygiëne', icoon: 'werk', kern: 'Nog uit te werken op de woning.', klaar: false },
-  { id: 'eten', titel: 'Eten en drinken', icoon: 'eten', kern: 'Nog uit te werken op de woning.', klaar: false },
-  { id: 'bed', titel: 'Bed verschonen en opmaken', icoon: 'werk', kern: 'Nog uit te werken op de woning.', klaar: false },
-  { id: 'verzorging', titel: 'Persoonlijke verzorging', icoon: 'werk', kern: 'Nog uit te werken op de woning.', klaar: false }
+  { id: 'douchen', titel: 'Douchen en wassen', icoon: 'werk', kern: 'Van schoon naar vuil, en alleen ontbloten wat je wast.', klaar: true },
+  { id: 'kleden', titel: 'Aan- en uitkleden', icoon: 'werk', kern: 'Kleding is identiteit, geen praktische kwestie.', klaar: true },
+  { id: 'toilet', titel: 'Toiletgang en incontinentiezorg', icoon: 'werk', kern: 'Het kwetsbaarste moment van de dag.', klaar: true },
+  { id: 'handen', titel: 'Handhygiëne', icoon: 'werk', kern: 'Twintig seconden, en het werkt beter dan al het andere.', klaar: true },
+  { id: 'wassen', titel: 'Wassen aan wastafel of op bed', icoon: 'werk', kern: 'Als douchen niet kan of niet nodig is.', klaar: true },
+  { id: 'eten', titel: 'Eten en drinken', icoon: 'eten', kern: 'Een moment van de dag, geen taak die af moet.', klaar: true },
+  { id: 'bed', titel: 'Bed verschonen en opmaken', icoon: 'werk', kern: 'Kreukels lijken klein, maar geven drukplekken.', klaar: true },
+  { id: 'verzorging', titel: 'Persoonlijke verzorging', icoon: 'werk', kern: 'Haar, nagels, scheren en huid.', klaar: true }
 ];
+
+
+var ZORGKAARTEN = {
+
+  handen: {
+    doel: 'Handhygiëne is de eenvoudigste manier om overdracht van bacteriën en virussen te voorkomen. ' +
+          'Het kost twintig seconden en voorkomt meer dan welke andere maatregel ook.',
+    voor: ['Doe horloge, ringen en armbanden af.', 'Zorg dat je nagels kort en schoon zijn.',
+      'Dek wondjes aan je handen af.'],
+    stappen: ['Maak je handen nat met stromend water.', 'Neem zeep en wrijf de handpalmen over elkaar.',
+      'Wrijf de rug van je linkerhand met je rechterhandpalm, vingers gespreid. Wissel.',
+      'Wrijf de handpalmen met gespreide vingers over elkaar.', 'Was de vingertoppen in de andere handpalm.',
+      'Draai met de handpalm om je duim. Wissel.', 'Was de polsen.',
+      'Spoel af met stromend water.', 'Droog af met een papieren handdoek.',
+      'Draai de kraan dicht met de papieren handdoek, niet met je schone hand.'],
+    letop: ['Doe dit minimaal twintig seconden — dat is langer dan het voelt.',
+      'Vergeet de duimen, vingertoppen en polsen niet: daar gaat het meestal mis.',
+      'Handalcohol is een alternatief bij zichtbaar schone handen. Zijn je handen zichtbaar vuil, dan was je ze met water en zeep.',
+      'Handschoenen vervangen handhygiëne niet. Was je handen vóór en ná het dragen.'],
+    wanneer: ['vóór en na contact met een bewoner', 'vóór een schone handeling', 'na contact met lichaamsvocht',
+      'na het uittrekken van handschoenen', 'vóór het bereiden van eten', 'na toiletbezoek', 'na hoesten of niezen'],
+    protocol: 'handen wassen en handschoenen gebruiken'
+  },
+
+  douchen: {
+    doel: 'Schoon en fris worden, op een manier waarop iemand zich prettig en veilig voelt. ' +
+          'Douchen is voor veel bewoners een intiem moment — de manier waarop je het doet telt net zo zwaar als het resultaat.',
+    voor: ['Kijk eerst wat er voor deze bewoner is afgesproken: wat doet hij zelf, waar helpt hij bij, wat neem jij over.',
+      'Leg alles klaar vóór je begint: handdoeken, washandjes, zeep, schone kleding, incontinentiemateriaal.',
+      'Zorg dat de badkamer warm is.', 'Controleer de watertemperatuur op je eigen pols.',
+      'Zorg dat de deur dicht is en er geen onnodige mensen binnenlopen.',
+      'Vertel wat je gaat doen, in korte zinnen.'],
+    stappen: ['Laat de bewoner zoveel mogelijk zelf doen. Geef de washand aan in plaats van hem over te nemen.',
+      'Werk van schoon naar vuil: gezicht eerst, intieme zones als laatste.',
+      'Was het gezicht met water zonder zeep, tenzij anders afgesproken.',
+      'Ga verder met hals, armen, oksels, romp, rug.', 'Daarna benen en voeten.',
+      'Was intieme zones als laatste, met een aparte washand.',
+      'Spoel goed af — zeepresten geven jeuk en huidirritatie.',
+      'Dep de huid droog in plaats van te wrijven. Vergeet huidplooien, tussen de tenen en onder de borsten niet.',
+      'Breng crème of andere verzorging aan volgens de afspraken.'],
+    letop: ['de huid: roodheid, smetplekken, wondjes, blauwe plekken, schimmel',
+      'huidplooien, liezen, bilnaad, tussen de tenen',
+      'pijnreacties tijdens het wassen — ook zonder woorden',
+      'of iemand het koud heeft', 'de veiligheid: natte vloer, opstaan, draaien',
+      'verandering ten opzichte van vorige keer'],
+    waardigheid: ['Dek af wat je niet aan het wassen bent.',
+      'Vraag toestemming voordat je intieme zones wast, ook als iemand niet kan antwoorden.',
+      'Praat mét de bewoner, niet over hem met een collega.',
+      'Ga niet sneller dan de bewoner aankan, ook niet als het druk is.'],
+    na: ['Help met aankleden volgens de afspraken.', 'Ruim de badkamer op en leg de vuile was op de afgesproken plek.',
+      'Zorg dat de bewoner comfortabel zit of ligt.', 'Rapporteer bijzonderheden, zeker over de huid.'],
+    schakel: [['huidproblemen, wondjes of pijn', 'Medische dienst'],
+      ['douchen wordt structureel moeilijker of onveilig', 'Ergotherapie of fysiotherapie'],
+      ['iemand weigert steeds vaker', "PB'er → E of coach"]],
+    protocol: 'douchen, verzorgend wassen, wassen aan de wastafel of op bed'
+  },
+
+  kleden: {
+    doel: 'Aangekleed worden op een manier die past bij wie iemand is. Kleding is identiteit, geen praktische kwestie.',
+    voor: ['Laat de bewoner kiezen waar dat kan — twee sets voorleggen werkt vaak beter dan een open vraag.',
+      'Leg de kleding klaar in de volgorde waarin je hem aandoet.',
+      'Zorg dat de kamer warm genoeg is.', 'Kijk of er hulpmiddelen of aangepaste kleding zijn afgesproken.'],
+    stappen: ['Trek eerst de aangedane of stijve kant aan, en uit als laatste. Dat scheelt trekken aan een pijnlijk gewricht.',
+      'Werk van boven naar beneden bij het aankleden.', 'Geef aan wat je gaat doen vóór je een arm of been beweegt.',
+      'Laat doen wat de bewoner zelf kan, ook als het langer duurt.',
+      'Controleer of kleding niet knelt of scheef zit.',
+      'Kijk of schoenen goed zitten en of sokken geen plooien maken.'],
+    letop: ['knellende naden, elastiek en labels', 'of kleding past bij het weer en bij de activiteit',
+      'of kleding heel en schoon is', 'de huid die je onderweg ziet',
+      'of iemand pijn heeft bij bewegen van een arm of been'],
+    waardigheid: ['Kleed niet aan in de gang of met de deur open.',
+      'Respecteer voorkeuren, ook als jij ze een rare combinatie vindt.',
+      'Volwassen kleding voor volwassen mensen.'],
+    na: ['Leg vuile was op de afgesproken plek.', 'Meld kapotte of te kleine kleding.'],
+    schakel: [['aankleden wordt steeds moeilijker', 'Ergotherapie'],
+      ['pijn bij bewegen', 'Medische dienst'], ['kleding is op of versleten', "PB'er"]],
+    protocol: 'aan- en uitkleden'
+  },
+
+  toilet: {
+    doel: 'Toiletgang en incontinentiezorg horen bij de meest kwetsbare momenten van de dag. ' +
+          'Hoe je het doet bepaalt of iemand zich mens voelt of object.',
+    voor: ['Kijk wat er is afgesproken: gaat de bewoner op vaste tijden, geeft hij zelf aan, of is er een schema?',
+      'Leg materiaal klaar vóór je begint.', 'Was je handen en trek handschoenen aan.',
+      'Zorg voor privacy: deur dicht, geen anderen erbij.'],
+    stappen: ['Vertel rustig wat er gaat gebeuren.', 'Help alleen bij wat niet zelf lukt.',
+      'Geef tijd. Haasten werkt averechts en kan de toiletgang blokkeren.',
+      'Reinig van voor naar achter, altijd.', 'Gebruik per veeg een schoon deel van het materiaal.',
+      'Droog de huid goed, ook in de plooien.',
+      'Breng barrièrecrème aan als dat is afgesproken.',
+      'Doe schoon incontinentiemateriaal aan volgens de afspraken: niet te strak, niet te los.'],
+    letop: ['roodheid, smetplekken of kapotte huid rond billen en liezen',
+      'kleur, hoeveelheid en geur van de urine', 'de ontlasting — zie de observatiekaart',
+      'pijn of ongemak', 'of iemand vaker of juist minder vaak gaat dan normaal',
+      'of incontinentiemateriaal steeds vaker lekt of juist onnodig wordt gebruikt'],
+    waardigheid: ['Blijf niet zonder reden in de ruimte staan kijken.',
+      'Praat niet over de ontlasting alsof de bewoner er niet bij is.',
+      'Laat iemand niet langer dan nodig op het toilet zitten.',
+      'Gebruik gewone woorden, geen kindertaal.'],
+    na: ['Trek handschoenen uit en was je handen.', 'Ruim materiaal op en lucht de ruimte.',
+      'Rapporteer wat afwijkt, volgens de afspraken.'],
+    schakel: [['kapotte huid, aanhoudende roodheid of pijn', 'Medische dienst'],
+      ['obstipatie of diarree', 'Medische dienst'],
+      ['toiletgang lukt structureel niet meer', 'Ergotherapie of fysiotherapie'],
+      ['patroon verandert duidelijk', "PB'er en medische dienst"]],
+    protocol: 'toiletbezoek en incontinentiemateriaal'
+  },
+
+  wassen: {
+    doel: 'Wassen aan de wastafel of op bed, als douchen niet kan of niet nodig is.',
+    voor: ['Leg alles klaar: waskom, washandjes, handdoeken, zeep, schone kleding.',
+      'Zorg dat de kamer warm is en de deur dicht.',
+      'Controleer de watertemperatuur.', 'Was je handen.'],
+    stappen: ['Was in deze volgorde: gezicht, hals, armen, oksels, romp, rug, benen, voeten, intieme zones.',
+      'Gebruik voor de intieme zones een aparte washand.',
+      'Ontbloot alleen het deel dat je wast en dek de rest af.',
+      'Ververs het water als het koud of vuil wordt.',
+      'Dep droog, vergeet de huidplooien niet.',
+      'Was op bed in delen, zodat iemand niet lang bloot ligt.'],
+    letop: ['de huid, zeker op plekken waar druk staat: stuit, hielen, ellebogen, heupen',
+      'roodheid die niet wegtrekt', 'temperatuur van de bewoner',
+      'of iemand zich comfortabel voelt in de houding'],
+    waardigheid: ['Afdekken is geen extra stap, het is onderdeel van de handeling.',
+      'Vraag of het water de goede temperatuur heeft.',
+      'Blijf uitleggen wat je doet, ook als je geen antwoord krijgt.'],
+    na: ['Ruim materiaal op en gooi water weg.', 'Zorg dat de bewoner comfortabel ligt of zit.',
+      'Rapporteer huidbijzonderheden.'],
+    schakel: [['roodheid die niet wegtrekt of kapotte huid', 'Medische dienst — dit kan het begin van een decubitus zijn'],
+      ['iemand kan steeds minder zelf', 'Ergotherapie']],
+    protocol: 'wassen aan de wastafel, wassen op bed, verzorgend wassen, haar wassen'
+  },
+
+  bed: {
+    doel: 'Een schoon, glad opgemaakt bed. Kreukels en kruimels lijken klein, maar ze veroorzaken drukplekken.',
+    voor: ['Was je handen en leg schoon linnen klaar.',
+      'Kijk of de bewoner uit bed kan of dat je in delen werkt.'],
+    stappen: ['Haal het vuile linnen af en rol het naar binnen, zodat de vuile kant naar binnen blijft.',
+      'Gooi vuil linnen direct in de waszak, niet op de grond of op een stoel.',
+      'Span het onderlaken strak — geen kreukels, geen plooien.',
+      'Controleer of het matras droog en schoon is.',
+      'Maak het bed op zoals de bewoner het gewend is.',
+      'Zet het bed terug op de goede hoogte en zet remmen vast.'],
+    letop: ['vlekken die op een probleem kunnen wijzen', 'kruimels of voorwerpen in bed',
+      'een matras dat doorgezakt of nat is', 'of het bed op de juiste hoogte staat',
+      'of de bewoner er veilig in en uit kan'],
+    waardigheid: ['Kondig aan als je bij iemand in bed gaat werken.',
+      'Werk niet over de bewoner heen; ga naar de andere kant van het bed.'],
+    na: ['Breng vuil linnen weg volgens de afspraken.', 'Was je handen.'],
+    schakel: [['matras kapot, doorgezakt of nat', 'Technische melding of PB’er'],
+      ['bewoner ligt onrustig of komt niet uit bed', 'Fysiotherapie of ergotherapie']],
+    protocol: 'bed afhalen en opmaken'
+  },
+
+  eten: {
+    doel: 'Eten en drinken is meer dan voedingsstoffen binnenkrijgen. Het is een moment van de dag, ' +
+          'en voor veel bewoners een van de prettigste.',
+    voor: ['Kijk of er afspraken zijn over consistentie, hulpmiddelen of houding.',
+      'Zorg dat iemand rechtop zit, met de voeten op de grond of gesteund.',
+      'Zet de tafel rustig neer: niet te veel op tafel, geen harde muziek of tv erbij.',
+      'Was je handen en laat de bewoner de zijne wassen.'],
+    stappen: ['Vertel wat er te eten is en laat kiezen waar dat kan.',
+      'Geef tijd. Eten is geen taak die af moet.',
+      'Bied kleine happen aan en wacht tot iemand geslikt heeft voor de volgende.',
+      'Laat de bewoner zoveel mogelijk zelf doen, ook als het knoeit.',
+      'Zorg dat er gedronken wordt tijdens de maaltijd.',
+      'Blijf erbij als er slikproblemen bekend zijn.'],
+    letop: ['hoesten, verslikken of een natte stem na het slikken',
+      'eten dat in de mond blijft liggen', 'hoeveel er daadwerkelijk op gaat',
+      'gewichtsverandering over langere tijd', 'weigeren van eten dat eerder wel lukte',
+      'pijn in de mond die het eten beïnvloedt', 'of iemand genoeg drinkt'],
+    waardigheid: ['Ga zitten als je iemand helpt met eten. Staand voeren is niet gelijkwaardig.',
+      'Eén persoon per bewoner, geen twee tegelijk.',
+      'Gebruik gewoon bestek en gewoon servies waar dat kan.',
+      'Veeg niet elke hap de mond af.'],
+    na: ['Laat iemand na de maaltijd nog even rechtop zitten, zeker bij slikproblemen.',
+      'Zorg voor mondzorg na het eten.', 'Rapporteer opvallende inname.'],
+    schakel: [['verslikken, hoesten of een natte stem', 'Logopedie — en bij acute verslikking de medische route'],
+      ['gewichtsverlies of structureel te weinig eten', 'Diëtist en medische dienst'],
+      ['eten lukt motorisch steeds moeilijker', 'Ergotherapie'],
+      ['pijn in de mond', 'Medische dienst of tandarts']],
+    protocol: 'eten aan tafel, eten op bed'
+  },
+
+  verzorging: {
+    doel: 'Haar, nagels, scheren en huid. De dingen waaraan je ziet of iemand verzorgd wordt of alleen schoongemaakt.',
+    voor: ['Kijk wat de bewoner gewend is en wat hij mooi vindt.',
+      'Leg materiaal klaar en zorg voor privacy waar dat past.'],
+    stappen: ['Haar: kammen of borstelen zoals de bewoner het draagt, niet zoals het snel gaat.',
+      'Nagels: kort en recht knippen, randen vijlen. Voetnagels alleen als dat is afgesproken.',
+      'Scheren: volgens gewoonte, met aandacht voor de huid.',
+      'Huid: crème aanbrengen volgens de afspraken, met aandacht voor droge plekken.',
+      'Oren en neus: alleen de buitenkant, nooit met wattenstaafjes naar binnen.'],
+    letop: ['ingegroeide nagels, kloven, schimmel', 'droge of schilferige huid',
+      'plekjes, moedervlekken die veranderen', 'wondjes na het scheren',
+      'haaruitval of jeuk op de hoofdhuid'],
+    waardigheid: ['Vraag hoe iemand het wil, ook als je het antwoord denkt te weten.',
+      'Verzorging is geen luxe die overblijft als er tijd is. Het hoort bij de zorg.',
+      'Laat mensen er verzorgd uitzien zoals zij dat zelf zouden willen.'],
+    na: ['Ruim materiaal op en reinig het.', 'Meld bijzonderheden aan de huid.'],
+    schakel: [['diabetes of een doorbloedingsprobleem: voetnagels', 'Pedicure of medische dienst — niet zelf knippen'],
+      ['huidafwijkingen of wondjes', 'Medische dienst'],
+      ['verzorging wordt steeds vaker geweigerd', "PB'er → E of coach"]],
+    protocol: 'persoonlijke verzorging, haar wassen, nagelverzorging'
+  }
+};
 
 /* ===================== INWERKEN ===================== */
 
@@ -3475,6 +3681,9 @@ function viewBasiszorg() {
 
   h += '<div class="card"><p class="uitleg">Praktische kaarten voor de dingen die je iedere dienst doet. ' +
     'Kort, met beeld, zodat je ze even kunt pakken zonder een systeem te openen.</p>' +
+    '<p class="uitleg" style="margin-top:10px">De teksten hieronder zijn voor deze woning uitgeschreven op basis van ' +
+    'algemeen vakmanschap. Ze zijn geen kopie van een protocol en vervangen er ook geen. Laat ze nakijken door iemand ' +
+    'die bekwaam is, en pas ze aan als jullie het anders doen.</p>' +
     '<div class="waarschuwing">Een kaart hier is een geheugensteun. Hij vervangt niet het cliëntplan, ' +
     'de Ipse-procedure, het medisch protocol, het Vilans-protocol of de afspraken over bevoegd en bekwaam. ' +
     'Verschillen ze? Dan is de officiële actuele bron leidend.</div></div>';
@@ -3504,7 +3713,48 @@ function basiszorgKaart(b) {
   if (b.id === 'mondzorg') return kaartMondzorg();
   if (b.id === 'kamer') return kaartKamer();
   if (b.id === 'adl') return kaartADL();
-  return '';
+  return zorgkaart(b);
+}
+
+/* Eén opmaak voor alle uitgeschreven zorghandelingen. */
+function zorgkaart(b) {
+  var z = ZORGKAARTEN[b.id];
+  if (!z) {
+    return '<div class="card" style="margin-top:16px"><h3>' + esc(b.titel) + '</h3>' +
+      '<p class="uitleg">Deze kaart is nog niet uitgewerkt.</p>' + protocolKnop(b.titel) + '</div>';
+  }
+  function blok(kop, icoonNaam, punten, soort) {
+    if (!punten || !punten.length) return '';
+    var lijst = soort === 'chips'
+      ? '<div class="chips" style="margin-top:8px">' + punten.map(function (t) {
+          return '<span class="chip">' + esc(t) + '</span>'; }).join('') + '</div>'
+      : soort === 'genummerd'
+        ? '<ol class="genummerd" style="margin-top:6px">' + punten.map(function (t) {
+            return '<li>' + esc(t) + '</li>'; }).join('') + '</ol>'
+        : '<ul class="' + (soort || 'stiplijst') + '" style="margin-top:6px">' + punten.map(function (t) {
+            return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
+    return '<div class="format-blok"><div class="format-blok-kop">' + ico(icoonNaam) +
+      '<h4>' + esc(kop) + '</h4></div>' + lijst + '</div>';
+  }
+
+  return '<div class="format" id="bz-' + b.id + '"><div class="format-kop">' + ico(b.icoon) +
+    '<div><h2>' + esc(b.titel) + '</h2><p>' + esc(z.doel) + '</p></div></div>' +
+    '<div class="format-body">' +
+    blok('Voorbereiden', 'vink', z.voor, 'vinklijst') +
+    blok('Zo doe je het', 'pijl', z.stappen, 'genummerd') +
+    blok('Waar let je op?', 'let', z.letop, 'chips') +
+    (z.wanneer ? blok('Wanneer?', 'klok', z.wanneer, 'chips') : '') +
+    blok('Waardigheid en privacy', 'hart', z.waardigheid, 'stiplijst') +
+    blok('Na afloop', 'kompas', z.na, 'stiplijst') +
+    (z.schakel ? '<div class="format-blok"><div class="format-blok-kop">' + ico('telefoon') +
+      '<h4>Wie schakel je in?</h4></div><div class="wie-blok" style="margin-top:8px">' +
+      z.schakel.map(function (w) {
+        return '<div class="wie-rij"><span>' + esc(w[0]) + '</span><b>→ ' + esc(w[1]) + '</b></div>';
+      }).join('') + '</div></div>' : '') +
+    '<div class="waarschuwing">Wat er voor déze bewoner is afgesproken staat in het officiële dossier en gaat altijd voor. ' +
+    'Voer alleen uit wat je mag en kunt.</div>' +
+    protocolKnop(z.protocol) +
+    '</div></div>';
 }
 
 function kaartOntlasting() {
@@ -4327,7 +4577,11 @@ function zoekIndex() {
   INWERKDAGEN.forEach(function (d) { add('Inwerken', d[0], d[1].join(' '), null); });
   INWERKDELEN.forEach(function (d) { add('Inwerken', d[0], d[2].join(' '), null); });
   LEERLIJST.forEach(function (l) { add('Inwerken', 'Leren: ' + l, 'vilans protocol oefenen meekijken feedback', null); });
-  BASISZORG.forEach(function (b) { add('Basiszorg', b.titel, b.kern, { openBasiszorg: b.id }); });
+  BASISZORG.forEach(function (b) {
+    var z = ZORGKAARTEN[b.id];
+    var tekst = b.kern + (z ? ' ' + z.doel + ' ' + (z.stappen || []).join(' ') + ' ' + (z.letop || []).join(' ') : '');
+    add('Basiszorg', b.titel, tekst, { openBasiszorg: b.id });
+  });
   ONTLASTING_VORMEN.forEach(function (v) { add('Basiszorg', 'Ontlasting ' + v[0] + ' — ' + v[1], v[2], { openBasiszorg: 'ontlasting' }); });
   MONDZORG.letop.forEach(function (t) { add('Basiszorg', 'Mondzorg: let op ' + t, 'mondzorg tanden poetsen gebit', { openBasiszorg: 'mondzorg' }); });
   WIE_NODIG.forEach(function (w) { add('Wie heb ik nodig?', w[0], w[1] + ' ' + w[2].join(' '), null); });
