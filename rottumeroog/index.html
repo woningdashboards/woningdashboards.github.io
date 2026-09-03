@@ -469,6 +469,99 @@ body.presenteren main { padding-top: 10px; }
 
 
 
+
+/* ---------- beeld ---------- */
+.fotorij { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+figure.foto { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden; break-inside: avoid; }
+figure.foto img { display: block; width: 100%; height: auto; background: var(--idle-bg); }
+figure.foto figcaption { padding: 10px 12px; }
+figure.foto b { display: block; font-size: 14px; }
+figure.foto span { display: block; font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+
+.quote { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start;
+  background: var(--surface-2); border-left: 3px solid var(--jordy); border-radius: 0 10px 10px 0;
+  padding: 14px 16px; margin-top: 18px; }
+.quote .ico { color: var(--jordy); margin-top: 2px; }
+.quote p { font-size: 16px; font-weight: 600; max-width: 56ch; }
+
+.in10 { background: var(--regel-bg); color: var(--regel-fg); border-radius: 12px; padding: 16px 18px; margin-top: 18px; }
+.in10-kop { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; opacity: .7; }
+.in10-rij { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+.in10-stap { background: rgba(255,255,255,.12); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+.in10-pijl { opacity: .55; }
+
+/* ---------- eigen tekeningen ---------- */
+.tek-gebit { width: 100%; max-width: 320px; height: auto; display: block; margin: 0 auto;
+  color: var(--tenne); }
+.tek-boog { fill: none; stroke: var(--ink-faint); stroke-width: 2.5; }
+.tek-boog.binnen { stroke-dasharray: 4 4; }
+.tek-pijl { fill: none; stroke: currentColor; stroke-width: 2; opacity: .55; }
+.tek-punt { fill: var(--tenne); }
+.tek-nr { fill: #fff; font-size: 10px; font-weight: 700; text-anchor: middle; font-family: var(--sans); }
+.tek-label { fill: var(--ink-faint); font-size: 10px; text-anchor: middle; font-family: var(--mono);
+  letter-spacing: .1em; text-transform: uppercase; }
+
+.handrij { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 12px; }
+.handstap { background: var(--surface-2); border-radius: 10px; padding: 12px; text-align: center; }
+.handstap svg { width: 48px; height: 48px; fill: none; stroke: var(--navy); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; }
+.handstap b { display: block; font-size: 13px; margin-top: 6px; }
+.handstap i { font-style: normal; font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+
+.vlakken { display: grid; gap: 0; margin-top: 12px; }
+.vlakrij { display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid var(--line-soft); }
+.vlakrij:last-child { border-bottom: 0; }
+.vlaknr { width: 22px; height: 22px; border-radius: 50%; background: var(--tenne); color: #fff;
+  display: grid; place-items: center; font-size: 12px; font-weight: 600; }
+.vlakrij b { display: block; font-size: 14.5px; }
+.vlakrij span { font-size: 13.5px; color: var(--ink-soft); }
+
+/* ---------- belkaart aan de muur ---------- */
+.muurkaart { background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px;
+  padding: clamp(16px, 2.6vw, 24px); box-shadow: var(--shadow); break-inside: avoid; }
+.muurrij { display: grid; grid-template-columns: 34px 1fr auto; gap: 14px; align-items: center;
+  padding: 13px 0; border-bottom: 1px solid var(--line-soft); }
+.muurrij:last-child { border-bottom: 0; }
+.muurrij .ico { width: 24px; height: 24px; color: var(--navy); }
+.muurrij .m-wat { font-size: 15px; font-weight: 600; }
+.muurrij .m-naar { font-size: 14px; color: var(--ink-soft); text-align: right; }
+.muurrij .m-nr { display: block; font-family: var(--mono); font-size: 15px; color: var(--tenne); font-weight: 700; }
+.muurrij.medisch .ico { color: var(--tenne); }
+@media (max-width: 560px) { .muurrij { grid-template-columns: 30px 1fr; } .muurrij .m-naar { grid-column: 2; text-align: left; } }
+
+/* ---------- visuele inwerkroute ---------- */
+.route-dagen { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+.dagkaart { background: var(--surface-2); border-radius: 12px; padding: 14px; display: grid; gap: 6px;
+  border-top: 3px solid var(--navy); }
+.dagkaart .ico { color: var(--navy); }
+.dagkaart .dk-dag { font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-faint); }
+.dagkaart b { font-size: 14.5px; }
+.dagkaart.evaluatie { border-top-color: var(--tenne); background: var(--warn-bg); }
+.dagkaart.evaluatie .ico { color: var(--tenne); }
+
+/* ---------- visiekaarten ---------- */
+.visiekaarten { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 14px; }
+.visiekaart { background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px; box-shadow: var(--shadow); display: grid; gap: 8px; }
+.visiekaart .ico { width: 30px; height: 30px; color: var(--tenne); }
+.visiekaart b { font-size: 16px; }
+.visiekaart span { font-size: 14px; color: var(--ink-soft); }
+.visiekaart em { font-style: normal; font-size: 14.5px; font-weight: 600; color: var(--navy); }
+
+/* ---------- spanningsmeter ---------- */
+.meterbalk { display: flex; border-radius: 999px; overflow: hidden; margin-top: 12px; height: 34px; }
+.meterdeel { flex: 1; display: grid; place-items: center; font-size: 12.5px; font-weight: 600; color: #fff; }
+
+@media print {
+  figure.foto { break-inside: avoid; }
+  .fotorij { grid-template-columns: repeat(2, 1fr); }
+  .in10 { background: #f2efef !important; color: #282727 !important; border: 1pt solid #ccc; }
+  .in10-stap { background: #fff !important; border: .5pt solid #ccc; }
+}
+
 /* ---------- basiszorg ---------- */
 .hoofdstukkaart .bz-kern { font-size: 12.5px; color: var(--ink-faint); line-height: 1.45; }
 .hoofdstukkaart.leeg { opacity: .62; }
@@ -2159,6 +2252,9 @@ var MEDISCH_NA = [
 
 /* ===================== PARAMEDISCHE DIENST ===================== */
 
+var PARAMEDISCH_CONTACT = { nummer: '088 967 1661',
+  let: 'Openingstijden en de route per discipline zijn nog niet aangeleverd. Vul die aan zodra je ze hebt.' };
+
 var PARAMEDISCH = [
   { id: 'logopedie', naam: 'Logopedie', icoon: 'praat',
     kern: 'Eten, slikken of communicatie.',
@@ -2515,6 +2611,135 @@ var ZORGKAARTEN = {
   }
 };
 
+
+/* ===================== QUOTES ===================== */
+
+var IPSE_VISIE = [
+  ['Goed leven', 'welkom', 'Wonen, meedoen en dingen doen die ertoe doen.', 'Wat maakt deze dag waardevol?'],
+  ['Eigen regie', 'kompas', 'Zelf kiezen waar dat kan, ook in kleine dingen.', 'Wat kan iemand zelf kiezen?'],
+  ['Competentie', 'puzzel', 'Kunnen wat je kunt, en leren wat erbij kan.', 'Wat kan iemand zelf of samen?'],
+  ['Verbondenheid', 'handen', 'Erbij horen, gekend worden, mensen om je heen hebben.', 'Voelt iemand zich gezien en veilig?']
+];
+
+function visieBlok() {
+  return '<div class="section-title"><h2>Waar we het voor doen</h2>' +
+    '<span class="hint">de visie van Ipse de Bruggen</span></div>' +
+    '<div class="visiekaarten">' + IPSE_VISIE.map(function (v) {
+      return '<div class="visiekaart">' + ico(v[1]) + '<b>' + esc(v[0]) + '</b>' +
+        '<span>' + esc(v[2]) + '</span><em>' + esc(v[3]) + '</em></div>';
+    }).join('') + '</div>';
+}
+
+var QUOTES = [
+  ['Niet gezien is iets anders dan niet verantwoordelijk.', 'cultuur'],
+  ['Zie je iets dat beter kan? Geef het aan.', 'cultuur'],
+  ['Niet klagen zonder het bespreekbaar te maken.', 'cultuur'],
+  ['Minder woorden. Meer duidelijkheid.', 'begeleiden'],
+  ['Rust bij jezelf geeft rust in de begeleiding.', 'begeleiden'],
+  ['Een nette woning is óók zorg.', 'woning'],
+  ['Niet alles overnemen wat iemand zelf kan.', 'begeleiden'],
+  ['Wat heeft deze bewoner van mij nodig?', 'begeleiden'],
+  ['Twijfel je medisch? Bel.', 'medisch'],
+  ['Een signaleringsplan werkt alleen als je het ook gebruikt.', 'begeleiden'],
+  ['Wie doet het? Wanneer? En wie controleert?', 'team'],
+  ['Als niemand eigenaar is, gebeurt het meestal niet.', 'team'],
+  ['Even melden kost minder tijd dan drie weken ergernis.', 'cultuur'],
+  ['Een kapotte stoel repareert zichzelf waarschijnlijk niet.', 'woning'],
+  ['De voorraadkast vult zichzelf helaas nog niet aan.', 'woning'],
+  ['Een map die niemand kan vinden is eigenlijk geen informatie.', 'kennis'],
+  ['Moet je vijf collega’s vragen waar iets staat? Dan staat het niet goed.', 'kennis'],
+  ['Zie je het liggen? Geef het een plek.', 'woning']
+];
+
+function quote(soort) {
+  var pas = QUOTES.filter(function (q) { return !soort || q[1] === soort; });
+  if (!pas.length) pas = QUOTES;
+  var q = pas[Math.floor(Math.random() * pas.length)];
+  return '<div class="quote">' + ico('praat') + '<p>' + esc(q[0]) + '</p></div>';
+}
+
+/* ===================== IN 10 SECONDEN ===================== */
+
+function kort(titel, stappen) {
+  return '<div class="in10"><span class="in10-kop">' + esc(titel) + ' — in 10 seconden</span>' +
+    '<div class="in10-rij">' + stappen.map(function (t, i) {
+      return (i ? '<span class="in10-pijl">→</span>' : '') + '<span class="in10-stap">' + esc(t) + '</span>';
+    }).join('') + '</div></div>';
+}
+
+/* ===================== AFBEELDINGEN ===================== */
+
+/* Foto's en illustraties staan in de map fotos/ naast dit bestand.
+   Elke afbeelding weet bij welke woning en bij welk onderwerp hij hoort. */
+var FOTO_PLEKKEN = ['Welkom', 'Huisregels', 'Dagprogramma', 'Werkwijzen', 'Basiszorg',
+  'Wie heb ik nodig?', 'Inwerken', 'Kennis', 'Procedures'];
+
+var FOTO_ONDERWERPEN = ['', 'douchen', 'wassen', 'kleden', 'toilet', 'handen', 'eten', 'bed',
+  'verzorging', 'mondzorg', 'kamer', 'ontlasting', 'adl', 'voorraad', 'schoonmaak', 'was',
+  'materialen', 'ruimtes', 'mappen'];
+
+function fotosVoor(plek, onderwerp) {
+  return (state.fotos || []).filter(function (f) {
+    if (f.plek !== plek) return false;
+    if (onderwerp != null && (f.onderwerp || '') !== onderwerp) return false;
+    if (state.ui.print && f.print === 'Nee') return false;
+    if (!state.ui.print && f.digitaal === 'Nee') return false;
+    return true;
+  });
+}
+
+function fotoBlok(plek, onderwerp) {
+  var lijst = fotosVoor(plek, onderwerp);
+  if (!lijst.length) return '';
+  return '<div class="fotorij">' + lijst.map(function (f) {
+    return '<figure class="foto">' +
+      '<img src="' + esc(f.bestand) + '" alt="' + esc(f.alt || f.titel) + '" loading="lazy">' +
+      '<figcaption><b>' + esc(f.titel) + '</b>' +
+      (f.uitleg ? '<span>' + esc(f.uitleg) + '</span>' : '') + '</figcaption></figure>';
+  }).join('') + '</div>';
+}
+
+/* ===================== EIGEN ILLUSTRATIES ===================== */
+
+/* Gebit van boven gezien, met de poetsroute erover. */
+function tekeningGebit() {
+  return '<svg class="tek-gebit" viewBox="0 0 260 200" role="img" aria-label="Poetsroute over het gebit">' +
+    '<text x="130" y="14" class="tek-label">Bovenkaak</text>' +
+    '<path class="tek-boog" d="M40 100a90 62 0 01180 0"/>' +
+    '<path class="tek-boog binnen" d="M70 100a60 40 0 01120 0"/>' +
+    '<text x="130" y="196" class="tek-label">Onderkaak</text>' +
+    '<path class="tek-boog" d="M40 108a90 62 0 00180 0"/>' +
+    '<path class="tek-boog binnen" d="M70 108a60 40 0 00120 0"/>' +
+    '<path class="tek-pijl" d="M46 96c30-40 138-40 168 0" marker-end="url(#pijlpunt)"/>' +
+    '<circle class="tek-punt" cx="46" cy="96" r="9"/><text class="tek-nr" x="46" y="100">1</text>' +
+    '<circle class="tek-punt" cx="130" cy="72" r="9"/><text class="tek-nr" x="130" y="76">2</text>' +
+    '<circle class="tek-punt" cx="214" cy="96" r="9"/><text class="tek-nr" x="214" y="100">3</text>' +
+    '<circle class="tek-punt" cx="46" cy="112" r="9"/><text class="tek-nr" x="46" y="116">4</text>' +
+    '<circle class="tek-punt" cx="130" cy="136" r="9"/><text class="tek-nr" x="130" y="140">5</text>' +
+    '<circle class="tek-punt" cx="214" cy="112" r="9"/><text class="tek-nr" x="214" y="116">6</text>' +
+    '<defs><marker id="pijlpunt" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">' +
+    '<path d="M0 0l7 3.5L0 7z" fill="currentColor"/></marker></defs>' +
+    '</svg>';
+}
+
+/* De vier gebieden waar je langsgaat, met de kant erbij. */
+var POETSVLAKKEN = [
+  ['Buitenkant', 'De kant naar de wang toe. Kleine rondjes, langs de tandvleesrand.'],
+  ['Binnenkant', 'De kant naar de tong toe. Wordt het vaakst overgeslagen.'],
+  ['Kauwvlakken', 'De bovenkant van de kiezen. Heen en weer.'],
+  ['Tandvleesrand', 'Waar tand en tandvlees elkaar raken. Daar begint tandvleesontsteking.']
+];
+
+/* Handhygiëne in zes beelden. */
+var HANDSTAPPEN = [
+  ['Handpalmen', '<path d="M14 30c0-8 4-14 10-14s10 6 10 14M22 30c0-8 4-14 10-14s10 6 10 14"/>'],
+  ['Rug van de hand', '<path d="M12 32V18a4 4 0 018 0M20 32V14a4 4 0 018 0M28 32V16a4 4 0 018 0M36 32v-8"/><path d="M12 30h24v6H12z"/>'],
+  ['Tussen de vingers', '<path d="M16 34V14M22 34V12M28 34V12M34 34V14"/><path d="M14 22h22"/>'],
+  ['Vingertoppen', '<path d="M24 34V18a6 6 0 0112 0"/><circle cx="30" cy="14" r="4"/>'],
+  ['Duimen', '<path d="M18 32V20a5 5 0 0110 0v4"/><path d="M28 24c4-4 8-2 8 2s-4 8-10 8"/>'],
+  ['Polsen', '<path d="M16 16h16v10H16z"/><path d="M14 30h20v6H14z"/>']
+];
+
 /* ===================== INWERKEN ===================== */
 
 var LEERSTAPPEN = ['uitleg gehad', 'meegekeken', 'protocol gelezen', 'onder begeleiding geoefend', 'feedback gehad'];
@@ -2535,7 +2760,7 @@ var ADL_LEERROUTE = [
 
 var INWERKDELEN = [
   ['Welkom en de woning', 'welkom', ['de visie van Ipse de Bruggen', 'onze doelgroep', 'rondleiding',
-    'huisregels', 'dagprogramma', 'leerlijst', 'de teamrollen', 'waar staat welke informatie?']],
+    'huisregels', 'dagprogramma', 'leerlijst', 'fotos', 'de teamrollen', 'waar staat welke informatie?']],
   ['Cliëntbegeleiding', 'hart', ['de begeleidingshouding van deze woning', 'Samen 100 en het gewone leven',
     'Triple-C of LACCS waar dat past', 'spanning herkennen', 'communicatie',
     'signaleringsplannen kunnen vinden in de officiële systemen',
@@ -2645,6 +2870,7 @@ function seed() {
     },
     huisregels: HUISREGELS.map(function (g) { return { id: uid('hr'), kop: g[0], punten: g[1].slice() }; }),
     dagprogramma: DAGPROGRAMMA.map(function (d) { return { id: uid('dp'), kop: d[0], punten: d[1].slice() }; }),
+    fotos: [],
     leerlijst: {},
     defecten: [],
     verbeterpunten: [],
@@ -2692,6 +2918,7 @@ function migreer(s) {
   if (!s.huisregels) s.huisregels = basis.huisregels;
   if (!s.dagprogramma) s.dagprogramma = basis.dagprogramma;
   if (!s.leerlijst) s.leerlijst = {};
+  if (!s.fotos) s.fotos = [];
   if (s.ikBen == null) s.ikBen = '';
   /* Opgeslagen versies van vóór de opschoning kunnen nog cliëntgegevens bevatten. */
   delete s.clienten; delete s.vms; delete s.pb;
@@ -2729,7 +2956,7 @@ var SYNC = {
 
 /* Dit delen we. De rest (welk tabblad je openhebt, wie je bent) blijft per apparaat. */
 var GEDEELD = ['fase', 'focus', 'focusPunten', 'weekPunten', 'fases', 'acties', 'afspraken',
-  'teamrollen', 'kennis', 'procedures', 'defecten', 'verbeterpunten', 'huisregels', 'dagprogramma', 'leerlijst',
+  'teamrollen', 'kennis', 'procedures', 'defecten', 'verbeterpunten', 'huisregels', 'dagprogramma', 'leerlijst', 'fotos',
   'log', 'medewerkers', 'onboarding'];
 
 var CODE_KEY = KEY + '-code';
@@ -3533,7 +3760,12 @@ function blokKijken() {
 
 function blokSpanning() {
   return '<div class="section-title"><h2>Spanningsmeter</h2><span class="hint">algemene kijkhulp</span></div>' +
-    '<div class="card"><div class="waarschuwing">Dit is een <strong>algemene</strong> kijkhulp. Het cliëntspecifieke signaleringsplan blijft leidend.</div></div>' +
+    '<div class="card"><div class="meterbalk">' + SPANNING.map(function (x) {
+      return '<span class="meterdeel" style="background:' + x.kleur + '">' + esc(x.k) + '</span>';
+    }).join('') + '</div>' +
+    '<p class="uitleg" style="margin-top:10px">Hoe verder naar rechts, hoe minder iemand kan verwerken — ' +
+    'en hoe minder jij moet vragen. Doe minder, niet meer.</p>' +
+    '<div class="waarschuwing">Dit is een <strong>algemene</strong> kijkhulp. Het cliëntspecifieke signaleringsplan blijft leidend.</div></div>' +
     '<div class="grid" style="margin-top:14px">' + SPANNING.map(function (s) {
       return '<div class="card" style="border-left:5px solid ' + s.kleur + '">' +
         '<div class="kop-rij"><h3 style="color:' + s.kleur + '">' + esc(s.k) + ' — ' + esc(s.t) + '</h3></div>' +
@@ -3679,6 +3911,7 @@ function viewBasiszorg() {
   var h = '<div class="section-title"><h2>Basiszorg in beeld</h2>' +
     '<span class="hint">snel naslaan tijdens je dienst</span></div>';
 
+  h += fotoBlok('Basiszorg', '');
   h += '<div class="card"><p class="uitleg">Praktische kaarten voor de dingen die je iedere dienst doet. ' +
     'Kort, met beeld, zodat je ze even kunt pakken zonder een systeem te openen.</p>' +
     '<p class="uitleg" style="margin-top:10px">De teksten hieronder zijn voor deze woning uitgeschreven op basis van ' +
@@ -3741,6 +3974,12 @@ function zorgkaart(b) {
     '<div><h2>' + esc(b.titel) + '</h2><p>' + esc(z.doel) + '</p></div></div>' +
     '<div class="format-body">' +
     blok('Voorbereiden', 'vink', z.voor, 'vinklijst') +
+    (b.id === 'handen' ? '<div class="format-blok"><div class="format-blok-kop">' + ico('vink') +
+      '<h4>De zes plekken die je vaak vergeet</h4></div><div class="handrij">' +
+      HANDSTAPPEN.map(function (hs, i) {
+        return '<div class="handstap"><svg viewBox="0 0 48 48" aria-hidden="true">' + hs[1] + '</svg>' +
+          '<b>' + esc(hs[0]) + '</b><i>' + (i + 1) + '</i></div>';
+      }).join('') + '</div></div>' : '') +
     blok('Zo doe je het', 'pijl', z.stappen, 'genummerd') +
     blok('Waar let je op?', 'let', z.letop, 'chips') +
     (z.wanneer ? blok('Wanneer?', 'klok', z.wanneer, 'chips') : '') +
@@ -3753,6 +3992,7 @@ function zorgkaart(b) {
       }).join('') + '</div></div>' : '') +
     '<div class="waarschuwing">Wat er voor déze bewoner is afgesproken staat in het officiële dossier en gaat altijd voor. ' +
     'Voer alleen uit wat je mag en kunt.</div>' +
+    fotoBlok('Basiszorg', b.id) +
     protocolKnop(z.protocol) +
     '</div></div>';
 }
@@ -3782,6 +4022,12 @@ function kaartMondzorg() {
   return '<div class="format" id="bz-mondzorg"><div class="format-kop">' + ico('vink') +
     '<div><h2>Goede mondzorg</h2><p>Systematisch poetsen, en onderweg kijken wat je tegenkomt.</p></div></div>' +
     '<div class="format-body">' +
+    tekeningGebit() +
+    '<div class="vlakken">' + POETSVLAKKEN.map(function (v, i) {
+      return '<div class="vlakrij"><span class="vlaknr">' + (i + 1) + '</span>' +
+        '<div><b>' + esc(v[0]) + '</b><span>' + esc(v[1]) + '</span></div></div>';
+    }).join('') + '</div>' +
+    fotoBlok('Basiszorg', 'mondzorg') +
     '<div class="poetsvolgorde"><span class="pv-kop">Poets in deze volgorde</span>' +
     '<div class="pv-rij">' + MONDZORG.volgorde.map(function (t, i) {
       return '<span class="pv-stap"><i>' + (i + 1) + '</i>' + esc(t) + '</span>';
@@ -3892,6 +4138,17 @@ function viewInwerkenNieuw() {
       '<ul class="stiplijst">' + d[2].map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
   }).join('') + '</div>';
 
+  h += '<div class="section-title"><h2>De route in één oogopslag</h2></div>';
+  h += '<div class="route-dagen">' + INWERKDAGEN.map(function (d, i) {
+    var kop = d[0].split('—');
+    return '<div class="dagkaart">' + ico(['welkom', 'hart', 'werk', 'let', 'praat', 'handen', 'puzzel', 'vink'][i] || 'boek') +
+      '<span class="dk-dag">Dag ' + (i + 1) + '</span>' +
+      '<b>' + esc((kop[1] || kop[0]).trim()) + '</b></div>';
+  }).join('') +
+    '<div class="dagkaart evaluatie">' + ico('kompas') + '<span class="dk-dag">Na 2 weken</span><b>Evaluatie</b></div>' +
+    '<div class="dagkaart evaluatie">' + ico('kompas') + '<span class="dk-dag">Na 6 weken</span><b>Tweede evaluatie</b></div>' +
+    '</div>';
+
   h += '<div class="section-title"><h2>De inwerkdagen</h2><span class="hint">richtlijn — het tempo hangt af van jou en het rooster</span></div>';
   h += '<div class="grid g2">' + INWERKDAGEN.map(function (d) {
     return '<div class="card"><div class="kop-rij">' + ico('boek') + '<h3 style="flex:1">' + esc(d[0]) + '</h3></div>' +
@@ -3945,6 +4202,8 @@ function viewInwerkenNieuw() {
     '<strong>Handige documenten</strong>.</p>' +
     (state.ui.print ? '' : '<button class="btn sm" data-act="ga-tab" data-tab="Documenten">Naar de formats</button>') + '</div>';
 
+  h += fotoBlok('Inwerken', null);
+  h += quote('cultuur');
   h += denkkaart('Je hoeft het niet meteen te kunnen. Je moet wel weten wanneer je het nog niet kunt.');
   return h;
 }
@@ -4014,9 +4273,14 @@ function viewWieNodig() {
   h += '<div class="section-title"><h2>Paramedische dienst</h2>' +
     '<span class="hint">ondersteuning bij functioneren</span></div>';
 
-  h += '<div class="card"><p class="uitleg">De paramedische dienst helpt wanneer een bewoner ondersteuning nodig heeft ' +
-    'bij communicatie, bewegen, eten en drinken, houding of dagelijkse vaardigheden. Niet omdat er iets mis is, ' +
-    'maar omdat iets beter kan gaan.</p></div>';
+  h += '<div class="belkaart" style="border-color:var(--navy)">' +
+    '<div class="belkaart-kop">' + ico('puzzel', 'groot') +
+    '<div><span class="eyebrow">Paramedische dienst</span>' +
+    '<a class="belnummer" style="color:var(--navy)" href="tel:' + esc(PARAMEDISCH_CONTACT.nummer.replace(/\\s/g, '')) + '">' +
+    esc(PARAMEDISCH_CONTACT.nummer) + '</a></div></div>' +
+    '<p class="belkern">Helpt wanneer een bewoner ondersteuning nodig heeft bij communicatie, bewegen, eten en drinken, ' +
+    'houding of dagelijkse vaardigheden. Niet omdat er iets mis is, maar omdat iets beter kan gaan.</p>' +
+    '<div class="waarschuwing">' + esc(PARAMEDISCH_CONTACT.let) + '</div></div>';
 
   h += '<div class="grid g2" style="margin-top:14px">' + PARAMEDISCH.map(function (p) {
     var uit = open === p.id;
@@ -4033,7 +4297,7 @@ function viewWieNodig() {
         p.wanneer.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
         (p.kernvraag ? '<div class="reflectie"><div class="l">Kernvraag</div><p>' + esc(p.kernvraag) + '</p></div>' : '') +
         (p.let ? '<div class="waarschuwing">' + esc(p.let) + '</div>' : '') +
-        '<div class="waarschuwing" style="border-left-color:var(--ink-faint)">Contactgegevens en interne route nog aanvullen.</div>' +
+        '<div class="waarschuwing" style="border-left-color:var(--ink-faint)">Bereikbaar via ' + esc(PARAMEDISCH_CONTACT.nummer) + '. ' + esc(PARAMEDISCH_CONTACT.let) + '</div>' +
         '</div>';
     }
     return k + '</div>';
@@ -4102,6 +4366,29 @@ function viewWieNodig() {
     '<strong>Noteer hier geen gegevens van bewoners.</strong> Deze pagina vertelt alleen wat je verzamelt vóórdat je belt. ' +
     'De waarden en observaties zelf horen in het officiële dossier.</div></div>';
 
+  /* ---- om uit te printen en op te hangen ---- */
+  h += '<div class="section-title"><h2>Wie bel ik?</h2><span class="hint">print deze en hang hem op</span></div>';
+  h += '<div class="muurkaart">' + [
+    ['medisch', 'Er verandert iets in de gezondheid', 'Medische dienst', MEDISCH_CONTACT.nummer + ' · ' + MEDISCH_CONTACT.tijden],
+    ['praat', 'Slikken, eten of verstaanbaarheid', 'Logopedie', PARAMEDISCH_CONTACT.nummer],
+    ['handen', 'We begrijpen elkaar niet', 'Totale communicatie', PARAMEDISCH_CONTACT.nummer],
+    ['puzzel', 'Dagelijkse handelingen of hulpmiddelen', 'Ergotherapie', PARAMEDISCH_CONTACT.nummer],
+    ['appel', 'Voeding, gewicht of dieet', 'Diëtist', PARAMEDISCH_CONTACT.nummer],
+    ['lopen', 'Bewegen, vallen of transfers', 'Fysiotherapie', PARAMEDISCH_CONTACT.nummer],
+    ['hart', 'Gedrag, spanning of begeleiding', 'PB’er → E of coach → gedragsdeskundige', ''],
+    ['kompas', 'Iets waar management over gaat', 'Manager', '']
+  ].map(function (r) {
+    return '<div class="muurrij' + (r[0] === 'medisch' ? ' medisch' : '') + '">' + ico(r[0]) +
+      '<span class="m-wat">' + esc(r[1]) + '</span>' +
+      '<span class="m-naar">' + esc(r[2]) + (r[3] ? '<span class="m-nr">' + esc(r[3]) + '</span>' : '') + '</span></div>';
+  }).join('') +
+    '<p class="uitleg" style="margin-top:14px">Bij acute onveiligheid of een mogelijk levensbedreigende situatie: ' +
+    'noodprocedure en 112 volgens de interne afspraken.</p></div>';
+
+  h += kort('Medische dienst', ['Wat is anders?', 'Meet wat kan', 'Info erbij', 'Bel bij twijfel',
+    'Voer advies uit', 'Rapporteer']);
+  h += fotoBlok('Wie heb ik nodig?', null);
+  h += quote('medisch');
   h += denkkaart('Bij twijfel: liever één keer te vroeg bellen dan één keer te laat.');
   return h;
 }
@@ -4606,6 +4893,8 @@ function zoekIndex() {
   });
   MENSEN.forEach(function (m) { add('Team', m.naam, m.rol + ' ' + m.taken.join(' '), null); });
   state.kennis.forEach(function (k) { add('Kennis', k.soort, k.bron + ' ' + k.notitie, null); });
+  (state.fotos || []).forEach(function (x) { add('Kennis', 'Afbeelding: ' + x.titel, x.uitleg + ' ' + x.plek, null); });
+  IPSE_VISIE.forEach(function (v) { add('Welkom', v[0], v[2] + ' ' + v[3], null); });
   state.onboarding.forEach(function (c) {
     c.items.forEach(function (i) { add('Inwerken', c.cat + ': ' + i.t, '', null); });
   });
@@ -4815,6 +5104,51 @@ function viewTeam() {
   return h;
 }
 
+/* ---------- Afbeeldingen ---------- */
+
+var FOTO_VELDEN = [
+  { k: 'titel', l: 'Titel', t: 'text', vol: true },
+  { k: 'bestand', l: 'Bestandsnaam of adres', t: 'text', vol: true,
+    hint: 'Zet de afbeelding in de map fotos/ naast dit bestand en vul hier bijvoorbeeld fotos/voorraadkast.jpg in.' },
+  { k: 'plek', l: 'Op welke pagina?', t: 'select', opts: FOTO_PLEKKEN },
+  { k: 'onderwerp', l: 'Bij welk onderwerp?', t: 'select', opts: FOTO_ONDERWERPEN },
+  { k: 'uitleg', l: 'Onderschrift', t: 'textarea', vol: true, optioneel: true },
+  { k: 'alt', l: 'Beschrijving voor wie het niet ziet', t: 'text', vol: true, optioneel: true },
+  { k: 'print', l: 'Meeprinten?', t: 'select', opts: ['Ja', 'Nee'] },
+  { k: 'digitaal', l: 'Digitaal tonen?', t: 'select', opts: ['Ja', 'Nee'] }
+];
+
+function fotoBeheer() {
+  var h = '<div class="section-title"><h2>Afbeeldingen</h2>' +
+    '<span class="hint">' + (state.fotos || []).length + ' in gebruik</span>' +
+    (state.ui.print ? '' : '<button class="btn sm primary" data-act="foto-nieuw">+ Afbeelding</button>') + '</div>';
+
+  h += '<div class="card"><p class="uitleg">Een foto van een voorraadkast of een opgeruimde ruimte legt in één keer uit ' +
+    'wat drie regels tekst niet lukt. Zet het bestand in de map <b>fotos/</b> naast dit dashboard en voeg hem hier toe. ' +
+    'Hij verschijnt dan op de pagina die je kiest, en in de printversie als je dat aanvinkt.</p>' +
+    '<div class="waarschuwing"><strong>Geen bewoners op de foto.</strong> Ook geen namen, documenten, medicatielijsten ' +
+    'of herkenbare persoonlijke spullen. Bij twijfel: geen foto.</div>' +
+    '<p class="uitleg" style="margin-top:10px">Deze afbeeldingen horen bij <b>' + esc(WONING.naam) + '</b>. ' +
+    'Het andere dashboard heeft zijn eigen lijst, dus er kan niets van de ene woning bij de andere terechtkomen.</p></div>';
+
+  if (!(state.fotos || []).length) {
+    h += '<div class="leeg-melding">Nog geen afbeeldingen toegevoegd.</div>';
+    return h;
+  }
+
+  h += '<div class="tabelwrap" style="margin-top:14px"><table>' +
+    '<thead><tr><th>Titel</th><th>Pagina</th><th>Onderwerp</th><th>Print</th><th>Digitaal</th><th></th></tr></thead><tbody>' +
+    state.fotos.map(function (x) {
+      return '<tr><td><b>' + esc(x.titel) + '</b><div class="wie">' + esc(x.bestand) + '</div></td>' +
+        '<td>' + esc(x.plek) + '</td><td>' + esc(x.onderwerp || '—') + '</td>' +
+        '<td>' + esc(x.print) + '</td><td>' + esc(x.digitaal) + '</td>' +
+        '<td style="white-space:nowrap">' +
+        '<button class="btn sm ghost" data-act="foto-edit" data-id="' + x.id + '">Bewerk</button> ' +
+        '<button class="btn sm ghost danger" data-act="foto-weg" data-id="' + x.id + '">Weg</button></td></tr>';
+    }).join('') + '</tbody></table></div>';
+  return h;
+}
+
 /* ---------- Kennis ---------- */
 function viewKennis() {
   var h = '<div class="section-title"><h2>Project: één bron van waarheid</h2><span class="hint">we zoeken niet meer op vijf plekken</span></div>';
@@ -4844,6 +5178,8 @@ function viewKennis() {
         '<td style="white-space:nowrap"><button class="btn sm ghost" data-act="kennis-edit" data-id="' + k.id + '">Bewerk</button>' +
         '<button class="btn sm ghost danger" data-act="kennis-weg" data-id="' + k.id + '">×</button></td></tr>';
     }).join('') + '</tbody></table></div></div>';
+  h += fotoBeheer();
+  h += quote('kennis');
   return h;
 }
 
@@ -4921,6 +5257,9 @@ function viewWelkom() {
     '<div class="mono" style="font-size:13px;margin-top:8px">' + esc(WONING.url) + '</div>' +
     '<button class="btn sm" data-act="print-menu" style="margin-top:10px">Printen</button></div>';
 
+  h += visieBlok();
+  h += fotoBlok('Welkom', null);
+  h += quote();
   h += denkkaart('Iedereen heeft recht op een goed leven.');
   return h;
 }
@@ -4941,6 +5280,7 @@ function viewHuisregels() {
       '<ul class="vinklijst">' + g.punten.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>';
   }).join('') + '</div>';
 
+  h += fotoBlok('Huisregels', null);
   h += '<div class="regel" style="margin-top:14px"><h3>ZIE JE IETS DAT BETER KAN? GEEF HET AAN.</h3>' +
     '<p>Je hoeft de oplossing niet te weten. Je moet het wel melden.</p>' +
     '<ol>' + CULTUUR_ROUTE.map(function (s) { return '<li><span>' + esc(s) + '</span></li>'; }).join('') + '</ol></div>';
@@ -4961,6 +5301,7 @@ function viewDagprogramma() {
     '<div class="waarschuwing">Wat een bewoner precies nodig heeft, staat in zijn eigen plan. Dit is het ritme van de woning, ' +
     'geen vervanging van individuele afspraken.</div></div>';
 
+  h += fotoBlok('Dagprogramma', null);
   h += '<div class="dagbalk">' + state.dagprogramma.map(function (d) {
     return '<div class="dagdeel"><div class="dagdeel-kop">' + ico(DAGICOON[d.kop] || 'klok') +
       '<h3>' + esc(d.kop) + '</h3>' +
@@ -5006,6 +5347,9 @@ function viewWerkwijzen() {
     '<p class="uitleg" style="margin-top:10px">Kom je er niet uit? Vraag het je begeleider E of coach. ' +
     'Rondklikken in een systeem dat je niet kent, is zelden een goed idee.</p></div>';
 
+  h += fotoBlok('Werkwijzen', null);
+  h += kort('Overdracht', ['Wat zag je?', 'Wat deed je?', 'Wat werkte?', 'Wat moet de volgende dienst weten?']);
+  h += quote('woning');
   h += '<div class="card" style="margin-top:14px"><div class="kop-rij">' + ico('let') + '<h3>Wat hier niet staat</h3></div>' +
     '<p class="uitleg">Mondzorg, tillen en andere handelingen met een eigen instructie: daarvoor hangen de posters en ' +
     'kaarten van Ipse in de woning, en staan de protocollen in MijnIDB. Die nemen we hier niet over — dan lopen er twee ' +
@@ -6000,6 +6344,27 @@ document.addEventListener('click', function (e) {
   if (act === 'zijbalk-toggle') {
     var zb = document.getElementById('zijbalk');
     if (zb) zb.hidden = !zb.hidden;
+    return;
+  }
+  if (act === 'foto-nieuw' || act === 'foto-edit') {
+    var nieuwF = act === 'foto-nieuw';
+    var fo = nieuwF ? { plek: 'Basiszorg', onderwerp: '', print: 'Ja', digitaal: 'Ja' }
+                    : state.fotos.filter(function (x) { return x.id === id; })[0];
+    if (!fo) return;
+    openModal(nieuwF ? 'Afbeelding toevoegen' : 'Afbeelding bewerken', FOTO_VELDEN, fo, function (d) {
+      if (nieuwF) { d.id = uid('fo'); state.fotos.push(d); }
+      else Object.keys(d).forEach(function (k) { fo[k] = d[k]; });
+      log(nieuwF ? 'Afbeelding toegevoegd' : 'Afbeelding gewijzigd', 'Kennis', d.titel || fo.titel);
+      save(); render(); toast('Opgeslagen.');
+    });
+    return;
+  }
+  if (act === 'foto-weg') {
+    var fw = state.fotos.filter(function (x) { return x.id === id; })[0];
+    if (fw && window.confirm('Afbeelding "' + fw.titel + '" verwijderen uit het dashboard?')) {
+      state.fotos = state.fotos.filter(function (x) { return x.id !== id; });
+      log('Afbeelding verwijderd', 'Kennis', fw.titel); save(); render(); toast('Verwijderd.');
+    }
     return;
   }
   if (act === 'basiszorg') {
