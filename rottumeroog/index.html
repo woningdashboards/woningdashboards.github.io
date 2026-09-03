@@ -470,6 +470,27 @@ body.presenteren main { padding-top: 10px; }
 
 
 
+
+/* ---------- poetsstappen ---------- */
+.poetsstappen { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 14px; }
+.ps-kaart { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+  display: grid; gap: 8px; break-inside: avoid; }
+.ps-kaart svg { width: 100%; max-width: 92px; height: auto; margin: 0 auto; display: block;
+  fill: none; stroke: var(--ink-soft); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ps-kaart svg .accent { stroke: var(--tenne); stroke-width: 2.4; }
+.ps-kaart svg .vlak { fill: var(--jordy); stroke: none; opacity: .5; }
+.ps-nr { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--tenne); color: #fff; font-size: 11px; font-weight: 700; }
+.ps-kaart b { font-size: 14px; }
+.ps-kaart span { font-size: 13px; color: var(--ink-soft); }
+.borstelsoort { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+.bs-kaart { border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid;
+  grid-template-columns: 56px 1fr; gap: 12px; align-items: center; }
+.bs-kaart svg { width: 56px; height: 40px; fill: none; stroke: var(--navy); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; }
+.bs-kaart b { display: block; font-size: 14.5px; }
+.bs-kaart span { font-size: 13px; color: var(--ink-soft); }
+
 /* ---------- beeld ---------- */
 .fotorij { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
 figure.foto { margin: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
@@ -2722,6 +2743,57 @@ function tekeningGebit() {
     '</svg>';
 }
 
+/* Zes stappen in beeld. Eigen tekeningen. */
+var POETSSTAPPEN = [
+  ['Ga naast of achter de bewoner staan',
+   'Zo kun je in de mond kijken en steun je het hoofd. Tegenover iemand staan werkt slechter.',
+   '<circle cx="26" cy="24" r="11"/><path d="M12 56c0-9 6-15 14-15s14 6 14 15"/>' +
+   '<circle class="accent" cx="46" cy="18" r="8"/><path class="accent" d="M40 26c6 2 9 6 9 11"/>' +
+   '<path class="accent" d="M40 27c-3 2-8 2-11 0"/>'],
+
+  ['Houd de borstel schuin op de tandvleesrand',
+   'Ongeveer in een hoek, half op de tand en half op het tandvlees. Daar begint ontsteking.',
+   '<path class="vlak" d="M16 16h30v24H16z"/><path d="M16 16h30v24H16z"/>' +
+   '<path d="M8 40h48" stroke-width="2.6"/>' +
+   '<path class="accent" d="M58 12L38 32"/><path class="accent" d="M32 28l10 10"/>' +
+   '<text x="12" y="52" font-size="7" fill="currentColor" stroke="none">tandvleesrand</text>'],
+
+  ['Maak kleine rondjes, geen harde halen',
+   'Poets zachtjes. Hard schrobben beschadigt tandvlees en helpt niet beter.',
+   '<path class="vlak" d="M14 26h36v24H14z"/><path d="M14 26h36v24H14z"/>' +
+   '<circle class="accent" cx="25" cy="38" r="6" stroke-dasharray="26 8"/>' +
+   '<path class="accent" d="M28 33l3-2 0 4"/>' +
+   '<circle class="accent" cx="39" cy="38" r="6" stroke-dasharray="26 8"/>' +
+   '<path class="accent" d="M42 33l3-2 0 4"/>'],
+
+  ['Buitenkant, binnenkant, kauwvlakken',
+   'Elk vlak apart. De binnenkant wordt het vaakst overgeslagen.',
+   '<path d="M10 20h44v10H10zM10 34h44v10H10zM10 48h30v8H10z"/>' +
+   '<text x="16" y="28" font-size="8" fill="currentColor" stroke="none">1</text>' +
+   '<text x="16" y="42" font-size="8" fill="currentColor" stroke="none">2</text>' +
+   '<text x="16" y="55" font-size="8" fill="currentColor" stroke="none">3</text>' +
+   '<path class="accent" d="M46 52h8"/>'],
+
+  ['Poets ook de tong',
+   'Daar zit veel bacterie. Rustig van achter naar voren, niet te diep.',
+   '<path d="M12 26c0-8 8-14 20-14s20 6 20 14-8 22-20 22-20-14-20-22z"/>' +
+   '<path class="vlak" d="M20 30c0-6 5-10 12-10s12 4 12 10-5 14-12 14-12-8-12-14z"/>' +
+   '<path class="accent" d="M32 46v10"/><path class="accent" d="M27 54h10v6H27z"/>'],
+
+  ['Laten spoelen en materiaal opruimen',
+   'Uitspoelen als dat kan, borstel schoonmaken, en kijken of alles goed voelt.',
+   '<path d="M18 20h28l-4 34H22z"/><path class="vlak" d="M21 32h22l-2 20H23z"/>' +
+   '<path class="accent" d="M32 8v8M26 12l2 4M38 12l-2 4"/>']
+];
+
+var BORSTELSOORTEN = [
+  ['Handtandenborstel', 'Kleine rondjes, zachte druk, systematisch langs alle vlakken.',
+   '<path d="M6 20h26l6 4-6 4H6z"/><path d="M38 22h14"/><path d="M8 16v4M14 16v4M20 16v4M26 16v4"/>'],
+  ['Elektrische borstel', 'Niet zelf poetsen: houd stil per tand en laat de borstel het werk doen.',
+   '<circle cx="12" cy="24" r="7"/><path d="M19 24h22a4 4 0 014 4v0"/><path d="M45 20v8"/>' +
+   '<path d="M8 20v-3M12 18v-3M16 20v-3"/>']
+];
+
 /* De vier gebieden waar je langsgaat, met de kant erbij. */
 var POETSVLAKKEN = [
   ['Buitenkant', 'De kant naar de wang toe. Kleine rondjes, langs de tandvleesrand.'],
@@ -4023,11 +4095,24 @@ function kaartMondzorg() {
     '<div><h2>Goede mondzorg</h2><p>Systematisch poetsen, en onderweg kijken wat je tegenkomt.</p></div></div>' +
     '<div class="format-body">' +
     tekeningGebit() +
+    '<div class="poetsstappen">' + POETSSTAPPEN.map(function (p, i) {
+      return '<div class="ps-kaart"><svg viewBox="0 0 64 64" role="img" aria-label="' + esc(p[0]) + '">' + p[2] + '</svg>' +
+        '<div><span class="ps-nr">' + (i + 1) + '</span></div>' +
+        '<b>' + esc(p[0]) + '</b><span>' + esc(p[1]) + '</span></div>';
+    }).join('') + '</div>' +
+    '<div class="borstelsoort">' + BORSTELSOORTEN.map(function (b) {
+      return '<div class="bs-kaart"><svg viewBox="0 0 56 40" aria-hidden="true">' + b[2] + '</svg>' +
+        '<div><b>' + esc(b[0]) + '</b><span>' + esc(b[1]) + '</span></div></div>';
+    }).join('') + '</div>' +
     '<div class="vlakken">' + POETSVLAKKEN.map(function (v, i) {
       return '<div class="vlakrij"><span class="vlaknr">' + (i + 1) + '</span>' +
         '<div><b>' + esc(v[0]) + '</b><span>' + esc(v[1]) + '</span></div></div>';
     }).join('') + '</div>' +
     fotoBlok('Basiszorg', 'mondzorg') +
+    '<div class="protocolregel">' + ico('let') + '<div><b>De poster van Ipse</b>' +
+    '<span>“Tandenpoetsen doe je zo!” hangt in de woning, in een versie voor de handtandenborstel en ' +
+    'een voor de elektrische. Wil je hem hier ook? Voeg hem toe via Kennis → Afbeeldingen, ' +
+    'nadat je hebt nagevraagd of dat mag — deze pagina is via een open link te bereiken.</span></div></div>' +
     '<div class="poetsvolgorde"><span class="pv-kop">Poets in deze volgorde</span>' +
     '<div class="pv-rij">' + MONDZORG.volgorde.map(function (t, i) {
       return '<span class="pv-stap"><i>' + (i + 1) + '</i>' + esc(t) + '</span>';
