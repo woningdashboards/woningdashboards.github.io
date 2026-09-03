@@ -583,6 +583,38 @@ figure.foto span { display: block; font-size: 13px; color: var(--ink-soft); marg
   .in10-stap { background: #fff !important; border: .5pt solid #ccc; }
 }
 
+
+/* ---------- meldingen ---------- */
+.meldlijst { display: grid; gap: 10px; margin-top: 14px; }
+.melding { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--line);
+  border-radius: 11px; padding: 14px; box-shadow: var(--shadow); display: grid; gap: 9px; break-inside: avoid; }
+.melding.let { border-left-color: var(--warn); }
+.melding.oud { border-left-color: var(--risk); }
+.meld-kop { display: flex; gap: 11px; align-items: flex-start; }
+.meld-kop .ico { color: var(--ink-faint); margin-top: 2px; }
+.meld-kop b { font-size: 15.5px; }
+.meld-meta { font-size: 12.5px; color: var(--ink-faint); margin-top: 2px; }
+.meld-rij { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; color: var(--ink-soft);
+  border-top: 1px solid var(--line-soft); padding-top: 9px; }
+.meld-notitie { font-size: 14px; color: var(--ink-soft); background: var(--surface-2);
+  border-radius: 8px; padding: 9px 12px; }
+.statvast { background: var(--surface); border: 1px solid var(--line); border-radius: 11px;
+  padding: 14px; box-shadow: var(--shadow); }
+.statvast .n { font-family: var(--display); font-size: 30px; line-height: 1; font-weight: 600; }
+.statvast .l { font-size: 12.5px; color: var(--ink-soft); margin-top: 7px; }
+.statvast.risk .n { color: var(--risk); } .statvast.warn .n { color: var(--warn); }
+.statvast.ok .n { color: var(--ok); } .statvast.busy .n { color: var(--busy); }
+.lijkt { border: 1px solid var(--line); border-radius: 9px; padding: 11px 13px; margin-top: 8px;
+  display: grid; gap: 5px; }
+.lijkt b { font-size: 14.5px; }
+.lijkt .pill { justify-self: start; }
+.lijkt-meta { font-size: 12.5px; color: var(--ink-faint); }
+.meldkaart-home { display: grid; gap: 10px; }
+.mk-rij { display: flex; justify-content: space-between; font-size: 14.5px;
+  padding: 7px 0; border-bottom: 1px solid var(--line-soft); }
+.mk-rij:last-of-type { border-bottom: 0; }
+.mk-rij b { font-variant-numeric: tabular-nums; }
+
 /* ---------- basiszorg ---------- */
 .hoofdstukkaart .bz-kern { font-size: 12.5px; color: var(--ink-faint); line-height: 1.45; }
 .hoofdstukkaart.leeg { opacity: .62; }
@@ -2965,7 +2997,7 @@ var ADL_LEERROUTE = [
 
 var INWERKDELEN = [
   ['Welkom en de woning', 'welkom', ['de visie van Ipse de Bruggen', 'onze doelgroep', 'rondleiding',
-    'huisregels', 'dagprogramma', 'leerlijst', 'fotos', 'de teamrollen', 'waar staat welke informatie?']],
+    'huisregels', 'dagprogramma', 'leerlijst', 'fotos', 'meldingen', 'de teamrollen', 'waar staat welke informatie?']],
   ['Cliëntbegeleiding', 'hart', ['de begeleidingshouding van deze woning', 'Samen 100 en het gewone leven',
     'Triple-C of LACCS waar dat past', 'spanning herkennen', 'communicatie',
     'signaleringsplannen kunnen vinden in de officiële systemen',
@@ -2996,6 +3028,60 @@ var DRIE_BRONNEN = [
   ['Officiële bron', 'De volledige en actuele werkinstructie of het protocol. Die is altijd leidend.', 'vink']
 ];
 
+
+/* ===================== MELDINGEN & AANVRAGEN ===================== */
+
+var MELD_CATEGORIEEN = ['Defect', 'Onderhoud', 'Nieuwe aanvraag', 'ICT', 'Facilitair',
+  'Sleutel of slot', 'Verlichting', 'Sanitair', 'Verwarming', 'Keukenapparatuur',
+  'Meubels', 'Schoonmaak of gebouw', 'Anders'];
+
+var MELD_STATUS = ['Nog te melden', 'Gemeld', 'In behandeling', 'Wacht op onderdeel of levering',
+  'Afspraak gepland', 'Opgelost', 'Geannuleerd'];
+
+var MELD_LOCATIES = ['Woonkamer', 'Keuken', 'Kantoor', 'Gang', 'Badkamer', 'Toilet',
+  'Berging', 'Wasruimte', 'Tuin', 'Buiten', 'Algemeen'];
+
+var MELD_ICOON = {
+  'Defect': 'let', 'Onderhoud': 'werk', 'Nieuwe aanvraag': 'map', 'ICT': 'puzzel',
+  'Facilitair': 'welkom', 'Sleutel of slot': 'vink', 'Verlichting': 'zon',
+  'Sanitair': 'werk', 'Verwarming': 'zon', 'Keukenapparatuur': 'eten',
+  'Meubels': 'welkom', 'Schoonmaak of gebouw': 'werk', 'Anders': 'praat'
+};
+
+var MELD_STATUSKLEUR = {
+  'Nog te melden': 'block', 'Gemeld': 'busy', 'In behandeling': 'busy',
+  'Wacht op onderdeel of levering': 'check', 'Afspraak gepland': 'check',
+  'Opgelost': 'done', 'Geannuleerd': 'idle'
+};
+
+var MELD_STAPPEN = [
+  'Levert het direct gevaar op? Maak de situatie eerst veilig en gebruik het niet meer.',
+  'Kijk in deze lijst of het al gemeld is.',
+  'Staat het er al in? Dan meld je het niet opnieuw. Vul hooguit aan wat jij ziet.',
+  'Staat het er niet in? Maak de officiële melding via de gebruikelijke route.',
+  'Zet de melding daarna hier in de lijst.',
+  'Vul het meldingsnummer in zodra je dat hebt.',
+  'Werk de status bij als er iets verandert.',
+  'Is het opgelost? Zet hem op Opgelost, dan blijft de lijst kloppen.'
+];
+
+var MELD_VELDEN = [
+  { k: 'wat', l: 'Wat is er aan de hand?', t: 'text', vol: true,
+    hint: 'Kort en zonder naam van een bewoner. Dus “fauteuil woonkamer” en niet “de stoel van…”.' },
+  { k: 'categorie', l: 'Categorie', t: 'select', opts: MELD_CATEGORIEEN },
+  { k: 'locatie', l: 'Waar?', t: 'select', opts: MELD_LOCATIES },
+  { k: 'gesignaleerd', l: 'Wanneer gezien?', t: 'date' },
+  { k: 'door', l: 'Gezien door', t: 'select', opts: [''].concat(NAMEN) },
+  { k: 'officieel', l: 'Officiële melding gemaakt?', t: 'select', opts: ['Nee', 'Ja'] },
+  { k: 'gemeldOp', l: 'Datum officieel gemeld', t: 'date' },
+  { k: 'nummer', l: 'Meldingsnummer', t: 'text', optioneel: true },
+  { k: 'route', l: 'Via welke route gemeld?', t: 'text', optioneel: true,
+    hint: 'Bijvoorbeeld het Serviceplein of de technische dienst.' },
+  { k: 'status', l: 'Status', t: 'select', opts: MELD_STATUS },
+  { k: 'afspraak', l: 'Verwachte afspraak of datum', t: 'date' },
+  { k: 'notitie', l: 'Notitie of laatste update', t: 'textarea', vol: true, optioneel: true }
+];
+
 /* ===================== HOOFDSTUKKEN ===================== */
 
 var HOOFDSTUKKEN = [
@@ -3003,12 +3089,13 @@ var HOOFDSTUKKEN = [
   { nr: 2, naam: 'Huisregels',        icoon: 'regels',   tabs: ['Huisregels'] },
   { nr: 3, naam: 'Dagprogramma',      icoon: 'klok',     tabs: ['Dagprogramma'] },
   { nr: 4, naam: 'Zo werken we hier', icoon: 'werk',     tabs: ['Werkwijzen', 'Basiszorg', 'Procedures', 'Kennis'] },
-  { nr: 5, naam: 'Zo begeleiden we',  icoon: 'hart',     tabs: ['Doelgroep', 'Begeleiden'] },
-  { nr: 6, naam: 'Wie heb ik nodig?', icoon: 'telefoon', tabs: ['Wie heb ik nodig?'] },
-  { nr: 7, naam: 'Team & stabilisatie', icoon: 'kompas',
+  { nr: 5, naam: 'Meldingen',         icoon: 'let',      tabs: ['Meldingen'] },
+  { nr: 6, naam: 'Zo begeleiden we',  icoon: 'hart',     tabs: ['Doelgroep', 'Begeleiden'] },
+  { nr: 7, naam: 'Wie heb ik nodig?', icoon: 'telefoon', tabs: ['Wie heb ik nodig?'] },
+  { nr: 8, naam: 'Team & stabilisatie', icoon: 'kompas',
     tabs: ['Overzicht', 'Route', 'Acties', 'Vaste afspraken', 'Overleggen', 'PB-overleg', 'Team', 'Bekwaamheid', 'Cultuur', 'Dit kan beter'] },
-  { nr: 8, naam: 'Handige documenten', icoon: 'map',     tabs: ['Documenten'] },
-  { nr: 9, naam: 'Inwerken',          icoon: 'boek',     tabs: ['Inwerken'] }
+  { nr: 9, naam: 'Handige documenten', icoon: 'map',     tabs: ['Documenten'] },
+  { nr: 10, naam: 'Inwerken',         icoon: 'boek',     tabs: ['Inwerken'] }
 ];
 
 function hoofdstukVan(tab) {
@@ -3065,6 +3152,7 @@ function seed() {
     },
     huisregels: HUISREGELS.map(function (g) { return { id: uid('hr'), kop: g[0], punten: g[1].slice() }; }),
     dagprogramma: DAGPROGRAMMA.map(function (d) { return { id: uid('dp'), kop: d[0], punten: d[1].slice() }; }),
+    meldingen: [],
     fotos: [],
     leerlijst: {},
     defecten: [],
@@ -3115,6 +3203,7 @@ function migreer(s) {
   if (!s.dagprogramma) s.dagprogramma = basis.dagprogramma;
   if (!s.leerlijst) s.leerlijst = {};
   if (!s.fotos) s.fotos = [];
+  if (!s.meldingen) s.meldingen = [];
   if (s.ikBen == null) s.ikBen = '';
   /* Opgeslagen versies van vóór de opschoning kunnen nog cliëntgegevens bevatten. */
   delete s.clienten; delete s.vms; delete s.pb;
@@ -3152,7 +3241,7 @@ var SYNC = {
 
 /* Dit delen we. De rest (welk tabblad je openhebt, wie je bent) blijft per apparaat. */
 var GEDEELD = ['fase', 'focus', 'focusPunten', 'weekPunten', 'fases', 'acties', 'afspraken',
-  'teamrollen', 'kennis', 'procedures', 'defecten', 'verbeterpunten', 'huisregels', 'dagprogramma', 'leerlijst', 'fotos',
+  'teamrollen', 'kennis', 'procedures', 'defecten', 'verbeterpunten', 'huisregels', 'dagprogramma', 'leerlijst', 'fotos', 'meldingen',
   'log', 'medewerkers', 'onboarding'];
 
 var CODE_KEY = KEY + '-code';
@@ -3290,7 +3379,7 @@ var VRIJ = {};
  'presenteer-menu', 'presenteer-start', 'presenteer-stop', 'pres-preset', 'dia-vorige',
  'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open', 'format-open', 'werk-wis',
  'print-menu', 'print-start', 'rondleiding', 'tour-volgende', 'tour-vorige', 'tour-sluit',
- 'tour-achtergrond', 'zijbalk-toggle', 'discipline', 'basiszorg']
+ 'tour-achtergrond', 'zijbalk-toggle', 'discipline', 'basiszorg', 'meld-wis']
   .forEach(function (a) { VRIJ[a] = true; });
 
 function vraagCode() {
@@ -3369,6 +3458,11 @@ function totaalPct() {
   state.fases.forEach(function (f) { f.items.forEach(function (i) { t++; if (i.done) d++; }); });
   return pct(d, t);
 }
+function statVast(kind, n, label) {
+  return '<div class="statvast ' + kind + '"><div class="n mono">' + n + '</div>' +
+    '<div class="l">' + esc(label) + '</div></div>';
+}
+
 function kantPct(kant) {
   var rel = state.acties.filter(function (a) { return a.kant === kant; });
   if (!rel.length) return 0;
@@ -3395,6 +3489,7 @@ function renderIkBen() {
 var VIEWS = {
   Welkom: viewWelkom, Huisregels: viewHuisregels, Dagprogramma: viewDagprogramma,
   Werkwijzen: viewWerkwijzen, Basiszorg: viewBasiszorg, Procedures: viewProcedures, Kennis: viewKennis,
+  Meldingen: viewMeldingen,
   Doelgroep: viewDoelgroep, Begeleiden: viewBegeleiden, 'Wie heb ik nodig?': viewWieNodig,
   Overzicht: viewOverzicht, Route: viewRoute, Acties: viewActies, 'Vaste afspraken': viewAfspraken,
   Overleggen: viewOverleggen, 'PB-overleg': viewPB, Team: viewTeam, Bekwaamheid: viewBekwaam,
@@ -3508,6 +3603,17 @@ function viewOverzicht() {
   h += '<div class="section-title"><h2>De vier pijlers van deze fase</h2>' +
     '<span class="hint">voortgang op basis van de acties in die categorie</span></div>';
   h += '<div class="grid g3">' + PIJLERS.map(pijlerKaart).join('') + '</div>';
+
+  var mt = meldTelling();
+  h += '<div class="section-title"><h2>Meldingen &amp; aanvragen</h2>' +
+    '<span class="hint">is het al gemeld?</span></div>';
+  h += '<div class="card"><div class="meldkaart-home">' +
+    '<div class="mk-rij"><span>Open</span><b>' + mt.open + '</b></div>' +
+    '<div class="mk-rij"><span>Nog niet officieel gemeld</span><b' + (mt.temelden ? ' style="color:var(--risk)"' : '') + '>' + mt.temelden + '</b></div>' +
+    '<div class="mk-rij"><span>Wacht op onderdeel of afspraak</span><b>' + mt.wacht + '</b></div>' +
+    '<div class="mk-rij"><span>Langer dan 30 dagen open</span><b' + (mt.lang ? ' style="color:var(--risk)"' : '') + '>' + mt.lang + '</b></div>' +
+    '<div class="mk-rij"><span>Opgelost deze maand</span><b style="color:var(--ok)">' + mt.opgelost + '</b></div>' +
+    '</div><button class="btn primary" data-act="ga-tab" data-tab="Meldingen" style="margin-top:12px">Bekijk meldingen</button></div>';
 
   h += '<div class="section-title"><h2>Ik heb een vraag — waar moet ik zijn?</h2></div>';
   h += '<div class="card"><div class="routing">' +
@@ -4541,6 +4647,184 @@ function viewInwerkenNieuw() {
   return h;
 }
 
+
+function meldDagen(m) {
+  var start = m.gesignaleerd || m.gemeldOp;
+  if (!start) return null;
+  var d = Math.round((vandaag() - new Date(start + 'T00:00:00')) / 86400000);
+  return d >= 0 ? d : null;
+}
+
+function meldOpen(m) { return m.status !== 'Opgelost' && m.status !== 'Geannuleerd'; }
+
+function meldTelling() {
+  var lijst = state.meldingen || [];
+  var maand = new Date().toISOString().slice(0, 7);
+  return {
+    open: lijst.filter(meldOpen).length,
+    behandeling: lijst.filter(function (m) { return m.status === 'In behandeling'; }).length,
+    wacht: lijst.filter(function (m) {
+      return m.status === 'Wacht op onderdeel of levering' || m.status === 'Afspraak gepland'; }).length,
+    temelden: lijst.filter(function (m) { return m.status === 'Nog te melden'; }).length,
+    opgelost: lijst.filter(function (m) {
+      return m.status === 'Opgelost' && (m.gewijzigd || '').slice(0, 7) === maand; }).length,
+    lang: lijst.filter(function (m) { var d = meldDagen(m); return meldOpen(m) && d !== null && d > 30; }).length
+  };
+}
+
+function viewMeldingen() {
+  var t = meldTelling();
+  var q = (state.ui.meldQ || '').toLowerCase().trim();
+  var lijst = (state.meldingen || []).slice().sort(function (a, b) {
+    if (meldOpen(a) !== meldOpen(b)) return meldOpen(a) ? -1 : 1;
+    return String(b.gesignaleerd || '').localeCompare(String(a.gesignaleerd || ''));
+  }).filter(function (m) {
+    if (!q) return true;
+    return (m.wat + ' ' + m.categorie + ' ' + m.locatie + ' ' + (m.nummer || '') + ' ' + (m.notitie || ''))
+      .toLowerCase().indexOf(q) !== -1;
+  });
+
+  var h = '<div class="section-title"><h2>Meldingen &amp; aanvragen</h2>' +
+    '<span class="hint">alles wat gemeld of aangevraagd is</span>' +
+    (state.ui.print ? '' : '<button class="btn sm primary" data-act="meld-nieuw">+ Melding</button>') + '</div>';
+
+  h += '<div class="regel"><h3>EERST KIJKEN OF HET AL GEMELD IS</h3>' +
+    '<p>Staat het er niet in? Dan melden en toevoegen. Zo weet iedereen waar het staat, ' +
+    'en meldt niemand hetzelfde voor de derde keer.</p></div>';
+
+  h += '<div class="grid g6" style="margin-top:14px">' +
+    statVast('busy', t.open, 'Open') +
+    statVast('risk', t.temelden, 'Nog te melden') +
+    statVast('busy', t.behandeling, 'In behandeling') +
+    statVast('warn', t.wacht, 'Wacht op afspraak') +
+    statVast('risk', t.lang, 'Langer dan 30 dagen') +
+    statVast('ok', t.opgelost, 'Opgelost deze maand') +
+    '</div>';
+
+  if (!state.ui.print) {
+    h += '<div class="card" style="margin-top:14px"><div class="zoekrij">' +
+      '<input type="search" data-zoek="meld" placeholder="Is dit al gemeld? Zoek op onderwerp, ruimte of nummer" value="' + esc(state.ui.meldQ || '') + '">' +
+      (q ? '<button class="btn sm" data-act="meld-wis">Wis</button>' : '') + '</div></div>';
+  }
+
+  if (!lijst.length) {
+    h += '<div class="leeg-melding">' + (q ? 'Niets gevonden — waarschijnlijk is dit nog niet gemeld.' :
+      'Nog geen meldingen. Zodra er iets kapot is of aangevraagd wordt, komt het hier te staan.') + '</div>';
+  } else {
+    h += '<div class="meldlijst">' + lijst.map(meldKaart).join('') + '</div>';
+  }
+
+  h += '<div class="section-title"><h2>Zie je iets kapot?</h2></div>';
+  h += '<div class="card"><ol class="genummerd">' + MELD_STAPPEN.map(function (s) {
+    return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' +
+    '<div class="waarschuwing"><strong>Dit dashboard vervangt het officiële meldsysteem niet.</strong> ' +
+    'De echte melding maak je via de gebruikelijke Ipse-route. Deze lijst laat alleen zien ' +
+    '<em>dát</em> iets gemeld is, door wie, en hoe het ervoor staat.</div></div>';
+
+  h += kort('Iets kapot', ['Veilig maken', 'Check de lijst', 'Officieel melden', 'Hier erbij zetten', 'Status bijwerken']);
+
+  h += '<div class="card" style="margin-top:14px"><div class="kop-rij">' + ico('kompas') +
+    '<h3>Waarom dit bij fase 1 hoort</h3></div>' +
+    '<p class="uitleg">Fase 1 gaat over overzicht en verantwoordelijkheid. Een kapotte stoel die drie maanden ' +
+    'blijft staan is precies wat er gebeurt als niemand weet of het gemeld is. Deze lijst maakt dat zichtbaar.</p>' +
+    '<div class="reflectie"><div class="l">Reflectievraag</div>' +
+    '<p>Als we allemaal zien dat iets kapot is, weet dan ook iemand zéker dat het gemeld en opgevolgd wordt?</p></div></div>';
+
+  h += '<div class="card" style="margin-top:14px"><div class="kop-rij">' + ico('map') + '<h3>In de papieren map</h3></div>' +
+    '<p class="uitleg">Scan deze code om direct bij de actuele lijst te komen. De digitale lijst is de hoofdlijst — ' +
+    'wat je hier op papier hebt is een momentopname.</p>' +
+    qrBlok(WONING.url + '#meldingen') + '</div>';
+
+  h += quote('woning');
+  return h;
+}
+
+function meldKaart(m) {
+  var d = meldDagen(m);
+  var oud = meldOpen(m) && d !== null && d > 30 ? ' oud' : (meldOpen(m) && d !== null && d > 7 ? ' let' : '');
+  return '<div class="melding' + oud + '">' +
+    '<div class="meld-kop">' + ico(MELD_ICOON[m.categorie] || 'let') +
+    '<div style="flex:1"><b>' + esc(m.wat) + '</b>' +
+    '<div class="meld-meta">' + esc(m.categorie) + ' · ' + esc(m.locatie || 'locatie onbekend') +
+    (m.door ? ' · gezien door ' + esc(m.door) : '') +
+    (d !== null ? ' · ' + d + ' dag' + (d === 1 ? '' : 'en') + ' geleden' : '') + '</div></div>' +
+    '<span class="pill ' + (MELD_STATUSKLEUR[m.status] || 'idle') + '">' + esc(m.status) + '</span></div>' +
+    '<div class="meld-rij">' +
+    '<span>' + (m.officieel === 'Ja'
+      ? 'Officieel gemeld' + (m.gemeldOp ? ' op ' + datumNL(m.gemeldOp) : '') +
+        (m.nummer ? ' · nummer <b>' + esc(m.nummer) + '</b>' : ' · nog geen nummer') +
+        (m.route ? ' · via ' + esc(m.route) : '')
+      : '<b style="color:var(--risk)">Nog niet officieel gemeld</b>') + '</span>' +
+    (m.afspraak ? '<span>Afspraak: ' + datumNL(m.afspraak) + '</span>' : '') +
+    '</div>' +
+    (m.notitie ? '<p class="meld-notitie">' + esc(m.notitie) + '</p>' : '') +
+    (state.ui.print ? '' :
+      '<div class="acties" style="display:flex;gap:6px;flex-wrap:wrap">' +
+      '<button class="btn sm" data-act="meld-edit" data-id="' + m.id + '">Bijwerken</button>' +
+      (meldOpen(m) ? '<button class="btn sm primary" data-act="meld-klaar" data-id="' + m.id + '">Opgelost</button>' : '') +
+      '<button class="btn sm ghost danger" data-act="meld-weg" data-id="' + m.id + '">Verwijderen</button></div>') +
+    '</div>';
+}
+
+/* Twee stappen: eerst kijken of het er al staat, dan pas het formulier. */
+function meldNieuw() {
+  openModal('Is dit al gemeld?',
+    [{ k: 'wat', l: 'Waar gaat het over?', t: 'text', vol: true,
+       hint: 'Typ een paar woorden. We kijken eerst of een collega je voor was.' }],
+    {}, function (d) {
+      var woorden = d.wat.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 2; });
+      var lijkt = (state.meldingen || []).filter(function (m) {
+        var hooi = (m.wat + ' ' + m.categorie + ' ' + m.locatie).toLowerCase();
+        return woorden.some(function (w) { return hooi.indexOf(w) !== -1; });
+      });
+      if (lijkt.length) meldGevonden(d.wat, lijkt);
+      else meldFormulier({ wat: d.wat });
+    });
+}
+
+function meldGevonden(wat, lijkt) {
+  var host = document.getElementById('modalhost');
+  host.innerHTML = '<div class="overlay" data-act="overlay"><div class="modal" role="dialog" aria-modal="true">' +
+    '<header><h3>Dit lijkt al gemeld te zijn</h3>' +
+    '<button class="btn sm ghost" data-act="modal-sluit" style="margin-left:auto">Sluiten</button></header>' +
+    '<div class="body">' +
+    '<p class="uitleg">We vonden ' + lijkt.length + ' melding' + (lijkt.length === 1 ? '' : 'en') +
+    ' die hierop lijken. Staat het er al bij? Dan hoef je niets te doen.</p>' +
+    lijkt.slice(0, 5).map(function (m) {
+      var d = meldDagen(m);
+      return '<div class="lijkt"><b>' + esc(m.wat) + '</b>' +
+        '<span class="pill ' + (MELD_STATUSKLEUR[m.status] || 'idle') + '">' + esc(m.status) + '</span>' +
+        '<span class="lijkt-meta">' + esc(m.locatie || '') +
+        (m.nummer ? ' · nummer ' + esc(m.nummer) : '') +
+        (d !== null ? ' · ' + d + ' dagen geleden' : '') + '</span></div>';
+    }).join('') +
+    '</div>' +
+    '<footer><button class="btn" data-act="modal-sluit">Het staat er al bij</button>' +
+    '<button class="btn primary" data-act="meld-toch" data-wat="' + esc(wat) + '">Toch een nieuwe melding</button></footer>' +
+    '</div></div>';
+}
+
+function meldFormulier(basis) {
+  var nieuw = !basis.id;
+  var vulling = nieuw
+    ? { wat: basis.wat || '', categorie: 'Defect', locatie: 'Algemeen',
+        gesignaleerd: new Date().toISOString().slice(0, 10), door: state.ikBen || '',
+        officieel: 'Nee', status: 'Nog te melden' }
+    : basis;
+  openModal(nieuw ? 'Melding toevoegen' : 'Melding bijwerken', MELD_VELDEN, vulling, function (d) {
+    if (nieuw) {
+      d.id = uid('me'); d.gewijzigd = new Date().toISOString().slice(0, 10);
+      state.meldingen.push(d);
+      log('Melding toegevoegd', 'Meldingen', d.wat);
+    } else {
+      Object.keys(d).forEach(function (k) { basis[k] = d[k]; });
+      basis.gewijzigd = new Date().toISOString().slice(0, 10);
+      log('Melding bijgewerkt', 'Meldingen', basis.wat + ' — ' + basis.status);
+    }
+    save(); render(); toast('Opgeslagen.');
+  });
+}
+
 /* ---------- Wie heb ik nodig? ---------- */
 function viewWieNodig() {
   var open = state.ui.openDiscipline || '';
@@ -5238,6 +5522,10 @@ function zoekIndex() {
   MENSEN.forEach(function (m) { add('Team', m.naam, m.rol + ' ' + m.taken.join(' '), null); });
   state.kennis.forEach(function (k) { add('Kennis', k.soort, k.bron + ' ' + k.notitie, null); });
   (state.fotos || []).forEach(function (x) { add('Kennis', 'Afbeelding: ' + x.titel, x.uitleg + ' ' + x.plek, null); });
+  (state.meldingen || []).forEach(function (m) {
+    add('Meldingen', m.wat, m.categorie + ' ' + m.locatie + ' ' + (m.nummer || '') + ' ' + m.status, { meldQ: m.wat });
+  });
+  add('Meldingen', 'Is dit al gemeld?', 'kapot defect melden storing aanvraag onderhoud reparatie ' + MELD_STAPPEN.join(' '), null);
   IPSE_VISIE.forEach(function (v) { add('Welkom', v[0], v[2] + ' ' + v[3], null); });
   state.onboarding.forEach(function (c) {
     c.items.forEach(function (i) { add('Inwerken', c.cat + ': ' + i.t, '', null); });
@@ -5905,14 +6193,14 @@ function tourMisschien() {
 var PRINTSETS = {
   dagelijks: { naam: 'Dagelijkse woningmap',
     uitleg: 'Alles wat je tijdens je werk nodig hebt. Zonder het uitgebreide inwerkdeel.',
-    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Werkwijzen', 'Basiszorg', 'Procedures', 'Doelgroep', 'Begeleiden', 'Wie heb ik nodig?', 'Documenten'] },
+    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Werkwijzen', 'Basiszorg', 'Meldingen', 'Procedures', 'Doelgroep', 'Begeleiden', 'Wie heb ik nodig?', 'Documenten'] },
   compleet:  { naam: 'Complete woningmap',
     uitleg: 'Het hele handboek, inclusief teamstabilisatie en inwerken.',
-    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Werkwijzen', 'Basiszorg', 'Procedures', 'Kennis', 'Doelgroep', 'Begeleiden',
+    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Werkwijzen', 'Basiszorg', 'Meldingen', 'Procedures', 'Kennis', 'Doelgroep', 'Begeleiden',
            'Wie heb ik nodig?', 'Overzicht', 'Route', 'Vaste afspraken', 'Overleggen', 'PB-overleg', 'Team', 'Cultuur', 'Documenten', 'Inwerken'] },
   inwerk:    { naam: 'Inwerkmap',
     uitleg: 'Voor een nieuwe collega: een korte introductie plus het volledige inwerkdeel.',
-    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Basiszorg', 'Wie heb ik nodig?', 'Documenten', 'Inwerken'] }
+    tabs: ['Welkom', 'Huisregels', 'Dagprogramma', 'Basiszorg', 'Meldingen', 'Wie heb ik nodig?', 'Documenten', 'Inwerken'] }
 };
 
 function printMenu() {
@@ -6431,6 +6719,15 @@ document.addEventListener('change', function (e) {
 });
 
 document.addEventListener('input', function (e) {
+  if (e.target.matches('[data-zoek="meld"]')) {
+    state.ui.meldQ = e.target.value;
+    save();
+    var pm = e.target.selectionStart;
+    render();
+    var zm = document.querySelector('[data-zoek="meld"]');
+    if (zm) { zm.focus(); try { zm.setSelectionRange(pm, pm); } catch (err) { /* geen selectie mogelijk */ } }
+    return;
+  }
   if (e.target.matches('[data-zoek="werk"]')) {
     state.ui.werkQ = e.target.value;
     save();
@@ -6493,6 +6790,7 @@ document.addEventListener('click', function (e) {
     if (extra.openFormat) state.ui.openFormat = extra.openFormat;
     if (extra.openDiscipline) state.ui.openDiscipline = extra.openDiscipline;
     if (extra.openBasiszorg) state.ui.openBasiszorg = extra.openBasiszorg;
+    if (extra.meldQ) state.ui.meldQ = extra.meldQ;
     if (extra.q) { state.ui.filter = { eigenaar: '', status: '', prioriteit: '', fase: '', kant: '', categorie: '', q: extra.q, special: '' }; }
     save(); render(); window.scrollTo(0, 0); return;
   }
@@ -6682,6 +6980,30 @@ document.addEventListener('click', function (e) {
   if (act === 'zijbalk-toggle') {
     var zb = document.getElementById('zijbalk');
     if (zb) zb.hidden = !zb.hidden;
+    return;
+  }
+  if (act === 'meld-nieuw') { meldNieuw(); return; }
+  if (act === 'meld-toch') { sluitModal(); meldFormulier({ wat: b.getAttribute('data-wat') }); return; }
+  if (act === 'meld-wis') { state.ui.meldQ = ''; save(); render(); return; }
+  if (act === 'meld-edit') {
+    var me = state.meldingen.filter(function (x) { return x.id === id; })[0];
+    if (me) meldFormulier(me);
+    return;
+  }
+  if (act === 'meld-klaar') {
+    var mk = state.meldingen.filter(function (x) { return x.id === id; })[0];
+    if (mk) {
+      mk.status = 'Opgelost'; mk.gewijzigd = new Date().toISOString().slice(0, 10);
+      log('Melding opgelost', 'Meldingen', mk.wat); save(); render(); toast('Op opgelost gezet.');
+    }
+    return;
+  }
+  if (act === 'meld-weg') {
+    var mw = state.meldingen.filter(function (x) { return x.id === id; })[0];
+    if (mw && window.confirm('Melding "' + mw.wat + '" verwijderen uit de lijst?')) {
+      state.meldingen = state.meldingen.filter(function (x) { return x.id !== id; });
+      log('Melding verwijderd', 'Meldingen', mw.wat); save(); render(); toast('Verwijderd.');
+    }
     return;
   }
   if (act === 'foto-nieuw' || act === 'foto-edit') {
@@ -7036,6 +7358,13 @@ document.getElementById('zoektop').addEventListener('input', function (e) {
 });
 
 document.getElementById('printbtn').addEventListener('click', printMenu);
+
+try {
+  var hash = (location.hash || '').replace('#', '').toLowerCase();
+  var direct = { meldingen: 'Meldingen', welkom: 'Welkom', basiszorg: 'Basiszorg',
+                 dagprogramma: 'Dagprogramma', huisregels: 'Huisregels', inwerken: 'Inwerken' }[hash];
+  if (direct) state.ui.tab = direct;
+} catch (e) { /* geen hash */ }
 
 render();
 syncOphalen(syncVolgen);
