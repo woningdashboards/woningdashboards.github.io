@@ -467,6 +467,51 @@ body.presenteren main { padding-top: 10px; }
 
 
 
+
+/* ---------- wie heb ik nodig ---------- */
+.keuzelijst { display: grid; gap: 2px; margin-top: 12px; }
+.keuzerij { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center;
+  padding: 11px 0; border-bottom: 1px solid var(--line-soft); }
+.keuzerij:last-child { border-bottom: 0; }
+.keuzerij .ico { color: var(--ink-faint); }
+.kz-vraag { font-size: 14.5px; }
+@media (max-width: 560px) { .keuzerij { grid-template-columns: 22px 1fr; } .keuzerij .pill { grid-column: 2; justify-self: start; } }
+
+.belkaart { background: var(--surface); border: 1.5px solid var(--risk); border-radius: 14px;
+  padding: clamp(16px, 2.6vw, 24px); box-shadow: var(--shadow); }
+.belkaart-kop { display: flex; gap: 16px; align-items: center; }
+.belkaart-kop .ico { color: var(--risk); }
+.belnummer { display: block; font-family: var(--display); font-size: clamp(26px, 5vw, 38px);
+  font-weight: 700; letter-spacing: -.02em; color: var(--risk); text-decoration: none; line-height: 1.1; margin-top: 2px; }
+.belnummer:hover { text-decoration: underline; }
+.beltijden { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+.belkern { margin-top: 14px; font-size: 15px; color: var(--ink); max-width: 68ch; }
+
+.denkregel { margin-top: 12px; background: var(--surface-2); border-radius: 9px; padding: 12px 14px;
+  font-size: 14.5px; color: var(--ink-soft); }
+.denkregel b { color: var(--navy); }
+
+.discipline .disc-kop { display: flex; gap: 12px; align-items: center; }
+.discipline .disc-kop .ico { width: 24px; height: 24px; color: var(--navy); }
+.discipline h3 { font-size: 16.5px; }
+.disc-kern { font-size: 14px; color: var(--ink-soft); margin-top: 2px; }
+.discipline.aan { border-color: var(--navy); }
+
+.route { display: grid; gap: 0; }
+.routestap { display: grid; grid-template-columns: 30px 1fr; gap: 14px; padding: 12px 0;
+  border-bottom: 1px solid var(--line-soft); }
+.routestap:last-child { border-bottom: 0; }
+.routebol { width: 24px; height: 24px; border-radius: 50%; background: var(--warn-bg); color: var(--warn);
+  display: grid; place-items: center; font-weight: 600; font-size: 12.5px; }
+.routestap b { display: block; font-size: 15px; }
+.routestap span { font-size: 14px; color: var(--ink-soft); }
+
+.zorgteam { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 12px; }
+.zt-kaart { background: var(--surface-2); border-radius: 10px; padding: 14px; display: grid; gap: 6px; }
+.zt-kaart .ico { color: var(--tenne); }
+.zt-kaart b { font-size: 14.5px; }
+.zt-kaart span { font-size: 13px; color: var(--ink-soft); }
+
 /* ---------- zijbalk ---------- */
 .schil { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 244px minmax(0, 1fr); gap: 0; }
 .zijbalk { border-right: 1px solid var(--line); padding: 22px 0 60px 0; align-self: start;
@@ -1820,7 +1865,11 @@ var ICOON = {
   eten:     '<path d="M6 3v8a2 2 0 004 0V3M8 11v10"/><path d="M17 3c-1.5 2-2 4-2 6h4c0-2-.5-4-2-6zM17 9v12"/>',
   maan:     '<path d="M20 14a8 8 0 01-10-10 8 8 0 1010 10z"/>',
   zon:      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>',
-  praat:    '<path d="M21 12a8 8 0 01-8 8H7l-4 3V12a8 8 0 018-8h2a8 8 0 018 8z"/>'
+  praat:    '<path d="M21 12a8 8 0 01-8 8H7l-4 3V12a8 8 0 018-8h2a8 8 0 018 8z"/>',
+  handen:   '<path d="M8 13l-3-3a2 2 0 012.8-2.8L12 11l4.2-3.8A2 2 0 0119 10l-3 3"/><path d="M4 15l5 5h6l5-5"/>',
+  puzzel:   '<path d="M10 4h4a1 1 0 011 1v1.5a1.5 1.5 0 103 0V5a1 1 0 011-1h1v4.5a1.5 1.5 0 100 3V16a1 1 0 01-1 1h-1.5a1.5 1.5 0 10-3 0V19a1 1 0 01-1 1h-4a1 1 0 01-1-1v-2a1.5 1.5 0 10-3 0v2H4V5a1 1 0 011-1h4z"/>',
+  appel:    '<path d="M12 8c-3-3-8-1-8 4 0 5 4 9 8 9s8-4 8-9c0-5-5-7-8-4z"/><path d="M12 8V5c0-1.5 1-2.5 2.5-2.5"/>',
+  lopen:    '<circle cx="13" cy="4" r="1.6"/><path d="M11 21l2-6-3-3 1-5 3 3 3 1"/><path d="M10 12l-3 2-1 4"/>'
 };
 
 function ico(naam, klasse) {
@@ -1965,6 +2014,158 @@ var FORMATS = [
       ['Wie is er op de hoogte?', []]
     ],
     slot: 'Lukt het niet om dit eerst uit te zoeken en voelt het urgent? Bel dan eerst.' }
+];
+
+
+/* ===================== MEDISCHE DIENST ===================== */
+
+var MEDISCH_CONTACT = {
+  nummer: '088 967 1660',
+  tijden: '08:30 – 16:30',
+  buiten: 'Volg de actuele interne Ipse-route voor medische vragen buiten openingstijden. ' +
+          'Staat die route hier nog niet? Vraag hem op en laat hem toevoegen.',
+  nood: 'Bij een mogelijk direct levensbedreigende situatie: volg de noodprocedure en bel 112 volgens de interne afspraken.'
+};
+
+var MEDISCH_WAARVOOR = [
+  'de bewoner is lichamelijk anders dan normaal',
+  'plotselinge verandering in alertheid',
+  'opvallend suf',
+  'koorts of ziekteverschijnselen',
+  'pijn, of het vermoeden van pijn',
+  'een wond',
+  'een val of letsel',
+  'een medicatiefout',
+  'een mogelijke bijwerking van medicatie',
+  'afwijkend eten of drinken',
+  'risico op uitdroging',
+  'afwijkende ontlasting',
+  'obstipatie',
+  'braken',
+  'verandering in de urine',
+  'problemen met de ademhaling',
+  'verandering van mobiliteit',
+  'een epileptische aanval waarbij overleg volgens de afspraken nodig is',
+  'een andere lichamelijke verandering',
+  'je twijfelt of iets medisch beoordeeld moet worden'
+];
+
+var MEDISCH_VERZAMELEN = [
+  ['Wat is er aan de hand?', 'Feitelijk, in één of twee zinnen.'],
+  ['Sinds wanneer?', ''],
+  ['Wat is anders dan normaal?', 'Voor déze bewoner, niet in het algemeen.'],
+  ['Temperatuur', 'Als dat passend is en je dit mag en kunt meten.'],
+  ['Bloeddruk', 'Alleen indien relevant en je hierin bekwaam bent.'],
+  ['Saturatie', 'Alleen indien relevant en je hierin bekwaam bent.'],
+  ['Hartslag', 'Indien relevant.'],
+  ['Alertheid en bewustzijn', 'Reageert hij zoals normaal?'],
+  ['Pijnsignalen', 'Wat zie of hoor je?'],
+  ['Eten', 'Ongeveer hoeveel heeft hij gegeten?'],
+  ['Drinken', 'Ongeveer hoeveel heeft hij gedronken?'],
+  ['Ontlasting', 'Van de afgelopen dagen, indien relevant.'],
+  ['Urine', 'Indien relevant.'],
+  ['Braken', ''],
+  ['Medicatie', 'Recente wijzigingen of een gemiste gift?'],
+  ['Val, aanval of incident', ''],
+  ['Wat heb je al gezien of gedaan?', ''],
+  ['Wat staat er in het medisch protocol van deze bewoner?', 'Kijk in het officiële dossier.']
+];
+
+var MEDISCH_GESPREK = [
+  'Wie je bent en vanaf welke woning je belt.',
+  'Over welke situatie je belt.',
+  'Wat je feitelijk ziet.',
+  'Sinds wanneer dit speelt.',
+  'Welke waarden of observaties je hebt.',
+  'Wat er al gedaan is.',
+  'Wat je vraag aan de medische dienst is.'
+];
+
+var MEDISCH_NA = [
+  'Luister het advies goed uit en herhaal het zo nodig hardop.',
+  'Voer het advies uit binnen je bevoegdheid en bekwaamheid.',
+  'Rapporteer volgens de geldende afspraken.',
+  'Informeer de collega’s die het moeten weten.',
+  'Geef het mee aan de volgende dienst.',
+  'Bel opnieuw als de situatie verandert, of als het advies dat aangeeft.'
+];
+
+/* ===================== PARAMEDISCHE DIENST ===================== */
+
+var PARAMEDISCH = [
+  { id: 'logopedie', naam: 'Logopedie', icoon: 'praat',
+    kern: 'Eten, slikken of communicatie.',
+    waarvoor: ['slikken', 'eten en drinken', 'verslikken', 'mondmotoriek', 'verstaanbaarheid',
+      'communicatie', 'moeite met spreken of begrijpen'],
+    wanneer: ['iemand verslikt zich regelmatig', 'eten of drinken gaat duidelijk moeilijker',
+      'de communicatie verandert', 'de bewoner wordt moeilijk begrepen',
+      'er zijn vragen over passende communicatie', 'er zijn vragen over slikveiligheid'],
+    let: 'Bij acute verslikking of een medisch probleem: eerst de acute of medische route.' },
+
+  { id: 'totale', naam: 'Totale communicatie', icoon: 'handen',
+    kern: 'Hoe zorgen we dat we elkaar begrijpen?',
+    waarvoor: ['gesproken taal', 'gebaren', 'pictogrammen', 'foto’s', 'voorwerpen',
+      'lichaamstaal', 'visuele ondersteuning', 'communicatiehulpmiddelen'],
+    wanneer: ['de bewoner begrijpt gesproken taal onvoldoende', 'wij begrijpen de bewoner niet goed',
+      'er ontstaat veel frustratie door communicatie', 'de bewoner krijgt te veel talige informatie',
+      'het team gebruikt verschillende manieren van communiceren',
+      'visuele ondersteuning zou kunnen helpen', 'je wilt weten hoe je informatie beter aanbiedt'],
+    kernvraag: 'Begrijpt de bewoner ons én begrijpen wij de bewoner?' },
+
+  { id: 'ergo', naam: 'Ergotherapie', icoon: 'puzzel',
+    kern: 'Hoe maken we dagelijkse handelingen mogelijk?',
+    waarvoor: ['wassen en aankleden', 'eten', 'hulpmiddelen', 'zithouding', 'prikkelverwerking',
+      'zelfstandigheid', 'de omgeving aanpassen', 'dagelijkse activiteiten veilig uitvoeren'],
+    wanneer: ['dagelijkse handelingen worden moeilijker', 'de bewoner loopt vast bij praktische taken',
+      'een hulpmiddel lijkt niet passend', 'prikkels beïnvloeden het functioneren',
+      'de kamer of woning kan anders ingericht worden',
+      'de bewoner kan misschien zelfstandiger met een aanpassing of hulpmiddel'] },
+
+  { id: 'dietist', naam: 'Diëtist', icoon: 'appel',
+    kern: 'Voeding die past bij wat iemand nodig heeft.',
+    waarvoor: ['ongewenst gewichtsverlies', 'ongewenste gewichtstoename', 'onvoldoende inname',
+      'bijzondere voedingsbehoefte', 'vragen over gezonde voeding', 'aangepast dieet',
+      'risico op tekorten', 'passende voedingsstructuur'],
+    wanneer: ['het gewicht verandert opvallend', 'de bewoner eet structureel onvoldoende',
+      'het voedingspatroon geeft zorgen', 'er is een medische voedingsvraag',
+      'een bestaand dieet moet geëvalueerd worden'],
+    let: 'Bij acute medische problemen: eerst de medische dienst.' },
+
+  { id: 'fysio', naam: 'Fysiotherapie', icoon: 'lopen',
+    kern: 'Veilig en zo goed mogelijk blijven bewegen.',
+    waarvoor: ['lopen', 'transfers', 'balans', 'mobiliteit', 'houding', 'spierkracht',
+      'vallen', 'bewegen', 'lichamelijke achteruitgang'],
+    wanneer: ['de bewoner loopt anders', 'de mobiliteit neemt af', 'hij valt regelmatig',
+      'transfers gaan moeizamer', 'de houding verandert', 'bewegen lijkt pijnlijk of moeilijk',
+      'je wilt advies over veilig bewegen'],
+    let: 'Bij plotselinge lichamelijke achteruitgang of letsel: eerst beoordelen of de medische dienst nodig is.' }
+];
+
+var DISCIPLINEKEUZE = [
+  ['Er verandert iets in de gezondheid, of ik twijfel medisch', 'Medische dienst', 'medisch', 'risk'],
+  ['Slikken, eten of verstaanbaarheid', 'Logopedie', 'praat', 'busy'],
+  ['We begrijpen elkaar niet goed', 'Totale communicatie', 'handen', 'busy'],
+  ['Dagelijkse handelingen, prikkels of hulpmiddelen', 'Ergotherapie', 'puzzel', 'busy'],
+  ['Voeding, gewicht of dieet', 'Diëtist', 'appel', 'busy'],
+  ['Bewegen, vallen of transfers', 'Fysiotherapie', 'lopen', 'busy'],
+  ['Gedrag, spanning of begeleiding', 'PB’er → E of coach → gedragsdeskundige', 'hart', 'check'],
+  ['Iets waar management over gaat', 'Manager', 'kompas', 'idle']
+];
+
+var GEDRAG_MEDISCH = [
+  ['De bewoner gedraagt zich anders', 'Begin hier. Niet bij de vraag hoe je het gedrag stopt.'],
+  ['Is er iets lichamelijks veranderd?', 'Pijn, ziekte, slapen, eten, drinken, ontlasting, medicatie, een val.'],
+  ['Ja, of ik twijfel', 'Bel de medische dienst. Liever één keer te vroeg dan één keer te laat.'],
+  ['Geen duidelijke medische aanwijzing', 'Kijk dan naar spanning, omgeving, begeleidingswijze, communicatie, dagstructuur, psychiatrie waar dat speelt, en het signaleringsplan.'],
+  ['Nog steeds niet duidelijk?', 'PB’er, begeleider E, coach of gedragsdeskundige — wat past bij de vraag.']
+];
+
+var ZORGTEAM = [
+  ['Begeleiding', 'Ziet het als eerste. Signaleert, voert uit en geeft door.', 'hart'],
+  ['Medische dienst', 'Beoordeelt wat er lichamelijk speelt.', 'medisch'],
+  ['Gedragsdeskundige', 'Helpt begrijpen wat gedrag betekent.', 'praat'],
+  ['Paramedische dienst', 'Ondersteunt bij functioneren: communicatie, bewegen, eten, dagelijkse handelingen.', 'puzzel'],
+  ['Manager en organisatie', 'Regelt de voorwaarden waar dat nodig is.', 'kompas']
 ];
 
 /* ===================== HOOFDSTUKKEN ===================== */
@@ -2266,7 +2467,7 @@ var VRIJ = {};
  'presenteer-menu', 'presenteer-start', 'presenteer-stop', 'pres-preset', 'dia-vorige',
  'dia-volgende', 'dia-scherm', 'dia-pptx', 'ik-ben', 'mw-open', 'format-open', 'werk-wis',
  'print-menu', 'print-start', 'rondleiding', 'tour-volgende', 'tour-vorige', 'tour-sluit',
- 'tour-achtergrond', 'zijbalk-toggle']
+ 'tour-achtergrond', 'zijbalk-toggle', 'discipline']
   .forEach(function (a) { VRIJ[a] = true; });
 
 function vraagCode() {
@@ -3066,47 +3267,158 @@ function blokHulp() {
 
 /* ---------- Wie heb ik nodig? ---------- */
 function viewWieNodig() {
-  var h = '<div class="section-title"><h2>Wie heb ik nodig?</h2><span class="hint">de route hangt af van de vraag</span></div>';
+  var open = state.ui.openDiscipline || '';
+  var h = '<div class="section-title"><h2>Wie heb ik nodig?</h2>' +
+    '<span class="hint">de route hangt af van je vraag</span></div>';
 
-  h += '<div class="card"><h3>Geen hiërarchie om de hiërarchie</h3>' +
-    '<p class="uitleg">Welke route je volgt, hangt af van je vráág. Bij medische twijfel hoeft een begeleider C niet eerst langs D, E en de hoofdcoach ' +
-    'voordat de medische dienst gebeld wordt. Dat kost tijd en kan onveilig zijn.</p></div>';
+  /* ---- keuzehulp bovenaan ---- */
+  h += '<div class="card"><h3>Ik zie iets — wie moet ik hebben?</h3>' +
+    '<p class="uitleg">Geen hiërarchie om de hiërarchie. Bij medische twijfel hoeft een begeleider C niet eerst langs ' +
+    'D, E en de hoofdcoach. Dat kost tijd en kan onveilig zijn.</p>' +
+    '<div class="keuzelijst">' + DISCIPLINEKEUZE.map(function (k) {
+      return '<div class="keuzerij">' + ico(k[2]) +
+        '<span class="kz-vraag">' + esc(k[0]) + '</span>' +
+        '<span class="pill ' + k[3] + '">' + esc(k[1]) + '</span></div>';
+    }).join('') + '</div></div>';
 
-  h += '<div class="grid g2" style="margin-top:14px">' + WIE_NODIG.map(function (w) {
-    return '<div class="card"><h3>' + esc(w[0]) + '</h3>' +
-      '<div><span class="pill ' + w[3] + '">→ ' + esc(w[1]) + '</span></div>' +
-      '<ul class="stiplijst">' + w[2].map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+  /* ---- medische dienst ---- */
+  h += '<div class="section-title"><h2>Medische dienst</h2>' +
+    '<span class="hint">bij medische twijfel: bellen</span></div>';
+
+  h += '<div class="belkaart">' +
+    '<div class="belkaart-kop">' + ico('medisch', 'groot') +
+    '<div><span class="eyebrow">Medische dienst</span>' +
+    '<a class="belnummer" href="tel:' + esc(MEDISCH_CONTACT.nummer.replace(/\s/g, '')) + '">' + esc(MEDISCH_CONTACT.nummer) + '</a>' +
+    '<div class="beltijden">Bereikbaar ' + esc(MEDISCH_CONTACT.tijden) + '</div></div></div>' +
+    '<p class="belkern">Iedere begeleider mag de medische dienst bellen. Je hoeft niet eerst toestemming te vragen ' +
+    'aan een PB’er, een begeleider E, een coach of de hoofdcoach.</p>' +
+    '</div>';
+
+  h += '<div class="denkkaart" style="margin-top:14px"><div class="q">!</div><div>' +
+    '<p>Je hoeft niet te weten wát iemand heeft. Je moet herkennen dát er iets anders kan zijn.</p>' +
+    '<small>Wij stellen geen diagnose. Wij observeren, verzamelen feiten en bellen.</small></div></div>';
+
+  h += '<div class="grid g2" style="margin-top:14px">' +
+    '<div class="card"><div class="kop-rij">' + ico('let') + '<h3>Waarvoor bel je?</h3></div>' +
+    '<ul class="stiplijst">' + MEDISCH_WAARVOOR.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+
+    '<div class="card"><div class="kop-rij">' + ico('vink') + '<h3>Houd dit bij de hand</h3></div>' +
+    '<p class="uitleg">Als de situatie het toelaat. Meet en verzamel wat passend en mogelijk is, ' +
+    'en alleen wat je mag en kunt doen.</p>' +
+    '<div class="letten-lijst" style="margin-top:8px">' + MEDISCH_VERZAMELEN.map(function (v) {
+      return '<div><b>' + esc(v[0]) + '</b>' + (v[1] ? '<span>' + esc(v[1]) + '</span>' : '') + '</div>';
+    }).join('') + '</div>' +
+    '<div class="waarschuwing"><strong>Stel bellen niet uit om eerst alle waarden compleet te krijgen.</strong> ' +
+    'Maak je je zorgen, of verandert de situatie snel? Bel eerst.</div></div>' +
+    '</div>';
+
+  h += '<div class="grid g2" style="margin-top:14px">' +
+    '<div class="card"><div class="kop-rij">' + ico('telefoon') + '<h3>Tijdens het gesprek</h3></div>' +
+    '<ol class="genummerd">' + MEDISCH_GESPREK.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol>' +
+    '<div class="denkregel">Dit zie ik <b>→</b> dit is anders <b>→</b> dit heb ik gezien of gemeten <b>→</b> wat adviseren jullie?</div></div>' +
+
+    '<div class="card"><div class="kop-rij">' + ico('pijl') + '<h3>Na het bellen</h3></div>' +
+    '<p class="uitleg">Bellen is niet het eindpunt.</p>' +
+    '<ul class="vinklijst">' + MEDISCH_NA.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+    '</div>';
+
+  h += '<div class="card" style="margin-top:14px"><div class="kop-rij">' + ico('maan') + '<h3>Buiten ' + esc(MEDISCH_CONTACT.tijden) + '</h3></div>' +
+    '<div class="waarschuwing" style="margin-top:0">' + esc(MEDISCH_CONTACT.buiten) + '</div>' +
+    '<div class="waarschuwing" style="border-left-color:var(--risk)"><strong>' + esc(MEDISCH_CONTACT.nood) + '</strong></div></div>';
+
+  /* ---- paramedische dienst ---- */
+  h += '<div class="section-title"><h2>Paramedische dienst</h2>' +
+    '<span class="hint">ondersteuning bij functioneren</span></div>';
+
+  h += '<div class="card"><p class="uitleg">De paramedische dienst helpt wanneer een bewoner ondersteuning nodig heeft ' +
+    'bij communicatie, bewegen, eten en drinken, houding of dagelijkse vaardigheden. Niet omdat er iets mis is, ' +
+    'maar omdat iets beter kan gaan.</p></div>';
+
+  h += '<div class="grid g2" style="margin-top:14px">' + PARAMEDISCH.map(function (p) {
+    var uit = open === p.id;
+    var k = '<div class="card discipline' + (uit ? ' aan' : '') + '">' +
+      '<div class="disc-kop">' + ico(p.icoon) +
+      '<div style="flex:1"><h3>' + esc(p.naam) + '</h3><p class="disc-kern">' + esc(p.kern) + '</p></div>' +
+      '<button class="btn sm' + (uit ? '' : ' primary') + '" data-act="discipline" data-id="' + p.id + '">' +
+      (uit ? 'Sluiten' : 'Wanneer?') + '</button></div>';
+    if (uit) {
+      k += '<div class="fase-body">' +
+        '<div><h4>Waarvoor?</h4><div class="chips">' +
+        p.waarvoor.map(function (t) { return '<span class="chip">' + esc(t) + '</span>'; }).join('') + '</div></div>' +
+        '<div><h4>Wanneer denk je hieraan?</h4><ul class="stiplijst">' +
+        p.wanneer.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+        (p.kernvraag ? '<div class="reflectie"><div class="l">Kernvraag</div><p>' + esc(p.kernvraag) + '</p></div>' : '') +
+        (p.let ? '<div class="waarschuwing">' + esc(p.let) + '</div>' : '') +
+        '<div class="waarschuwing" style="border-left-color:var(--ink-faint)">Contactgegevens en interne route nog aanvullen.</div>' +
+        '</div>';
+    }
+    return k + '</div>';
   }).join('') + '</div>';
 
-  h += '<div class="section-title"><h2>De contactlijn</h2></div>';
-  h += '<div class="grid g3">' + CONTACTLIJN.map(function (c) {
-    return '<div class="card"><h3>' + esc(c[0]) + '</h3><div class="ketting">' +
-      c[1].map(function (s, i) { return (i ? '<span class="pijl">↓</span>' : '') + '<span class="stap-blok ' + c[2] + '">' + esc(s) + '</span>'; }).join('') +
-      '</div></div>';
-  }).join('') + '</div>';
+  /* ---- medisch of paramedisch ---- */
+  h += '<div class="section-title"><h2>Medische of paramedische dienst?</h2></div>';
+  h += '<div class="grid g2">' +
+    '<div class="card" style="border-left:4px solid var(--risk)"><div class="kop-rij">' + ico('medisch') + '<h3>Medische dienst</h3></div>' +
+    '<p class="kernzin" style="font-size:16px">Is er iets met de gezondheid veranderd, of twijfel ik medisch?</p>' +
+    '<p class="uitleg">Dan bel je de medische dienst. Ook als je het niet zeker weet.</p></div>' +
+    '<div class="card" style="border-left:4px solid var(--navy)"><div class="kop-rij">' + ico('puzzel') + '<h3>Paramedische dienst</h3></div>' +
+    '<p class="kernzin" style="font-size:16px">Is er ondersteuning of onderzoek nodig rondom functioneren?</p>' +
+    '<p class="uitleg">Dan kies je de discipline die bij de vraag past.</p></div>' +
+    '</div>';
 
-  h += '<div class="section-title"><h2>De rollen waar je het snelst iets aan hebt</h2></div>';
-  h += '<div class="grid">' + ROLKAARTEN.map(function (r) {
-    return '<div class="card" style="border-left:5px solid ' + r.kleur + '">' +
-      '<h3 style="color:' + r.kleur + '">' + esc(r.naam) + '</h3>' +
-      '<p class="kernzin" style="color:' + r.kleur + ';font-size:16px">' + esc(r.kop) + '</p>' +
-      '<div class="verwacht-grid">' +
-      '<div><div class="wie">Waarvoor?</div><p class="uitleg">' + esc(r.waarvoor) + '</p></div>' +
-      '<div><div class="wie">Wanneer contact?</div><p class="uitleg">' + esc(r.wanneer) + '</p></div>' +
-      '<div><div class="wie">Wat kan ik eerst zelf?</div><p class="uitleg">' + esc(r.zelf) + '</p></div>' +
-      '<div><div class="wie">Wanneer direct?</div><p class="uitleg">' + esc(r.direct) + '</p></div>' +
+  /* ---- gedrag kan ook medisch zijn ---- */
+  h += '<div class="section-title"><h2>Gedrag kan ook medisch zijn</h2></div>';
+  h += '<div class="card"><div class="route">' + GEDRAG_MEDISCH.map(function (g, i) {
+    return '<div class="routestap"><span class="routebol">' + (i + 1) + '</span>' +
+      '<div><b>' + esc(g[0]) + '</b><span>' + esc(g[1]) + '</span></div></div>';
+  }).join('') + '</div>' +
+    '<div class="waarschuwing"><strong>Gedrag en een lichamelijk probleem sluiten elkaar niet uit.</strong> ' +
+    'Iemand kan pijn hebben, daardoor slecht slapen, daardoor gespannen raken en vervolgens ander gedrag laten zien.</div>' +
+    '<button class="btn sm" data-act="ga-tab" data-tab="Begeleiden">Naar de begeleidingspagina</button></div>';
+
+  /* ---- de overige rollen ---- */
+  h += '<div class="section-title"><h2>Gedragsdeskundige en manager</h2></div>';
+  h += '<div class="grid g2">' + ROLKAARTEN.filter(function (r) { return r.naam !== 'Medische dienst'; }).map(function (r) {
+    return '<div class="card" style="border-left:4px solid ' + r.kleur + '">' +
+      '<h3>' + esc(r.naam) + '</h3>' +
+      '<p class="kernzin" style="font-size:15.5px">' + esc(r.kop) + '</p>' +
+      '<div class="letten-lijst" style="margin-top:10px">' +
+      '<div><b>Waarvoor</b><span>' + esc(r.waarvoor) + '</span></div>' +
+      '<div><b>Wanneer contact</b><span>' + esc(r.wanneer) + '</span></div>' +
+      '<div><b>Wat kan ik eerst zelf</b><span>' + esc(r.zelf) + '</span></div>' +
+      '<div><b>Wanneer direct</b><span>' + esc(r.direct) + '</span></div>' +
       '</div>' +
-      '<h4 style="margin-top:14px">Bijvoorbeeld bij</h4>' +
-      '<ul class="stiplijst">' + r.lijst.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
-      (r.nietVoor ? '<h4 style="margin-top:14px">Dus niet standaard voor</h4><ul class="kruislijst">' +
-        r.nietVoor.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
-      (r.taak ? '<div class="waarschuwing" style="margin-top:12px"><strong>Jouw taak:</strong> ' + esc(r.taak) + '</div>' : '') +
-      (r.voorbereiden ? '<h4 style="margin-top:14px">Voorbereiden voordat je belt</h4>' +
-        '<ul class="vinklijst">' + r.voorbereiden.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
-        '<div class="waarschuwing"><strong>' + esc(r.slot) + '</strong></div>' : '') +
+      '<div class="chips" style="margin-top:10px">' + r.lijst.map(function (t) {
+        return '<span class="chip">' + esc(t) + '</span>';
+      }).join('') + '</div>' +
+      (r.nietVoor ? '<div style="margin-top:10px"><h4>Niet voor</h4><ul class="kruislijst">' +
+        r.nietVoor.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' : '') +
       '</div>';
   }).join('') + '</div>';
 
+  /* ---- contactlijn ---- */
+  h += '<div class="section-title"><h2>De contactlijn</h2></div>';
+  h += '<div class="grid g3">' + CONTACTLIJN.map(function (c) {
+    return '<div class="card"><span class="pill ' + c[2] + '">' + esc(c[0]) + '</span>' +
+      '<div class="ketting" style="margin-top:10px">' + c[1].map(function (t, i) {
+        return (i ? '<span class="pijl">↓</span>' : '') + '<span class="stap-blok ' + c[2] + '">' + esc(t) + '</span>';
+      }).join('') + '</div></div>';
+  }).join('') + '</div>';
+
+  /* ---- het team rondom goede zorg ---- */
+  h += '<div class="section-title"><h2>Het team rondom goede zorg</h2></div>';
+  h += '<div class="card"><p class="uitleg">Goede zorg is niet iets van de begeleiding alleen. Iedereen hieronder kijkt ' +
+    'vanuit zijn eigen vak naar dezelfde bewoner. Samen zie je meer dan alleen.</p>' +
+    '<div class="zorgteam">' + ZORGTEAM.map(function (z) {
+      return '<div class="zt-kaart">' + ico(z[2]) + '<b>' + esc(z[0]) + '</b><span>' + esc(z[1]) + '</span></div>';
+    }).join('') + '</div>' +
+    '<p class="uitleg" style="margin-top:12px">Binnen paramedisch: logopedie · totale communicatie · ergotherapie · diëtetiek · fysiotherapie.</p></div>';
+
+  h += '<div class="card" style="margin-top:14px"><div class="waarschuwing" style="margin-top:0">' +
+    '<strong>Noteer hier geen gegevens van bewoners.</strong> Deze pagina vertelt alleen wat je verzamelt vóórdat je belt. ' +
+    'De waarden en observaties zelf horen in het officiële dossier.</div></div>';
+
+  h += denkkaart('Bij twijfel: liever één keer te vroeg bellen dan één keer te laat.');
   return h;
 }
 
@@ -3456,7 +3768,10 @@ function presentatieDias(opt) {
 
   if (opt.bellen) {
     dias.push({ soort: 'paren', titel: 'Wie bel ik wanneer?',
-      items: [['Medisch?', 'Medische dienst — bij twijfel bellen'], ['Gedrag of begeleiding?', "PB'er → E of coach → gedragsdeskundige"],
+      items: [['Medisch?', 'Medische dienst — 088 967 1660, bij twijfel bellen'],
+              ['Slikken of communicatie?', 'Logopedie'], ['Bewegen of vallen?', 'Fysiotherapie'],
+              ['Voeding?', 'Diëtist'], ['Dagelijkse handelingen?', 'Ergotherapie'],
+              ['Gedrag of begeleiding?', "PB'er → E of coach → gedragsdeskundige"],
               ['1-op-1?', 'Othman'], ['A-kant?', 'Roderick'], ['B-kant?', 'Mekdes'],
               ['Proces of teamstructuur?', 'Shindujan'], ['Management nodig?', 'Manager']],
       kern: 'Je hoeft niet alles zelf op te lossen. Je moet wel weten wanneer je iemand betrekt.' });
@@ -3578,6 +3893,11 @@ function zoekIndex() {
   INWERKDAGEN.forEach(function (d) { add('Inwerken', d[0], d[1].join(' '), null); });
   WIE_NODIG.forEach(function (w) { add('Wie heb ik nodig?', w[0], w[1] + ' ' + w[2].join(' '), null); });
   ROLKAARTEN.forEach(function (r) { add('Wie heb ik nodig?', r.naam, r.kop + ' ' + r.waarvoor + ' ' + r.lijst.join(' '), null); });
+  PARAMEDISCH.forEach(function (p) {
+    add('Wie heb ik nodig?', p.naam, p.kern + ' ' + p.waarvoor.join(' ') + ' ' + p.wanneer.join(' '), { openDiscipline: p.id });
+  });
+  add('Wie heb ik nodig?', 'Medische dienst bellen', 'medisch bellen telefoon nummer 088 967 1660 twijfel koorts pijn wond val ' + MEDISCH_WAARVOOR.join(' '), null);
+  DISCIPLINEKEUZE.forEach(function (k) { add('Wie heb ik nodig?', k[0], k[1], null); });
 
   add('Procedures', 'Hoe maak ik een VMS?', 'vms melden incident melding meldsysteem ' + state.procedures.vmsStappen.join(' '), null);
   MEDISCH_NIVEAUS.forEach(function (m) { add('Procedures', 'Medisch: ' + m[0], m[2] + ' ' + m[3].join(' '), null); });
@@ -4835,6 +5155,7 @@ document.addEventListener('click', function (e) {
     if (extra.situatie) state.ui.openSituatie = extra.situatie;
     if (extra.openFase) state.ui.openFase = extra.openFase;
     if (extra.openFormat) state.ui.openFormat = extra.openFormat;
+    if (extra.openDiscipline) state.ui.openDiscipline = extra.openDiscipline;
     if (extra.q) { state.ui.filter = { eigenaar: '', status: '', prioriteit: '', fase: '', kant: '', categorie: '', q: extra.q, special: '' }; }
     save(); render(); window.scrollTo(0, 0); return;
   }
@@ -5025,6 +5346,10 @@ document.addEventListener('click', function (e) {
     var zb = document.getElementById('zijbalk');
     if (zb) zb.hidden = !zb.hidden;
     return;
+  }
+  if (act === 'discipline') {
+    state.ui.openDiscipline = state.ui.openDiscipline === id ? '' : id;
+    save(); render(); return;
   }
   if (act === 'rondleiding') { tourStart(); return; }
   if (act === 'tour-achtergrond') {
